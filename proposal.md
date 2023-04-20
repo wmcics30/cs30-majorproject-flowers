@@ -2,7 +2,7 @@
 
 ## Project description
 
-describe what you madehere
+describe what you made here
 
 ## Needs to have list
 
