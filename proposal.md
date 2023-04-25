@@ -20,19 +20,18 @@ A game where you run a flower shop
 - different type of flowers
 - cat to pet
 - a "store" to buy things
-- have things to buy with the money like seeds or decorations 
-- stores seeds/ not an infinite amount of seeds
-- saves the game?
-- talk to different customers
-- separate "rooms", greenhouse, shop
+- have things to buy with the money like seeds  
+- stores seeds - not an infinite amount of seeds
+- saves the game
+- separate "rooms", greenhouse
 - buy more pots to grow more flowers at a time
 - buy fertilizer to make them grow faster
 
 
 ## Nice to have list
 
-- Character customization
-- saves the game
-- have atributes for each flower that makes it more/less money depending on what the costoomer wants
-- book that tells you about them
+- store area to sell your flowers from
 - decorate the store
+- have atributes for each flower that makes it more/less money depending on what the customer wants
+- book that tells you about them
+- talk to different customers
