@@ -25,6 +25,28 @@ let pots = [];
 
 let currentSeed = "";
 
+let blueflowerinpotImg;
+let budImg;
+let emptypotImg;
+let orangeflowerinpotImg;
+let pinkflowerinpotImg;
+let plantedpotImg;
+let purpleflowerImg;
+let redflowerimg;
+let sproutImg;
+let whiteflowerinpotImg;
+
+function preload(){
+  blueflowerinpotImg = loadImage("blue flower in pot.png");
+  budImg = loadImage("bud.png");
+  emptypotImg = loadImage("empty pot.png");
+  orangeflowerinpotImg = loadImage("orange flower in pot.png");
+  pinkflowerinpotImg = loadImage("pink flower in pot.png");
+  plantedpotImg = loadImage("planted pot.png");
+  
+}
+
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   rectMode(CENTER);
