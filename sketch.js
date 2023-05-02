@@ -35,6 +35,7 @@ let purpleflowerinpotImg;
 let redflowerinpotimg;
 let sproutImg;
 let whiteflowerinpotImg;
+let greenhouse;
 
 function preload(){
   blueflowerinpotImg = loadImage("pictures/blue flower in pot.png");
@@ -47,11 +48,13 @@ function preload(){
   redflowerinpotimg = loadImage("pictures/red flower in pot.png");
   sproutImg = loadImage("pictures/sprout.png");
   whiteflowerinpotImg = loadImage("pictures/white flower in pot.png");
+  greenhouse = loadImage("pictures/greenhouseUNFINISHED.png");
 
 }
 
 
 function setup() {
+  imageMode(CENTER);
   createCanvas(windowWidth, windowHeight);
   rectMode(CENTER);
   createpots();
@@ -59,8 +62,10 @@ function setup() {
 }
 
 function draw() {
-  background(220);
+  background(155, 255, 255);
+  
   if (room === 1){
+    image(greenhouse, 1500/2+5, 505);
     draw_pots();
     draw_seeds();
   }
@@ -99,12 +104,9 @@ function draw_pots(){
   fill("white");
 
   for (let i = 0; i < pots.length; i++){
-    if (i < 3){
-      image(pots[i].image, 400 + 200*i, 100);
-    }
-    else{
-      image(pots[i].image, 400 + 200*(i-3), 400);
-    }
+    
+    image(pots[i].image, 125 + 185*i, 600, 160, 312);
+    
   }
 
  
