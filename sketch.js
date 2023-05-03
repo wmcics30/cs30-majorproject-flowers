@@ -68,6 +68,7 @@ function draw() {
     image(greenhouse, 1500/2+5, 505);
     draw_pots();
     draw_seeds();
+
   }
   
   update_pots();
@@ -77,19 +78,21 @@ function draw() {
 
 function draw_seeds(){
   fill("red");
-  rect(400, 700, 30, 50);
+  rect(1250, 240, 30, 50);
 
   fill("pink");
-  rect(450, 700, 30, 50);
+  rect(1350, 240, 30, 50);
 
   fill("white");
-  rect(500, 700, 30, 50);
+  rect(1250, 340, 30, 50);
 
   fill("blue");
-  rect(550, 700, 30, 50);
+  rect(1350, 340, 30, 50);
 
   fill("purple");
-  rect(600, 700, 30, 50);
+  rect(1250, 440, 30, 50);
+  fill ("orange");
+  rect(1350, 440, 30, 50);
   
 }
 function draw_flowers(){
@@ -101,15 +104,11 @@ function draw_flowers(){
 
 
 function draw_pots(){
-  fill("white");
-
   for (let i = 0; i < pots.length; i++){
     
     image(pots[i].image, 125 + 185*i, 600, 160, 312);
     
-  }
-
- 
+  } 
 }
 
 function plant_seed(pot, seedtype){
@@ -175,7 +174,7 @@ function mousePressed(){
   let pot = "";
   console.log(mouseX);
   console.log(mouseY);
-  if (mouseX > 415 && mouseX < 500 && mouseY > 215 && mouseY < 310){
+  if (mouseX > 50 && mouseX < 200 && mouseY > 600 && mouseY < 735){
     pot = "one";
     if (pots[0].hasplant === false && currentSeed !== ""){
       plant_seed(pot, currentSeed);
@@ -187,7 +186,7 @@ function mousePressed(){
     
   }
 
-  else if (mouseX > 615 && mouseX < 700 && mouseY > 215 && mouseY < 310){
+  else if (mouseX > 250 && mouseX < 380 && mouseY > 600 && mouseY < 735){
     pot = "two";
     if (pots[1].hasplant === false && currentSeed !== ""){
       plant_seed(pot, currentSeed);
@@ -198,7 +197,7 @@ function mousePressed(){
     }
   }
 
-  else if (mouseX > 815 && mouseX < 900 && mouseY > 215 && mouseY < 310){
+  else if (mouseX > 425 && mouseX < 565 && mouseY > 600 && mouseY < 735){
     pot = "three";
     if (pots[2].hasplant === false && currentSeed !== ""){
       plant_seed(pot, currentSeed);
@@ -210,7 +209,7 @@ function mousePressed(){
     }
   }
 
-  else if (mouseX >  415 && mouseX < 500 && mouseY > 515 && mouseY < 610){
+  else if (mouseX >  610 && mouseX < 750 && mouseY > 600 && mouseY < 735){
     pot = "four";
     if (pots[3].hasplant === false && currentSeed !== ""){
       plant_seed(pot, currentSeed);
@@ -222,7 +221,7 @@ function mousePressed(){
     }
   }
 
-  else if (mouseX > 615 && mouseX < 700 && mouseY > 515 && mouseY < 610){
+  else if (mouseX > 795 && mouseX < 940 && mouseY > 600 && mouseY < 735){
     pot = "five";
     
     if (pots[4].hasplant === false && currentSeed !== ""){
@@ -235,7 +234,7 @@ function mousePressed(){
     }
   }
 
-  else if (mouseX > 815 && mouseX < 900 && mouseY > 515 && mouseY < 610){
+  else if (mouseX > 980 && mouseX < 1125 && mouseY > 600 && mouseY < 735){
     
     pot = "six";
     if (pots[5].hasplant === false && currentSeed !== ""){
@@ -250,23 +249,28 @@ function mousePressed(){
 
 
 
-  if (mouseX > 385 && mouseX < 415 && mouseY > 685 && mouseY < 715){
+  if (mouseX > 1230 && mouseX < 1265 && mouseY > 215 && mouseY < 265){
     currentSeed = "red";
   }
-  else if (mouseX > 435 && mouseX < 465 && mouseY > 685 && mouseY <715){
+  else if (mouseX > 1330 && mouseX < 1365 && mouseY > 215 && mouseY < 265){
     currentSeed = "pink";
   }
-  else if (mouseX > 485 && mouseX < 515 && mouseY > 685 && mouseY <715){
+  else if (mouseX > 1230 && mouseX < 1265 && mouseY > 315 && mouseY < 365){
     currentSeed = "white";
   }
-  else if (mouseX > 535 && mouseX < 565 && mouseY > 685 && mouseY < 715){
+  else if (mouseX > 1330 && mouseX < 1365 && mouseY > 315 && mouseY < 365){
     currentSeed = "blue";
     
   }
-  else if (mouseX > 585 && mouseX < 615 && mouseY > 685 && mouseY < 715){
+  else if (mouseX > 1230 && mouseX < 1265 && mouseY > 415 && mouseY < 465){
     currentSeed = "purple";
   }
+  else if (mouseX > 1330 && mouseX < 1365 && mouseY > 415 && mouseY < 465){
+    currentSeed = "orange";
+  }
 
+  console.log(currentSeed);
+  console.log(pot);
 
 }
 
