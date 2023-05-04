@@ -7,7 +7,7 @@
 
 
 
-let room = 1;
+let room = 0;
 
 let flowers = [];
 let redFlowers = 0;
@@ -25,31 +25,71 @@ let pots = [];
 
 let currentSeed = "";
 
-let blueflowerinpotImg;
-let budImg;
+let greenhouse;
+let arrangingroom;
+let startScreenNormal;
+let startScreenhoverd;
+
+let greenhousebutton;
+let hoveredgreenhousebutton;
+let arrangingroombutton;
+let hoveredarrangingroombutton;
+
 let emptypotImg;
+let plantedpotImg;
+let budImg;
+let sproutImg;
+
+let blueflowerinpotImg;
 let orangeflowerinpotImg;
 let pinkflowerinpotImg;
-let plantedpotImg;
 let purpleflowerinpotImg;
 let redflowerinpotimg;
-let sproutImg;
 let whiteflowerinpotImg;
-let greenhouse;
+
+let blueFlower;
+let orangeflower;
+let pinkFlower;
+let purpleFlower;
+let redFlower;
+let whiteFlower;
+
+let emptyVase;
+
 
 function preload(){
-  blueflowerinpotImg = loadImage("pictures/blue flower in pot.png");
-  budImg = loadImage("pictures/bud.png");
+
+  greenhouse = loadImage("pictures/greenhouseUNFINISHED.png");
+  arrangingroom = loadImage("pictures/arranging room.png");
+  startScreenNormal = loadImage("pictures/startscreennothovered.png");
+  startScreenhoverd = loadImage("pictures/startscreenhovered.png");
+
+  greenhousebutton = loadImage("pictures/greenhousebutton.png");
+  hoveredgreenhousebutton = loadImage("pictures/hoveredgreenhousebutton.png");
+  arrangingroombutton = loadImage("pictures/arrangingroombutton.png");
+  hoveredarrangingroombutton = loadImage("pictures/hoveredarrangingroombutton.png");
+
+
   emptypotImg = loadImage("pictures/empty pot.png");
+  plantedpotImg = loadImage("pictures/planted pot.png");
+  budImg = loadImage("pictures/bud.png");
+  sproutImg = loadImage("pictures/sprout.png");
+
+  blueflowerinpotImg = loadImage("pictures/blue flower in pot.png");
   orangeflowerinpotImg = loadImage("pictures/orange flower in pot.png");
   pinkflowerinpotImg = loadImage("pictures/pink flower in pot.png");
-  plantedpotImg = loadImage("pictures/planted pot.png");
   purpleflowerinpotImg = loadImage("pictures/purple flower in pot.png");
   redflowerinpotimg = loadImage("pictures/red flower in pot.png");
-  sproutImg = loadImage("pictures/sprout.png");
   whiteflowerinpotImg = loadImage("pictures/white flower in pot.png");
-  greenhouse = loadImage("pictures/greenhouseUNFINISHED.png");
 
+  blueFlower = loadImage("pictures/blue flower.png");
+  orangeflower = loadImage("pictures/orange flower.png");
+  pinkFlower = loadImage("pictures/pink flower.png");
+  purpleFlower = loadImage("pictures/purple flower.png");
+  redFlower = loadImage("pictures/red flower.png");
+  whiteFlower = loadImage("pictures/white flower.png");
+  
+  emptyVase = loadImage("pictures/vase.png");
 }
 
 
@@ -62,18 +102,48 @@ function setup() {
 }
 
 function draw() {
-  background(155, 255, 255);
+  background(200);
   
+  if (room === 0){
+    if (mouseX > 200 && mouseX < 1300 && mouseY > 655 && mouseY < 925){
+      image(startScreenhoverd, 1500/2 +5, 505);
+    }
+    else{
+      image(startScreenNormal, 1500/2 + 5, 505);
+    }
+  }
+
   if (room === 1){
     image(greenhouse, 1500/2+5, 505);
     draw_pots();
     draw_seeds();
+    diplaybuttons();
+  }
 
+  if (room === 2){
+    image(arrangingroom, 1500/2+5, 505);
+    diplaybuttons();
   }
   
   update_pots();
-  draw_flowers();
   
+  
+}
+
+function diplaybuttons(){
+  
+  if (mouseX > 17 && mouseX < 175 && mouseY > 900 && mouseY < 1005){
+    image(hoveredgreenhousebutton, 100, 950);
+    image(arrangingroombutton, 275, 944);
+  }
+  else if (mouseX > 200 && mouseX < 350 && mouseY > 900 && mouseY < 1005){
+    image(hoveredarrangingroombutton, 275, 950);
+    image(greenhousebutton, 100 ,944);
+  }
+  else{
+    image(greenhousebutton, 100 ,944);
+    image(arrangingroombutton, 275, 944);
+  }
 }
 
 function draw_seeds(){
@@ -94,12 +164,6 @@ function draw_seeds(){
   fill ("orange");
   rect(1350, 440, 30, 50);
   
-}
-function draw_flowers(){
-  for (let i = 0; i < flowers.length; i++){
-    fill(flowers[i]);
-    rect(50 + 50*i, 50, 15, 15);
-  }
 }
 
 
@@ -171,106 +235,113 @@ function plant_seed(pot, seedtype){
 }
 
 function mousePressed(){
-  let pot = "";
   console.log(mouseX);
   console.log(mouseY);
-  if (mouseX > 50 && mouseX < 200 && mouseY > 600 && mouseY < 735){
-    pot = "one";
-    if (pots[0].hasplant === false && currentSeed !== ""){
-      plant_seed(pot, currentSeed);
-      
-    }
-    else if (pots[0].hasplant === true && pots[0].plantState === "done"){
-      pick_flower(pot, pots[0].flowerColor);
-    }
+  
+  if (room === 0){
     
-  }
-
-  else if (mouseX > 250 && mouseX < 380 && mouseY > 600 && mouseY < 735){
-    pot = "two";
-    if (pots[1].hasplant === false && currentSeed !== ""){
-      plant_seed(pot, currentSeed);
-      
-    }
-    else if (pots[1].hasplant === true && pots[1].plantState === "done"){
-      pick_flower(pot, pots[1].flowerColor);
+    if (mouseX > 200 && mouseX < 1300 && mouseY > 655 && mouseY < 925){
+      room = 1;
     }
   }
-
-  else if (mouseX > 425 && mouseX < 565 && mouseY > 600 && mouseY < 735){
-    pot = "three";
-    if (pots[2].hasplant === false && currentSeed !== ""){
-      plant_seed(pot, currentSeed);
+  if (room === 1){
+    let pot = "";
+    if (mouseX > 50 && mouseX < 200 && mouseY > 600 && mouseY < 735){
+      pot = "one";
+      if (pots[0].hasplant === false && currentSeed !== ""){
+        plant_seed(pot, currentSeed);
       
-    }
-    else if (pots[2].hasplant === true && pots[2].plantState === "done"){
-      pick_flower(pot, pots[2].flowerColor);
+      }
+      else if (pots[0].hasplant === true && pots[0].plantState === "done"){
+        pick_flower(pot, pots[0].flowerColor);
+      }
     
     }
-  }
 
-  else if (mouseX >  610 && mouseX < 750 && mouseY > 600 && mouseY < 735){
-    pot = "four";
-    if (pots[3].hasplant === false && currentSeed !== ""){
-      plant_seed(pot, currentSeed);
+    else if (mouseX > 250 && mouseX < 380 && mouseY > 600 && mouseY < 735){
+      pot = "two";
+      if (pots[1].hasplant === false && currentSeed !== ""){
+        plant_seed(pot, currentSeed);
       
+      }
+      else if (pots[1].hasplant === true && pots[1].plantState === "done"){
+        pick_flower(pot, pots[1].flowerColor);
+      }
     }
-    else if (pots[3].hasplant === true && pots[3].plantState === "done"){
-      pick_flower(pot, pots[3].flowerColor);
-      
-    }
-  }
 
-  else if (mouseX > 795 && mouseX < 940 && mouseY > 600 && mouseY < 735){
-    pot = "five";
+    else if (mouseX > 425 && mouseX < 565 && mouseY > 600 && mouseY < 735){
+      pot = "three";
+      if (pots[2].hasplant === false && currentSeed !== ""){
+        plant_seed(pot, currentSeed);
+      
+      }
+      else if (pots[2].hasplant === true && pots[2].plantState === "done"){
+        pick_flower(pot, pots[2].flowerColor);
     
-    if (pots[4].hasplant === false && currentSeed !== ""){
-      plant_seed(pot, currentSeed);
+      }
+    }
+
+    else if (mouseX >  610 && mouseX < 750 && mouseY > 600 && mouseY < 735){
+      pot = "four";
+      if (pots[3].hasplant === false && currentSeed !== ""){
+        plant_seed(pot, currentSeed);
       
+      }
+      else if (pots[3].hasplant === true && pots[3].plantState === "done"){
+        pick_flower(pot, pots[3].flowerColor);
+      }
     }
-    else if (pots[4].hasplant === true && pots[4].plantState === "done"){
-      pick_flower(pot, pots[4].flowerColor);
+
+    else if (mouseX > 795 && mouseX < 940 && mouseY > 600 && mouseY < 735){
+      pot = "five";
+    
+      if (pots[4].hasplant === false && currentSeed !== ""){
+        plant_seed(pot, currentSeed);
+      }
+      else if (pots[4].hasplant === true && pots[4].plantState === "done"){
+        pick_flower(pot, pots[4].flowerColor);
+        
+      }
+    }
+
+    else if (mouseX > 980 && mouseX < 1125 && mouseY > 600 && mouseY < 735){
       
+      pot = "six";
+      if (pots[5].hasplant === false && currentSeed !== ""){
+        plant_seed(pot, currentSeed);
+      }
+      else if (pots[5].hasplant === true && pots[5].plantState === "done"){
+        pick_flower(pot, pots[5].flowerColor);
+      }
+    }
+
+    if (mouseX > 1230 && mouseX < 1265 && mouseY > 215 && mouseY < 265){
+      currentSeed = "red";
+    }
+    else if (mouseX > 1330 && mouseX < 1365 && mouseY > 215 && mouseY < 265){
+      currentSeed = "pink";
+    }
+    else if (mouseX > 1230 && mouseX < 1265 && mouseY > 315 && mouseY < 365){
+      currentSeed = "white";
+    }
+    else if (mouseX > 1330 && mouseX < 1365 && mouseY > 315 && mouseY < 365){
+      currentSeed = "blue";
+    }
+    else if (mouseX > 1230 && mouseX < 1265 && mouseY > 415 && mouseY < 465){
+      currentSeed = "purple";
+    }
+    else if (mouseX > 1330 && mouseX < 1365 && mouseY > 415 && mouseY < 465){
+      currentSeed = "orange";
     }
   }
 
-  else if (mouseX > 980 && mouseX < 1125 && mouseY > 600 && mouseY < 735){
-    
-    pot = "six";
-    if (pots[5].hasplant === false && currentSeed !== ""){
-      plant_seed(pot, currentSeed);
-    }
-    else if (pots[5].hasplant === true && pots[5].plantState === "done"){
-      pick_flower(pot, pots[5].flowerColor);
-    }
+  if (mouseX > 17 && mouseX < 175 && mouseY > 900 && mouseY < 1005){
+    room = 1;
   }
-
-
-
-
-
-  if (mouseX > 1230 && mouseX < 1265 && mouseY > 215 && mouseY < 265){
-    currentSeed = "red";
+  else if (mouseX > 200 && mouseX < 350 && mouseY > 900 && mouseY < 1005){
+    room = 2;
   }
-  else if (mouseX > 1330 && mouseX < 1365 && mouseY > 215 && mouseY < 265){
-    currentSeed = "pink";
-  }
-  else if (mouseX > 1230 && mouseX < 1265 && mouseY > 315 && mouseY < 365){
-    currentSeed = "white";
-  }
-  else if (mouseX > 1330 && mouseX < 1365 && mouseY > 315 && mouseY < 365){
-    currentSeed = "blue";
-    
-  }
-  else if (mouseX > 1230 && mouseX < 1265 && mouseY > 415 && mouseY < 465){
-    currentSeed = "purple";
-  }
-  else if (mouseX > 1330 && mouseX < 1365 && mouseY > 415 && mouseY < 465){
-    currentSeed = "orange";
-  }
-
-  console.log(currentSeed);
-  console.log(pot);
+  
 
 }
 
