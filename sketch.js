@@ -1,5 +1,5 @@
 // Project Title
-// Your Name
+// Faith
 // Date
 //
 // Extra for Experts:
@@ -103,7 +103,11 @@ function setup() {
 
 function draw() {
   background(200);
-  
+
+
+  update_pots();
+
+
   if (room === 0){
     if (mouseX > 200 && mouseX < 1300 && mouseY > 655 && mouseY < 925){
       image(startScreenhoverd, 1500/2 +5, 505);
@@ -124,9 +128,6 @@ function draw() {
     image(arrangingroom, 1500/2+5, 505);
     diplaybuttons();
   }
-  
-  update_pots();
-  
   
 }
 
@@ -334,6 +335,17 @@ function mousePressed(){
       currentSeed = "orange";
     }
   }
+
+
+
+  if (room === 2){
+    console.log(mouseX);
+    console.log(mouseY);
+  }
+
+
+
+
 
   if (mouseX > 17 && mouseX < 175 && mouseY > 900 && mouseY < 1005){
     room = 1;
