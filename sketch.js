@@ -9,6 +9,10 @@
 
 let room = 0;
 
+let backgroundWidth;
+let backgroundHeight;
+let border;
+
 let flowers = [];
 let redFlowers = 0;
 let pinkflowers = 0;
@@ -99,6 +103,17 @@ function setup() {
   rectMode(CENTER);
   createpots();
 
+
+  if (width > height){
+    backgroundHeight = height;
+    backgroundWidth = backgroundHeight*(3/2);
+    border = (windowWidth - backgroundWidth)/2;
+  }
+  else{
+    backgroundWidth = width;
+    backgroundHeight = backgroundWidth*(2/3);
+    border = (windowWidth - backgroundWidth)/2;
+  }
 }
 
 function draw() {
@@ -109,16 +124,16 @@ function draw() {
 
 
   if (room === 0){
-    if (mouseX > 200 && mouseX < 1300 && mouseY > 655 && mouseY < 925){
-      image(startScreenhoverd, 1500/2 +5, 505);
+    if (mouseX > backgroundWidth*(2/15)+ border && mouseX < backgroundWidth*(13/15)+ border && mouseY > backgroundHeight*(131/200) && mouseY < backgroundHeight*(37/40)){
+      image(startScreenhoverd, backgroundWidth/2 +border, backgroundHeight/2, backgroundWidth, backgroundHeight );
     }
     else{
-      image(startScreenNormal, 1500/2 + 5, 505);
+      image(startScreenNormal, backgroundWidth/2 +border, backgroundHeight/2, backgroundWidth, backgroundHeight);
     }
   }
 
   if (room === 1){
-    image(greenhouse, 1500/2+5, 505);
+    image(greenhouse, backgroundWidth/2 +border, backgroundHeight/2, backgroundWidth, backgroundHeight);
     draw_pots();
     draw_seeds();
     diplaybuttons();
@@ -133,17 +148,17 @@ function draw() {
 
 function diplaybuttons(){
   
-  if (mouseX > 17 && mouseX < 175 && mouseY > 900 && mouseY < 1005){
-    image(hoveredgreenhousebutton, 100, 950);
-    image(arrangingroombutton, 275, 944);
+  if (mouseX > backgroundWidth*(1/125) + border && mouseX < backgroundWidth*(17/150)+border && mouseY > backgroundHeight*(171/200) && mouseY < backgroundHeight){
+    image(hoveredgreenhousebutton, backgroundWidth*(1/15)+ border, backgroundHeight*(189/200));
+    image(arrangingroombutton, backgroundWidth*(11/60) + border, backgroundHeight*(24/25));
   }
-  else if (mouseX > 200 && mouseX < 350 && mouseY > 900 && mouseY < 1005){
-    image(hoveredarrangingroombutton, 275, 950);
-    image(greenhousebutton, 100 ,944);
+  else if (mouseX > backgroundWidth*(2/15)+border && mouseX < backgroundWidth*(7/30) + border && mouseY > backgroundHeight*(9/10) && mouseY < backgroundHeight){
+    image(hoveredarrangingroombutton, backgroundWidth*(11/60)+ border, backgroundHeight*(189/200));
+    image(greenhousebutton, backgroundWidth*(1/15) + border ,backgroundHeight*(24/25));
   }
   else{
-    image(greenhousebutton, 100 ,944);
-    image(arrangingroombutton, 275, 944);
+    image(greenhousebutton, backgroundWidth*(1/15)+ border ,backgroundHeight*(24/25));
+    image(arrangingroombutton, backgroundWidth*(11/60)+border, backgroundHeight*(24/25));
   }
 }
 
@@ -240,14 +255,15 @@ function mousePressed(){
   console.log(mouseY);
   
   if (room === 0){
-    
-    if (mouseX > 200 && mouseX < 1300 && mouseY > 655 && mouseY < 925){
+    if (mouseX > backgroundWidth*(2/15)+ border && mouseX < backgroundWidth*(13/15)+ border && mouseY > backgroundHeight*(131/200) && mouseY < backgroundHeight*(37/40)){
       room = 1;
     }
   }
+
+
   if (room === 1){
     let pot = "";
-    if (mouseX > 50 && mouseX < 200 && mouseY > 600 && mouseY < 735){
+    if (mouseX > backgroundWidth*(3/100)+border && mouseX < backgroundWidth*(13/100)+border && mouseY > backgroundHeight*(3/5) && mouseY < backgroundHeight*(147/200)){
       pot = "one";
       if (pots[0].hasplant === false && currentSeed !== ""){
         plant_seed(pot, currentSeed);
@@ -259,7 +275,7 @@ function mousePressed(){
     
     }
 
-    else if (mouseX > 250 && mouseX < 380 && mouseY > 600 && mouseY < 735){
+    else if (mouseX > backgroundHeight*(49/100)+border && mouseX < backgroundWidth*(1/4)+border && mouseY > backgroundHeight*(3/5) && mouseY < backgroundHeight*(147/200)){
       pot = "two";
       if (pots[1].hasplant === false && currentSeed !== ""){
         plant_seed(pot, currentSeed);
@@ -270,7 +286,7 @@ function mousePressed(){
       }
     }
 
-    else if (mouseX > 425 && mouseX < 565 && mouseY > 600 && mouseY < 735){
+    else if (mouseX > backgroundWidth*(7/25)+border && mouseX < backgroundWidth*(28/75)+ border && mouseY > backgroundHeight*(3/5) && mouseY < backgroundHeight*(147/200)){
       pot = "three";
       if (pots[2].hasplant === false && currentSeed !== ""){
         plant_seed(pot, currentSeed);
@@ -282,7 +298,7 @@ function mousePressed(){
       }
     }
 
-    else if (mouseX >  610 && mouseX < 750 && mouseY > 600 && mouseY < 735){
+    else if (mouseX >  backgroundWidth*(121/300)+ border && mouseX < backgroundWidth*(149/300)+border && mouseY > backgroundHeight*(3/5) && mouseY < backgroundHeight*(147/200)){
       pot = "four";
       if (pots[3].hasplant === false && currentSeed !== ""){
         plant_seed(pot, currentSeed);
@@ -293,7 +309,7 @@ function mousePressed(){
       }
     }
 
-    else if (mouseX > 795 && mouseX < 940 && mouseY > 600 && mouseY < 735){
+    else if (mouseX > backgroundWidth*(79/150)+ border && mouseX < backgroundWidth*(187/300)+border && mouseY > backgroundHeight*(3/5) && mouseY < backgroundHeight*(147/200)){
       pot = "five";
     
       if (pots[4].hasplant === false && currentSeed !== ""){
@@ -305,7 +321,7 @@ function mousePressed(){
       }
     }
 
-    else if (mouseX > 980 && mouseX < 1125 && mouseY > 600 && mouseY < 735){
+    else if (mouseX > backgroundWidth*(13/20)+border && mouseX < backgroundWidth*(56/75)+border && mouseY > backgroundHeight*(3/5) && mouseY < backgroundHeight*(147/200)){
       
       pot = "six";
       if (pots[5].hasplant === false && currentSeed !== ""){
@@ -347,10 +363,10 @@ function mousePressed(){
 
 
 
-  if (mouseX > 17 && mouseX < 175 && mouseY > 900 && mouseY < 1005){
+  if (mouseX > backgroundWidth*(1/125) + border && mouseX < backgroundWidth*(17/150)+border && mouseY > backgroundHeight*(171/200) && mouseY < backgroundHeight){
     room = 1;
   }
-  else if (mouseX > 200 && mouseX < 350 && mouseY > 900 && mouseY < 1005){
+  else if (mouseX > backgroundWidth*(2/15)+border && mouseX < backgroundWidth*(7/30) + border && mouseY > backgroundHeight*(9/10) && mouseY < backgroundHeight){
     room = 2;
   }
   
