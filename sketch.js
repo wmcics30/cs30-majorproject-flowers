@@ -24,6 +24,8 @@ let pinkseeds = 0;
 let whiteseeds = 0;
 let blueseeds = 0;
 
+let fertiziler = 0;
+
 let seeds = [];
 let pots = [];
 
@@ -140,7 +142,7 @@ function draw() {
   }
 
   if (room === 2){
-    image(arrangingroom, 1500/2+5, 505);
+    image(arrangingroom, backgroundWidth/2 +border, backgroundHeight/2, backgroundWidth, backgroundHeight);
     diplaybuttons();
   }
   
@@ -163,22 +165,23 @@ function diplaybuttons(){
 }
 
 function draw_seeds(){
+
   fill("red");
-  rect(1250, 240, 30, 50);
+  rect(backgroundWidth*(5/6)+ border, backgroundHeight*(6/25), backgroundWidth*(1/50), backgroundHeight*(1/20));
 
   fill("pink");
-  rect(1350, 240, 30, 50);
+  rect(backgroundWidth*(9/10) + border, backgroundHeight*(6/25), backgroundWidth*(1/50), backgroundHeight*(1/20) );
 
   fill("white");
-  rect(1250, 340, 30, 50);
+  rect(backgroundWidth*(5/6) + border, backgroundHeight*(17/50), backgroundWidth*(1/50) , backgroundHeight*(1/20));
 
   fill("blue");
-  rect(1350, 340, 30, 50);
+  rect(backgroundWidth*(9/10) + border, backgroundHeight*(17/50), backgroundWidth*(1/50), backgroundHeight*(1/20));
 
   fill("purple");
-  rect(1250, 440, 30, 50);
+  rect(backgroundWidth*(5/6) + border, backgroundHeight*(11/25), backgroundWidth*(1/50), backgroundHeight*(1/20));
   fill ("orange");
-  rect(1350, 440, 30, 50);
+  rect(backgroundWidth*(9/10) + border, backgroundHeight*(11/25), backgroundWidth*(1/50), backgroundHeight*(1/20));
   
 }
 
@@ -186,7 +189,7 @@ function draw_seeds(){
 function draw_pots(){
   for (let i = 0; i < pots.length; i++){
     
-    image(pots[i].image, 125 + 185*i, 600, 160, 312);
+    image(pots[i].image, backgroundWidth*(1/12) + backgroundWidth*(37/300)*i + border, backgroundHeight*(3/5), backgroundWidth*(8/75), backgroundHeight*(39/125));
     
   } 
 }
@@ -247,7 +250,6 @@ function plant_seed(pot, seedtype){
     }
   }
 
-  
 }
 
 function mousePressed(){
@@ -275,7 +277,7 @@ function mousePressed(){
     
     }
 
-    else if (mouseX > backgroundHeight*(49/100)+border && mouseX < backgroundWidth*(1/4)+border && mouseY > backgroundHeight*(3/5) && mouseY < backgroundHeight*(147/200)){
+    else if (mouseX > backgroundWidth*(49/100)+border && mouseX < backgroundWidth*(1/4)+border && mouseY > backgroundHeight*(3/5) && mouseY < backgroundHeight*(147/200)){
       pot = "two";
       if (pots[1].hasplant === false && currentSeed !== ""){
         plant_seed(pot, currentSeed);
@@ -332,22 +334,22 @@ function mousePressed(){
       }
     }
 
-    if (mouseX > 1230 && mouseX < 1265 && mouseY > 215 && mouseY < 265){
+    if (mouseX > backgroundWidth*(41/50) + border && mouseX < backgroundWidth*(253/300)+ border && mouseY > backgroundHeight*(43/200) && mouseY < backgroundHeight*(53/200)){
       currentSeed = "red";
     }
-    else if (mouseX > 1330 && mouseX < 1365 && mouseY > 215 && mouseY < 265){
+    else if (mouseX > backgroundWidth*(133/150) + border && mouseX < backgroundWidth*(91/100) + border && mouseY > backgroundHeight*(43/200) && mouseY < backgroundHeight*(53/200)){
       currentSeed = "pink";
     }
-    else if (mouseX > 1230 && mouseX < 1265 && mouseY > 315 && mouseY < 365){
+    else if (mouseX > backgroundWidth*(41/50) + border && mouseX < backgroundWidth*(253/300)+ border && mouseY > backgroundHeight*(63/200) && mouseY < backgroundHeight*(73/200)){
       currentSeed = "white";
     }
-    else if (mouseX > 1330 && mouseX < 1365 && mouseY > 315 && mouseY < 365){
+    else if (mouseX >  backgroundWidth*(133/150) + border && mouseX < backgroundWidth*(91/100) + border && mouseY > backgroundHeight*(63/200) && mouseY < backgroundHeight*(73/200)){
       currentSeed = "blue";
     }
-    else if (mouseX > 1230 && mouseX < 1265 && mouseY > 415 && mouseY < 465){
+    else if (mouseX > backgroundWidth*(41/50) + border && mouseX < backgroundWidth*(253/300)+ border && mouseY > backgroundHeight*(83/200) && mouseY < backgroundHeight*(93/200)){
       currentSeed = "purple";
     }
-    else if (mouseX > 1330 && mouseX < 1365 && mouseY > 415 && mouseY < 465){
+    else if (mouseX >  backgroundWidth*(133/150) + border && mouseX < backgroundWidth*(91/100) + border && mouseY > backgroundHeight*(83/200) && mouseY < backgroundHeight*(93/200)){
       currentSeed = "orange";
     }
   }
@@ -473,5 +475,21 @@ function pick_flower(pot, color){
     pots[5].flowerColor = "";
     pots[5].millisplanted = 0;
     pots[5].image = emptypotImg;
+  }
+}
+
+
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  if (width > height){
+    backgroundHeight = height;
+    backgroundWidth = backgroundHeight*(3/2);
+    border = (windowWidth - backgroundWidth)/2;
+  }
+  else{
+    backgroundWidth = width;
+    backgroundHeight = backgroundWidth*(2/3);
+    border = (windowWidth - backgroundWidth)/2;
   }
 }
