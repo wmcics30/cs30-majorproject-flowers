@@ -29,6 +29,11 @@ let fertiziler = 0;
 let seeds = [];
 let pots = [];
 
+let dragging_flower;
+let arrangement = [];
+
+
+
 let currentSeed = "";
 
 let greenhouse;
@@ -61,6 +66,23 @@ let redFlower;
 let whiteFlower;
 
 let emptyVase;
+let flowerbeingdragged = false;
+
+class Grabbed_flower{
+  constructor(flowerimage){
+    this.flower = flowerimage;
+    
+  }
+  display(){
+    fill(this.flower);
+    rect(mouseX, mouseY, 50, 50);
+  }
+  inVase(){
+    return mouseX > 125 && mouseX < 175 && mouseY < 173 && mouseY > 113;
+  }
+  
+
+} 
 
 
 function preload(){
@@ -143,7 +165,23 @@ function draw() {
 
   if (room === 2){
     image(arrangingroom, backgroundWidth/2 +border, backgroundHeight/2, backgroundWidth, backgroundHeight);
+    rect(200, 100, 50, 50);
     diplaybuttons();
+    display_vase();
+    if (flowerbeingdragged){
+      if (mouseIsPressed){
+        dragging_flower.display();
+      }
+      else{
+        if (dragging_flower.inVase()){
+          arrangement.push(dragging_flower.flower);
+        }
+        dragging_flower = 0;
+      }
+
+      
+    }
+
   }
   
 }
@@ -225,7 +263,7 @@ function plant_seed(pot, seedtype){
   if (pot === "four"){
     if (pots[3].hasplant === false && seedtype !== ""){
       pots[3].hasplant = true;
-      pot[3].plantState = "dirt";
+      pots[3].plantState = "dirt";
       pots[3].millisplanted = millis();
       pots[3].flowerColor = seedtype;
       pots[3].image = plantedpotImg;
@@ -277,7 +315,7 @@ function mousePressed(){
     
     }
 
-    else if (mouseX > backgroundWidth*(49/100)+border && mouseX < backgroundWidth*(1/4)+border && mouseY > backgroundHeight*(3/5) && mouseY < backgroundHeight*(147/200)){
+    else if (mouseX > backgroundWidth*(3/20)+border && mouseX < backgroundWidth*(1/4)+border && mouseY > backgroundHeight*(3/5) && mouseY < backgroundHeight*(147/200)){
       pot = "two";
       if (pots[1].hasplant === false && currentSeed !== ""){
         plant_seed(pot, currentSeed);
@@ -355,14 +393,14 @@ function mousePressed(){
   }
 
 
-
   if (room === 2){
     console.log(mouseX);
     console.log(mouseY);
+    if (mouseX > 175 && mouseY > 225 && mouseY > 75 && mouseX > 125){
+      dragging_flower = new Grabbed_flower("red");
+      flowerbeingdragged = true;
+    }
   }
-
-
-
 
 
   if (mouseX > backgroundWidth*(1/125) + border && mouseX < backgroundWidth*(17/150)+border && mouseY > backgroundHeight*(171/200) && mouseY < backgroundHeight){
@@ -424,7 +462,6 @@ function update_pots(){
         pots[i].image = sproutImg;
         
       }
-      
     }
   }
 }
@@ -479,6 +516,21 @@ function pick_flower(pot, color){
 }
 
 
+
+function create_vase(){
+  arrangement = [emptyVase, emptyVase, emptyVase, emptyVase, emptyVase];
+}
+
+function display_vase(){
+  // for (let i = 0; i < arrangement.length; i++){
+  //   image(arrangement[i], backgroundWidth/2 + border, backgroundHeight/2, backgroundWidth, backgroundHeight);
+  // }
+  rect(150, 150, 50, 75);
+}
+
+function grab_flower(flowerimage){
+  
+}
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
