@@ -46,6 +46,9 @@ let hoveredgreenhousebutton;
 let arrangingroombutton;
 let hoveredarrangingroombutton;
 
+let storeButton;
+let hoveredStorebutton;
+
 let emptypotImg;
 let plantedpotImg;
 let budImg;
@@ -64,6 +67,8 @@ let pinkFlower;
 let purpleFlower;
 let redFlower;
 let whiteFlower;
+
+let whiteSeeds;
 
 let emptyVase;
 let flowerbeingdragged = false;
@@ -97,6 +102,8 @@ function preload(){
   arrangingroombutton = loadImage("pictures/arrangingroombutton.png");
   hoveredarrangingroombutton = loadImage("pictures/hoveredarrangingroombutton.png");
 
+  storeButton = loadImage("pictures/storeButtonunhovered.png");
+  hoveredStorebutton = loadImage("pictures/storeButtonhovered.png");
 
   emptypotImg = loadImage("pictures/empty pot.png");
   plantedpotImg = loadImage("pictures/planted pot.png");
@@ -116,6 +123,8 @@ function preload(){
   purpleFlower = loadImage("pictures/purple flower.png");
   redFlower = loadImage("pictures/red flower.png");
   whiteFlower = loadImage("pictures/white flower.png");
+
+ 
   
   emptyVase = loadImage("pictures/vase.png");
 }
@@ -157,17 +166,19 @@ function draw() {
   }
 
   if (room === 1){
-    image(greenhouse, backgroundWidth/2 +border, backgroundHeight/2, backgroundWidth, backgroundHeight);
-    draw_pots();
-    draw_seeds();
-    diplaybuttons();
+    display_greenhouse();
+    // image(greenhouse, backgroundWidth/2 +border, backgroundHeight/2, backgroundWidth, backgroundHeight);
+    // draw_pots();
+    // draw_seeds();
+    // diplaybuttons();
   }
 
   if (room === 2){
-    image(arrangingroom, backgroundWidth/2 +border, backgroundHeight/2, backgroundWidth, backgroundHeight);
-    rect(200, 100, 50, 50);
-    diplaybuttons();
-    display_vase();
+    // image(arrangingroom, backgroundWidth/2 +border, backgroundHeight/2, backgroundWidth, backgroundHeight);
+    // rect(200, 100, 50, 50);
+    // diplaybuttons();
+    // display_vase();
+    display_arraingingRoom();
     if (flowerbeingdragged){
       if (mouseIsPressed){
         dragging_flower.display();
@@ -178,12 +189,25 @@ function draw() {
         }
         dragging_flower = 0;
       }
-
-      
     }
-
   }
+}
+
+function display_greenhouse(){
+  image(greenhouse, backgroundWidth/2 +border, backgroundHeight/2, backgroundWidth, backgroundHeight);
+  draw_pots();
+  draw_seeds();
+  diplaybuttons();
   
+
+  image(storeButton, backgroundWidth*(89/100) + border, backgroundHeight*(90/100), backgroundWidth*(18/125), backgroundHeight*(1/8));
+}
+
+function display_arraingingRoom(){
+  image(arrangingroom, backgroundWidth/2 +border, backgroundHeight/2, backgroundWidth, backgroundHeight);
+  rect(200, 100, 50, 50);
+  diplaybuttons();
+  display_vase();
 }
 
 function diplaybuttons(){
@@ -205,6 +229,7 @@ function diplaybuttons(){
 function draw_seeds(){
 
   fill("red");
+  
   rect(backgroundWidth*(5/6)+ border, backgroundHeight*(6/25), backgroundWidth*(1/50), backgroundHeight*(1/20));
 
   fill("pink");
@@ -218,11 +243,11 @@ function draw_seeds(){
 
   fill("purple");
   rect(backgroundWidth*(5/6) + border, backgroundHeight*(11/25), backgroundWidth*(1/50), backgroundHeight*(1/20));
+
   fill ("orange");
   rect(backgroundWidth*(9/10) + border, backgroundHeight*(11/25), backgroundWidth*(1/50), backgroundHeight*(1/20));
   
 }
-
 
 function draw_pots(){
   for (let i = 0; i < pots.length; i++){
@@ -514,8 +539,6 @@ function pick_flower(pot, color){
     pots[5].image = emptypotImg;
   }
 }
-
-
 
 function create_vase(){
   arrangement = [emptyVase, emptyVase, emptyVase, emptyVase, emptyVase];
