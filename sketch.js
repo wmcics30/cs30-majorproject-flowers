@@ -71,7 +71,7 @@ let whiteFlower;
 let whiteSeeds;
 
 let emptyVase;
-let flowerbeingdragged = false;
+let flowerbeingdragged = "none";
 
 class Grabbed_flower{
   constructor(flowerimage){
@@ -179,17 +179,7 @@ function draw() {
     // diplaybuttons();
     // display_vase();
     display_arraingingRoom();
-    if (flowerbeingdragged){
-      if (mouseIsPressed){
-        dragging_flower.display();
-      }
-      else{
-        if (dragging_flower.inVase()){
-          arrangement.push(dragging_flower.flower);
-        }
-        dragging_flower = 0;
-      }
-    }
+    
   }
 }
 
@@ -198,31 +188,47 @@ function display_greenhouse(){
   draw_pots();
   draw_seeds();
   diplaybuttons();
-  
-
   image(storeButton, backgroundWidth*(89/100) + border, backgroundHeight*(90/100), backgroundWidth*(18/125), backgroundHeight*(1/8));
 }
 
 function display_arraingingRoom(){
   image(arrangingroom, backgroundWidth/2 +border, backgroundHeight/2, backgroundWidth, backgroundHeight);
-  rect(200, 100, 50, 50);
   diplaybuttons();
   display_vase();
+  if (!flowerbeingdragged === "none"){
+    if (mouseIsPressed){
+      grab_flower(flowerbeingdragged);
+    }
+    
+  }
+  else{
+    if (mouseX > 99 + 625){
+      arrangement.push(flowerbeingdragged);
+    }
+    flowerbeingdragged = "none";
+  }
+
+
+  if (mouseIsPressed){
+    grab_flower(redFlower);
+
+  }
+  
 }
 
 function diplaybuttons(){
   
   if (mouseX > backgroundWidth*(1/125) + border && mouseX < backgroundWidth*(17/150)+border && mouseY > backgroundHeight*(171/200) && mouseY < backgroundHeight){
-    image(hoveredgreenhousebutton, backgroundWidth*(1/15)+ border, backgroundHeight*(189/200));
-    image(arrangingroombutton, backgroundWidth*(11/60) + border, backgroundHeight*(24/25));
+    image(hoveredgreenhousebutton, backgroundWidth*(1/15)+ border, backgroundHeight*(189/200), backgroundWidth*(157/1500), backgroundHeight*(111/1000) );
+    image(arrangingroombutton, backgroundWidth*(11/60) + border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
   }
   else if (mouseX > backgroundWidth*(2/15)+border && mouseX < backgroundWidth*(7/30) + border && mouseY > backgroundHeight*(9/10) && mouseY < backgroundHeight){
-    image(hoveredarrangingroombutton, backgroundWidth*(11/60)+ border, backgroundHeight*(189/200));
-    image(greenhousebutton, backgroundWidth*(1/15) + border ,backgroundHeight*(24/25));
+    image(hoveredarrangingroombutton, backgroundWidth*(11/60)+ border, backgroundHeight*(189/200), backgroundWidth*(157/1500), backgroundHeight*(111/1000) );
+    image(greenhousebutton, backgroundWidth*(1/15) + border ,backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
   }
   else{
-    image(greenhousebutton, backgroundWidth*(1/15)+ border ,backgroundHeight*(24/25));
-    image(arrangingroombutton, backgroundWidth*(11/60)+border, backgroundHeight*(24/25));
+    image(greenhousebutton, backgroundWidth*(1/15)+ border ,backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
+    image(arrangingroombutton, backgroundWidth*(11/60)+border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
   }
 }
 
@@ -541,18 +547,15 @@ function pick_flower(pot, color){
 }
 
 function create_vase(){
-  arrangement = [emptyVase, emptyVase, emptyVase, emptyVase, emptyVase];
+  arrangement = [];
 }
 
 function display_vase(){
-  // for (let i = 0; i < arrangement.length; i++){
-  //   image(arrangement[i], backgroundWidth/2 + border, backgroundHeight/2, backgroundWidth, backgroundHeight);
-  // }
-  rect(150, 150, 50, 75);
+  image(emptyVase, backgroundWidth*(5/12) + border, backgroundHeight*(3/5), backgroundWidth*(197/1500), backgroundHeight*(277/1000));
 }
 
 function grab_flower(flowerimage){
-  
+  image(flowerimage, mouseX, mouseY, backgroundWidth*(17/250), backgroundHeight*(167/1000));
 }
 
 function windowResized() {
