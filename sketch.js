@@ -29,7 +29,7 @@ let fertiziler = 0;
 let seeds = [];
 let pots = [];
 
-let dragging_flower;
+
 let arrangement = [];
 
 
@@ -68,26 +68,53 @@ let purpleFlower;
 let redFlower;
 let whiteFlower;
 
-let whiteSeeds;
+
+let blueSeedpack;
+let orangeSeedpack;
+let pinkSeedpack;
+let purpleSeedpack;
+let redSeedpack;
+let whiteSeedpack;
+
+let blueinVase1;
+let blueinVase2;
+let blueinVase3;
+let blueinVase4;
+let blueinVase5;
+
+let orangeinVase1;
+let orangeinVase2;
+let orangeinVase3;
+let orangeinVase4;
+let orangeinVase5;
+
+let pinkinVase1;
+let pinkinVase2;
+let pinkinVase3;
+let pinkinVase4;
+let pinkinVase5;
+
+let purpleinVase1;
+let purpleinVase2;
+let purpleinVase3;
+let purpleinVase4;
+let purpleinVase5;
+
+let redinVase1;
+let redinVase2;
+let redinVase3;
+let redinVase4;
+let redinVase5;
+
+let whiteinVase1;
+let whiteinVase2;
+let whiteinVase3;
+let whiteinVase4;
+let whiteinVase5;
+
 
 let emptyVase;
 let flowerbeingdragged = "none";
-
-class Grabbed_flower{
-  constructor(flowerimage){
-    this.flower = flowerimage;
-    
-  }
-  display(){
-    fill(this.flower);
-    rect(mouseX, mouseY, 50, 50);
-  }
-  inVase(){
-    return mouseX > 125 && mouseX < 175 && mouseY < 173 && mouseY > 113;
-  }
-  
-
-} 
 
 
 function preload(){
@@ -124,9 +151,50 @@ function preload(){
   redFlower = loadImage("pictures/red flower.png");
   whiteFlower = loadImage("pictures/white flower.png");
 
- 
+  blueSeedpack = loadImage("pictures/blueSeeds.png");
+  orangeSeedpack = loadImage("pictures/orangeSeeds.png");
+  pinkSeedpack = loadImage("pictures/pinkSeeds.png");
+  purpleSeedpack = loadImage("pictures/purpleSeeds.png");
+  redSeedpack = loadImage("pictures/redSeeds.png");
+  whiteSeedpack = loadImage("pictures/whiteSeeds.png");
   
   emptyVase = loadImage("pictures/vase.png");
+
+  blueinVase1 = loadImage("pictures/vaseBlue1st.png");
+  blueinVase2 = loadImage("pictures/vaseBlue2nd.png");
+  blueinVase3 = loadImage("pictures/vaseBlue3rd.png");
+  blueinVase4 = loadImage("pictures/vaseBlue4th.png");
+  blueinVase5 = loadImage("pictures/vaseBlue5th.png");
+
+  orangeinVase1 = loadImage("pictures/vaseOrange1st.png");
+  orangeinVase2 = loadImage("pictures/vaseOrange2nd.png");
+  orangeinVase3 = loadImage("pictures/vaseOrange3rd.png");
+  orangeinVase4 = loadImage("pictures/vaseOrange4th.png");
+  orangeinVase5 = loadImage("pictures/vaseOrange5th.png");
+
+  pinkinVase1 = loadImage("pictures/vasePink1st.png");
+  pinkinVase2 = loadImage("pictures/vasePink2nd.png");
+  pinkinVase3 = loadImage("pictures/vasePink3rd.png");
+  pinkinVase4 = loadImage("pictures/vasePink4th.png");
+  pinkinVase5 = loadImage("pictures/vasePink5th.png");
+
+  purpleinVase1 = loadImage("pictures/vasePurple1st.png");
+  purpleinVase2 = loadImage("pictures/vasePurple2nd.png");
+  purpleinVase3 = loadImage("pictures/vasePurple3rd.png");
+  purpleinVase4 = loadImage("pictures/vasePurple4th.png");
+  purpleinVase5 = loadImage("pictures/vasePurple5th.png");
+
+  redinVase1 = loadImage("pictures/vaseRed1st.png");
+  redinVase2 = loadImage("pictures/vaseRed2nd.png");
+  redinVase3 = loadImage("pictures/vaseRed3rd.png");
+  redinVase4 = loadImage("pictures/vaseRed4th.png");
+  redinVase5 = loadImage("pictures/vaseRed5th.png");
+
+  whiteinVase1 = loadImage("pictures/vaseWhite1st.png");
+  whiteinVase2 = loadImage("pictures/vaseWhite2nd.png");
+  whiteinVase3 = loadImage("pictures/vaseWhite3rd.png");
+  whiteinVase4 = loadImage("pictures/vaseWhite4th.png");
+  whiteinVase5 = loadImage("pictures/vaseWhite5th.png");
 }
 
 
@@ -147,6 +215,9 @@ function setup() {
     backgroundHeight = backgroundWidth*(2/3);
     border = (windowWidth - backgroundWidth)/2;
   }
+
+  console.log(backgroundWidth);
+  console.log(backgroundHeight);
 }
 
 function draw() {
@@ -179,6 +250,20 @@ function draw() {
     // diplaybuttons();
     // display_vase();
     display_arraingingRoom();
+    if (flowerbeingdragged !== "none"){
+      if (mouseIsPressed){
+        grab_flower(flowerbeingdragged);
+      }
+      else {
+        if (mouseX > backgroundWidth*(536/1500) + border && mouseX < backgroundWidth*(724/1500) + border && mouseY > backgroundHeight*(465/1000) && mouseY < backgroundHeight*(736/1000)){
+          arrangement.push(flowerbeingdragged);
+          flowerbeingdragged = "none";
+        }
+        else{
+          flowerbeingdragged = "none";
+        }
+      }
+    }
     
   }
 }
@@ -199,20 +284,20 @@ function display_arraingingRoom(){
     if (mouseIsPressed){
       grab_flower(flowerbeingdragged);
     }
-    
+    // else{
+    //   if (mouseX > 99 + 625){
+    //     arrangement.push(flowerbeingdragged);
+    //   }
+    //   flowerbeingdragged = "none";
+    // }
   }
-  else{
-    if (mouseX > 99 + 625){
-      arrangement.push(flowerbeingdragged);
-    }
-    flowerbeingdragged = "none";
-  }
+  
 
 
-  if (mouseIsPressed){
-    grab_flower(redFlower);
+  // if (mouseIsPressed){
+  //   grab_flower(redFlower);
 
-  }
+  // }
   
 }
 
@@ -425,12 +510,27 @@ function mousePressed(){
 
 
   if (room === 2){
-    console.log(mouseX);
-    console.log(mouseY);
-    if (mouseX > 175 && mouseY > 225 && mouseY > 75 && mouseX > 125){
-      dragging_flower = new Grabbed_flower("red");
-      flowerbeingdragged = true;
+    
+    if (mouseX > backgroundWidth*(1207/1500) + border && mouseX < backgroundWidth*(1305/1500) + border && mouseY > backgroundHeight*(210/1000) && mouseY < backgroundHeight*(378/1000)){
+      flowerbeingdragged = purpleFlower;
+      console.log("hello");
     }
+    else if (mouseX > backgroundWidth*(1235/1500) + border && mouseX < backgroundWidth*(1332/1500) + border && mouseY > backgroundHeight*(458/1000) && mouseY< backgroundHeight*(620/1000)){
+      flowerbeingdragged = orangeflower;
+    }
+    else if (mouseX > backgroundWidth*(1230/1500) + border && mouseX < backgroundWidth*(1325/1500) + border && mouseY > backgroundHeight*(721/1000) && mouseY< backgroundHeight*(890/1000)){
+      flowerbeingdragged = whiteFlower;
+    }
+    else if (mouseX > backgroundWidth*(1373/1500) + border && mouseX < backgroundWidth*(1468/1500) + border && mouseY > backgroundHeight*(213/1000) && mouseY< backgroundHeight*(375/1000)){
+      flowerbeingdragged = pinkFlower;
+    }
+    else if (mouseX > backgroundWidth*(1384/1500) + border && mouseX < backgroundWidth*(1478/1500) + border && mouseY > backgroundHeight*(461/1000) && mouseY< backgroundHeight*(621/1000)){
+      flowerbeingdragged = blueFlower;
+    }
+    else if (mouseX > backgroundWidth*(1370/1500) + border && mouseX < backgroundWidth*(1467/1500) + border && mouseY > backgroundHeight*(722/1000) && mouseY< backgroundHeight*(889/1000)){
+      flowerbeingdragged = redFlower;
+    }
+
   }
 
 
@@ -551,7 +651,112 @@ function create_vase(){
 }
 
 function display_vase(){
-  image(emptyVase, backgroundWidth*(5/12) + border, backgroundHeight*(3/5), backgroundWidth*(197/1500), backgroundHeight*(277/1000));
+  if (arrangement.length > 4){
+    if (arrangement[4] === redFlower){
+      image(redinVase5, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+    else if (arrangement[4] === whiteFlower){
+      image(whiteinVase5, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+    else if (arrangement[4] === pinkFlower){
+      image(pinkinVase5, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+    else if ( arrangement[4] === blueFlower){
+      image(blueinVase5, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+    else if (arrangement[4] === orangeflower){
+      image(orangeinVase5, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+    else if (arrangement[4] === purpleFlower){
+      image(purpleinVase5, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+  }
+  if (arrangement.length > 3){
+    if (arrangement[3] === redFlower){
+      image(redinVase4, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+    else if (arrangement[3] === whiteFlower){
+      image(whiteinVase4, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+    else if (arrangement[3] === pinkFlower){
+      image(pinkinVase4, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+    else if ( arrangement[3] === blueFlower){
+      image(blueinVase4, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+    else if (arrangement[3] === orangeflower){
+      image(orangeinVase4, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+    else if (arrangement[3] === purpleFlower){
+      image(purpleinVase4, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+  }
+  if (arrangement.length > 2){
+    if (arrangement[2] === redFlower){
+      image(redinVase3, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+    else if (arrangement[2] === whiteFlower){
+      image(whiteinVase3, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+    else if (arrangement[2] === pinkFlower){
+      image(pinkinVase3, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+    else if ( arrangement[2] === blueFlower){
+      image(blueinVase3, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+    else if (arrangement[2] === orangeflower){
+      image(orangeinVase3, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+    else if (arrangement[2] === purpleFlower){
+      image(purpleinVase3, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+  }
+  if (arrangement.length > 1){
+    if (arrangement[1] === redFlower){
+      image(redinVase2, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+    else if (arrangement[1] === whiteFlower){
+      image(whiteinVase2, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+    else if (arrangement[1] === pinkFlower){
+      image(pinkinVase2, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+    else if ( arrangement[1] === blueFlower){
+      image(blueinVase2, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+    else if (arrangement[1] === orangeflower){
+      image(orangeinVase2, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+    else if (arrangement[1] === purpleFlower){
+      image(purpleinVase2, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+  }
+  if (arrangement.length > 0){
+    if (arrangement[0] === redFlower){
+      image(redinVase1, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+    else if (arrangement[0] === whiteFlower){
+      image(whiteinVase1, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+    else if (arrangement[0] === pinkFlower){
+      image(pinkinVase1, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+    else if ( arrangement[0] === blueFlower){
+      image(blueinVase1, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+    else if (arrangement[0] === orangeflower){
+      image(orangeinVase1, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+    else if (arrangement[0] === purpleFlower){
+      image(purpleinVase1, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
+    }
+  }
+  else{
+    image(emptyVase, backgroundWidth*(5/12) + border, backgroundHeight*(3/5), backgroundWidth*(197/1500), backgroundHeight*(277/1000));
+
+  }
+
+  
 }
 
 function grab_flower(flowerimage){
