@@ -215,15 +215,10 @@ function setup() {
     backgroundHeight = backgroundWidth*(2/3);
     border = (windowWidth - backgroundWidth)/2;
   }
-
-  console.log(backgroundWidth);
-  console.log(backgroundHeight);
 }
 
 function draw() {
   background(200);
-
-
   update_pots();
 
 
@@ -238,17 +233,9 @@ function draw() {
 
   if (room === 1){
     display_greenhouse();
-    // image(greenhouse, backgroundWidth/2 +border, backgroundHeight/2, backgroundWidth, backgroundHeight);
-    // draw_pots();
-    // draw_seeds();
-    // diplaybuttons();
   }
 
   if (room === 2){
-    // image(arrangingroom, backgroundWidth/2 +border, backgroundHeight/2, backgroundWidth, backgroundHeight);
-    // rect(200, 100, 50, 50);
-    // diplaybuttons();
-    // display_vase();
     display_arraingingRoom();
     if (flowerbeingdragged !== "none"){
       if (mouseIsPressed){
@@ -284,20 +271,9 @@ function display_arraingingRoom(){
     if (mouseIsPressed){
       grab_flower(flowerbeingdragged);
     }
-    // else{
-    //   if (mouseX > 99 + 625){
-    //     arrangement.push(flowerbeingdragged);
-    //   }
-    //   flowerbeingdragged = "none";
-    // }
+    
   }
   
-
-
-  // if (mouseIsPressed){
-  //   grab_flower(redFlower);
-
-  // }
   
 }
 
