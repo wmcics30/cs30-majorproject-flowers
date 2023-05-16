@@ -42,6 +42,12 @@ let arrangingroom;
 let startScreenNormal;
 let startScreenhoverd;
 
+////////////////////////////
+let storebackground;
+let storeseedbutton;
+let storebackbutton;
+////////////////////////////
+
 let greenhousebutton;
 let hoveredgreenhousebutton;
 let arrangingroombutton;
@@ -130,6 +136,10 @@ function preload(){
   hoveredgreenhousebutton = loadImage("pictures/hoveredgreenhousebutton.png");
   arrangingroombutton = loadImage("pictures/arrangingroombutton.png");
   hoveredarrangingroombutton = loadImage("pictures/hoveredarrangingroombutton.png");
+
+  storebackground = loadImage("pictures/StoreBackground.png");
+  storeseedbutton = loadImage("pictures/StoreSeedbutton.png");
+  storebackbutton = loadImage("pictures/StoreBackButton.png");
 
   storeButton = loadImage("pictures/storeButtonunhovered.png");
   hoveredStorebutton = loadImage("pictures/storeButtonhovered.png");
@@ -246,12 +256,21 @@ function display_startScreen(){
   }
 }
 
+function display_store(){
+  image(storebackground, backgroundWidth/2 +border, backgroundHeight/2, backgroundWidth, backgroundHeight);
+}
+
 function display_greenhouse(){
   image(greenhouse, backgroundWidth/2 +border, backgroundHeight/2, backgroundWidth, backgroundHeight);
   draw_pots();
-  draw_seeds();
+  display_seeds();
   diplaybuttons();
-  image(storeButton, backgroundWidth*(89/100) + border, backgroundHeight*(90/100), backgroundWidth*(18/125), backgroundHeight*(1/8));
+  if (mouseX > backgroundWidth*(1227/1500) + border && mouseX < backgroundWidth*(1443/1500) + border && mouseY > backgroundHeight*(839/1000) && mouseY < backgroundHeight*(962/1000)){
+    image(hoveredStorebutton, backgroundWidth*(1335/1500) + border, backgroundHeight*(90/100), backgroundWidth*(216/1500), backgroundHeight*(1/8));
+  }
+  else{
+    image(storeButton, backgroundWidth*(1335/1500) + border, backgroundHeight*(90/100), backgroundWidth*(216/1500), backgroundHeight*(1/8));
+  }
 }
 
 function display_arraingingRoom(){
@@ -281,30 +300,12 @@ function diplaybuttons(){
 }
 
 function display_seeds(){
-  
-}
-
-function draw_seeds(){
-
-  fill("red");
-  
-  rect(backgroundWidth*(5/6)+ border, backgroundHeight*(6/25), backgroundWidth*(1/50), backgroundHeight*(1/20));
-
-  fill("pink");
-  rect(backgroundWidth*(9/10) + border, backgroundHeight*(6/25), backgroundWidth*(1/50), backgroundHeight*(1/20) );
-
-  fill("white");
-  rect(backgroundWidth*(5/6) + border, backgroundHeight*(17/50), backgroundWidth*(1/50) , backgroundHeight*(1/20));
-
-  fill("blue");
-  rect(backgroundWidth*(9/10) + border, backgroundHeight*(17/50), backgroundWidth*(1/50), backgroundHeight*(1/20));
-
-  fill("purple");
-  rect(backgroundWidth*(5/6) + border, backgroundHeight*(11/25), backgroundWidth*(1/50), backgroundHeight*(1/20));
-
-  fill ("orange");
-  rect(backgroundWidth*(9/10) + border, backgroundHeight*(11/25), backgroundWidth*(1/50), backgroundHeight*(1/20));
-  
+  image(redSeedpack, backgroundWidth*(1260/1500)+border, backgroundHeight*(240/1000), backgroundWidth*(116/1500), backgroundHeight*(137/1000));
+  image(pinkSeedpack, backgroundWidth*(1410/1500)+border, backgroundHeight*(240/1000), backgroundWidth*(116/1500), backgroundHeight*(137/1000));
+  image(whiteSeedpack, backgroundWidth*(1260/1500)+border, backgroundHeight*(440/1000), backgroundWidth*(116/1500), backgroundHeight*(137/1000));
+  image(blueSeedpack, backgroundWidth*(1410/1500)+border, backgroundHeight*(440/1000), backgroundWidth*(116/1500), backgroundHeight*(137/1000));
+  image(purpleSeedpack, backgroundWidth*(1260/1500)+ border, backgroundHeight*(640/1000), backgroundWidth*(116/1500), backgroundHeight*(137/1000));
+  image(orangeSeedpack, backgroundWidth*(1410/1500)+ border, backgroundHeight*(640/1000), backgroundWidth*(116/1500), backgroundHeight*(137/1000));
 }
 
 function draw_pots(){
@@ -456,23 +457,27 @@ function mousePressed(){
       }
     }
 
-    if (mouseX > backgroundWidth*(41/50) + border && mouseX < backgroundWidth*(253/300)+ border && mouseY > backgroundHeight*(43/200) && mouseY < backgroundHeight*(53/200)){
+    if (mouseX > backgroundWidth*(1202/1500) + border && mouseX < backgroundWidth*(1318/1500)+ border && mouseY > backgroundHeight*(172/1000) && mouseY < backgroundHeight*(309/1000)){
       currentSeed = "red";
     }
-    else if (mouseX > backgroundWidth*(133/150) + border && mouseX < backgroundWidth*(91/100) + border && mouseY > backgroundHeight*(43/200) && mouseY < backgroundHeight*(53/200)){
+    else if (mouseX > backgroundWidth*(1352/1500) + border && mouseX < backgroundWidth*(1468/1500) + border && mouseY > backgroundHeight*(172/1000) && mouseY < backgroundHeight*(309/1000)){
       currentSeed = "pink";
     }
-    else if (mouseX > backgroundWidth*(41/50) + border && mouseX < backgroundWidth*(253/300)+ border && mouseY > backgroundHeight*(63/200) && mouseY < backgroundHeight*(73/200)){
+    else if (mouseX > backgroundWidth*(1202/1500) + border && mouseX < backgroundWidth*(1318/1500)+ border && mouseY > backgroundHeight*(372/1000) && mouseY < backgroundHeight*(509/1000)){
       currentSeed = "white";
     }
-    else if (mouseX >  backgroundWidth*(133/150) + border && mouseX < backgroundWidth*(91/100) + border && mouseY > backgroundHeight*(63/200) && mouseY < backgroundHeight*(73/200)){
+    else if (mouseX >  backgroundWidth*(1352/1500) + border && mouseX < backgroundWidth*(1468/1500) + border && mouseY > backgroundHeight*(372/1000) && mouseY < backgroundHeight*(509/1000)){
       currentSeed = "blue";
     }
-    else if (mouseX > backgroundWidth*(41/50) + border && mouseX < backgroundWidth*(253/300)+ border && mouseY > backgroundHeight*(83/200) && mouseY < backgroundHeight*(93/200)){
+    else if (mouseX > backgroundWidth*(1202/1500) + border && mouseX < backgroundWidth*(1318/1500)+ border && mouseY > backgroundHeight*(572/1000) && mouseY < backgroundHeight*(709/1000)){
       currentSeed = "purple";
     }
-    else if (mouseX >  backgroundWidth*(133/150) + border && mouseX < backgroundWidth*(91/100) + border && mouseY > backgroundHeight*(83/200) && mouseY < backgroundHeight*(93/200)){
+    else if (mouseX >  backgroundWidth*(1352/1500) + border && mouseX < backgroundWidth*(1468/1500) + border && mouseY > backgroundHeight*(572/1000) && mouseY < backgroundHeight*(709/1000)){
       currentSeed = "orange";
+    }
+
+    if (mouseX > backgroundWidth*(1227/1500) + border && mouseX < backgroundWidth*(1443/1500) + border && mouseY > backgroundHeight*(839/1000) && mouseY < backgroundHeight*(962/1000)){
+      room = 3;
     }
   }
 
@@ -661,7 +666,7 @@ function create_vase(){
 
 function display_vase(){
   if (arrangement.length >= 5){
-    image(sellButton, backgroundWidth/2 + border, backgroundHeight/2, backgroundWidth, backgroundHeight);
+    image(sellButton, backgroundWidth*(800/1500) + border, backgroundHeight*(500/1500), backgroundWidth*(298/1500), backgroundHeight*(167/1000));
   }
   if (arrangement.length > 4){
     if (arrangement[4] === redFlower){
