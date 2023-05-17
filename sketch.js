@@ -26,10 +26,14 @@ let redseeds = 0;
 let pinkseeds = 0;
 let whiteseeds = 0;
 let blueseeds = 0;
+let purpleseeds =0;
+let orangeseeds = 0;
+
+let seeds;
 
 let fertiziler = 0;
 
-let seeds = [];
+
 let pots = [];
 
 
@@ -42,11 +46,11 @@ let arrangingroom;
 let startScreenNormal;
 let startScreenhoverd;
 
-////////////////////////////
+
 let storebackground;
 let storeseedbutton;
 let storebackbutton;
-////////////////////////////
+
 
 let greenhousebutton;
 let hoveredgreenhousebutton;
@@ -227,6 +231,9 @@ function setup() {
     backgroundHeight = backgroundWidth*(2/3);
     border = (windowWidth - backgroundWidth)/2;
   }
+
+  seeds = new Map();
+  set_seeds();
 }
 
 function draw() {
@@ -245,6 +252,9 @@ function draw() {
     display_arraingingRoom();
     drag_flower();
   }
+  if (room === 3){
+    display_store();
+  }
 }
 
 function display_startScreen(){
@@ -258,6 +268,15 @@ function display_startScreen(){
 
 function display_store(){
   image(storebackground, backgroundWidth/2 +border, backgroundHeight/2, backgroundWidth, backgroundHeight);
+  image(storebackbutton, backgroundWidth*(1300/1500)+border, backgroundHeight*(110/1000), backgroundWidth*(274/1500), backgroundHeight*(135/1000));
+  image(storeseedbutton, backgroundWidth*(160/1500)+ border, backgroundHeight*(110/1000), backgroundWidth*(274/1500), backgroundHeight*(135/1000));
+
+  image(redSeedpack, backgroundWidth*(375/1500)+border, backgroundHeight*(400/1000), backgroundWidth*(116/1500)*(3/2), backgroundHeight*(137/1000)*(3/2));
+  image(pinkSeedpack, backgroundWidth*(375/1500)+border, backgroundHeight*(800/1000), backgroundWidth*(116/1500)*(3/2), backgroundHeight*(137/1000)*(3/2));
+  image(whiteSeedpack, backgroundWidth*(750/1500)+border, backgroundHeight*(400/1000), backgroundWidth*(116/1500)*(3/2), backgroundHeight*(137/1000)*(3/2));
+  image(blueSeedpack, backgroundWidth*(750/1500)+border, backgroundHeight*(800/1000), backgroundWidth*(116/1500)*(3/2), backgroundHeight*(137/1000)*(3/2));
+  image(purpleSeedpack, backgroundWidth*(1125/1500)+ border, backgroundHeight*(400/1000), backgroundWidth*(116/1500)*(3/2), backgroundHeight*(137/1000)*(3/2));
+  image(orangeSeedpack, backgroundWidth*(1125/1500)+ border, backgroundHeight*(800/1000), backgroundWidth*(116/1500)*(3/2), backgroundHeight*(137/1000)*(3/2));
 }
 
 function display_greenhouse(){
@@ -313,6 +332,16 @@ function draw_pots(){
     image(pots[i].image, backgroundWidth*(1/12) + backgroundWidth*(37/300)*i + border, backgroundHeight*(3/5), backgroundWidth*(8/75), backgroundHeight*(39/125));
     
   } 
+}
+
+function set_seeds(){
+  seeds.set("red", 0);
+  seeds.set("pink", 0);
+  seeds.set("orange", 0);
+  seeds.set("white", 0);
+  seeds.set("purple", 0);
+  seeds.set("blue", 0);
+  
 }
 
 function plant_seed(pot, seedtype){
@@ -390,8 +419,10 @@ function mousePressed(){
     let pot = "";
     if (mouseX > backgroundWidth*(3/100)+border && mouseX < backgroundWidth*(13/100)+border && mouseY > backgroundHeight*(3/5) && mouseY < backgroundHeight*(147/200)){
       pot = "one";
-      if (pots[0].hasplant === false && currentSeed !== ""){
+      if (pots[0].hasplant === false && currentSeed !== "" && seeds.get(currentSeed) > 0){
         plant_seed(pot, currentSeed);
+        seeds.set(currentSeed, seeds.get(currentSeed)-1);
+        
       
       }
       else if (pots[0].hasplant === true && pots[0].plantState === "done"){
@@ -402,7 +433,7 @@ function mousePressed(){
 
     else if (mouseX > backgroundWidth*(3/20)+border && mouseX < backgroundWidth*(1/4)+border && mouseY > backgroundHeight*(3/5) && mouseY < backgroundHeight*(147/200)){
       pot = "two";
-      if (pots[1].hasplant === false && currentSeed !== ""){
+      if (pots[1].hasplant === false && currentSeed !== "" && seeds.get(currentSeed) > 0){
         plant_seed(pot, currentSeed);
       
       }
@@ -413,7 +444,7 @@ function mousePressed(){
 
     else if (mouseX > backgroundWidth*(7/25)+border && mouseX < backgroundWidth*(28/75)+ border && mouseY > backgroundHeight*(3/5) && mouseY < backgroundHeight*(147/200)){
       pot = "three";
-      if (pots[2].hasplant === false && currentSeed !== ""){
+      if (pots[2].hasplant === false && currentSeed !== "" && seeds.get(currentSeed) > 0){
         plant_seed(pot, currentSeed);
       
       }
@@ -425,7 +456,7 @@ function mousePressed(){
 
     else if (mouseX >  backgroundWidth*(121/300)+ border && mouseX < backgroundWidth*(149/300)+border && mouseY > backgroundHeight*(3/5) && mouseY < backgroundHeight*(147/200)){
       pot = "four";
-      if (pots[3].hasplant === false && currentSeed !== ""){
+      if (pots[3].hasplant === false && currentSeed !== "" && seeds.get(currentSeed) > 0){
         plant_seed(pot, currentSeed);
       
       }
@@ -437,7 +468,7 @@ function mousePressed(){
     else if (mouseX > backgroundWidth*(79/150)+ border && mouseX < backgroundWidth*(187/300)+border && mouseY > backgroundHeight*(3/5) && mouseY < backgroundHeight*(147/200)){
       pot = "five";
     
-      if (pots[4].hasplant === false && currentSeed !== ""){
+      if (pots[4].hasplant === false && currentSeed !== "" && seeds.get(currentSeed) > 0){
         plant_seed(pot, currentSeed);
       }
       else if (pots[4].hasplant === true && pots[4].plantState === "done"){
@@ -449,7 +480,7 @@ function mousePressed(){
     else if (mouseX > backgroundWidth*(13/20)+border && mouseX < backgroundWidth*(56/75)+border && mouseY > backgroundHeight*(3/5) && mouseY < backgroundHeight*(147/200)){
       
       pot = "six";
-      if (pots[5].hasplant === false && currentSeed !== ""){
+      if (pots[5].hasplant === false && currentSeed !== "" && seeds.get(currentSeed) > 0){
         plant_seed(pot, currentSeed);
       }
       else if (pots[5].hasplant === true && pots[5].plantState === "done"){
@@ -503,6 +534,36 @@ function mousePressed(){
       flowerbeingdragged = redFlower;
     }
 
+  }
+
+  if (room === 3){
+    if (mouseX > backgroundWidth*(288/1500)+border && mouseX < backgroundWidth*(462/1500) +border && mouseY > backgroundHeight*(279/1000) && mouseY < backgroundHeight*(503/1000)){
+      seeds.set("red", seeds.get("red")+ 1);
+      console.log(seeds.get("red"));
+    }
+    else if (mouseX > backgroundWidth*(288/1500)+border && mouseX < backgroundWidth*(462/1500) +border && mouseY > backgroundHeight*(679/1000) && mouseY < backgroundHeight*(903/1000)){
+      seeds.set("pink", seeds.get("pink")+ 1);
+      console.log(seeds.get("pink"));
+    }
+    else if (mouseX > backgroundWidth*(663/1500) + border && mouseX < backgroundWidth *(837/1500)+border && mouseY > backgroundHeight*(279/1000) && mouseY < backgroundHeight*(503/1000)){
+      seeds.set("white", seeds.get("white")+ 1);
+      console.log(seeds.get("white"));
+    }
+    else if (mouseX > backgroundWidth*(663/1500) + border && mouseX < backgroundWidth *(837/1500)+border && mouseY > backgroundHeight*(679/1000) && mouseY < backgroundHeight*(903/1000)){
+      seeds.set("blue", seeds.get("blue")+ 1);
+      console.log(seeds.get("blue"));
+    }
+    else if (mouseX > backgroundWidth*(1038/1500) + border && mouseX < backgroundWidth *(1212/1500)+border && mouseY > backgroundHeight*(279/1000) && mouseY < backgroundHeight*(503/1000)){
+      seeds.set("purple", seeds.get("purple")+ 1);
+      console.log(seeds.get("purple"));
+    }
+    else if (mouseX > backgroundWidth*(1038/1500) + border && mouseX < backgroundWidth*(1212/1500)+border && mouseY > backgroundHeight*(679/1000) && mouseY < backgroundHeight*(903/1000)){
+      seeds.set("orange", seeds.get("orange")+ 1);
+      console.log(seeds.get("orange"));
+    }
+    else if (mouseX > backgroundWidth*(1163/1500) + border && mouseX < backgroundWidth*(1437/1500) + border && mouseY > backgroundHeight*(43/1000) && mouseY < backgroundHeight*(178/1000)){
+      room = 1;
+    }
   }
 
 
