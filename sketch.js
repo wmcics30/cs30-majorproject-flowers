@@ -29,6 +29,7 @@ let blueseeds = 0;
 let purpleseeds =0;
 let orangeseeds = 0;
 
+let money = 3;
 let seeds;
 
 let fertiziler = 0;
@@ -214,7 +215,6 @@ function preload(){
   whiteinVase5 = loadImage("pictures/vaseWhite5th.png");
 }
 
-
 function setup() {
   imageMode(CENTER);
   createCanvas(windowWidth, windowHeight);
@@ -246,6 +246,7 @@ function draw() {
 
   if (room === 1){
     display_greenhouse();
+    
   }
 
   if (room === 2){
@@ -277,6 +278,9 @@ function display_store(){
   image(blueSeedpack, backgroundWidth*(750/1500)+border, backgroundHeight*(800/1000), backgroundWidth*(116/1500)*(3/2), backgroundHeight*(137/1000)*(3/2));
   image(purpleSeedpack, backgroundWidth*(1125/1500)+ border, backgroundHeight*(400/1000), backgroundWidth*(116/1500)*(3/2), backgroundHeight*(137/1000)*(3/2));
   image(orangeSeedpack, backgroundWidth*(1125/1500)+ border, backgroundHeight*(800/1000), backgroundWidth*(116/1500)*(3/2), backgroundHeight*(137/1000)*(3/2));
+
+  fill("black");
+  rect(backgroundWidth*(1400/1500) + border, backgroundHeight/2, backgroundWidth*(50/1500), backgroundHeight*(75/1000));
 }
 
 function display_greenhouse(){
@@ -284,6 +288,7 @@ function display_greenhouse(){
   draw_pots();
   display_seeds();
   diplaybuttons();
+  rect(backgroundWidth*(1335/1500) + border, backgroundHeight *(780/1000), backgroundWidth*(50/1500), backgroundHeight*(75/1000) );
   if (mouseX > backgroundWidth*(1227/1500) + border && mouseX < backgroundWidth*(1443/1500) + border && mouseY > backgroundHeight*(839/1000) && mouseY < backgroundHeight*(962/1000)){
     image(hoveredStorebutton, backgroundWidth*(1335/1500) + border, backgroundHeight*(90/100), backgroundWidth*(216/1500), backgroundHeight*(1/8));
   }
@@ -296,6 +301,8 @@ function display_arraingingRoom(){
   image(arrangingroom, backgroundWidth/2 +border, backgroundHeight/2, backgroundWidth, backgroundHeight);
   diplaybuttons();
   display_vase();
+  image(sellButton, backgroundWidth*(900/1500) + border, backgroundHeight*(820/1000), backgroundWidth*(298/1500), backgroundHeight*(167/1000));
+
   if (!flowerbeingdragged === "none"){
     if (mouseIsPressed){
       grab_flower(flowerbeingdragged);
@@ -345,58 +352,94 @@ function set_seeds(){
 }
 
 function plant_seed(pot, seedtype){
-  if (pot === "one"){
-    if (pots[0].hasplant === false && seedtype !== ""){
-      pots[0].hasplant = true;
-      pots[0].plantState = "dirt";
-      pots[0].millisplanted = millis();
-      pots[0].flowerColor = seedtype;
-      pots[0].image = plantedpotImg;
+  if (seedtype !== "fertilizer"){
+    if (pot === "one"){
+      if (pots[0].hasplant === false && seedtype !== ""){
+        pots[0].hasplant = true;
+        pots[0].plantState = "dirt";
+        pots[0].millisplanted = millis();
+        pots[0].flowerColor = seedtype;
+        pots[0].image = plantedpotImg;
+      }
+    }
+    if (pot === "two"){
+      if (pots[1].hasplant === false && seedtype !== ""){
+        pots[1].hasplant = true;
+        pots[1].plantState = "dirt";
+        pots[1].millisplanted = millis();
+        pots[1].flowerColor = seedtype;
+        pots[1].image = plantedpotImg;
+      }
+    }
+    if (pot === "three"){
+      if (pots[2].hasplant === false && seedtype !== ""){
+        pots[2].hasplant = true;
+        pots[2].plantState = "dirt";
+        pots[2].millisplanted = millis();
+        pots[2].flowerColor = seedtype;
+        pots[2].image = plantedpotImg;
+      }
+    }
+    if (pot === "four"){
+      if (pots[3].hasplant === false && seedtype !== ""){
+        pots[3].hasplant = true;
+        pots[3].plantState = "dirt";
+        pots[3].millisplanted = millis();
+        pots[3].flowerColor = seedtype;
+        pots[3].image = plantedpotImg;
+      }
+    }
+    if (pot === "five"){
+      if (pots[4].hasplant === false && seedtype !== ""){
+        pots[4].hasplant = true;
+        pots[4].plantState = "dirt";
+        pots[4].millisplanted = millis();
+        pots[4].flowerColor = seedtype;
+        pots[4].image = plantedpotImg;
+      }
+    }
+    if (pot === "six"){
+      if (pots[5].hasplant === false && seedtype !== ""){
+        pots[5].hasplant = true;
+        pots[5].plantState = "dirt";
+        pots[5].millisplanted = millis();
+        pots[5].flowerColor = seedtype;
+        pots[5].image = plantedpotImg;
+      }
     }
   }
-  if (pot === "two"){
-    if (pots[1].hasplant === false && seedtype !== ""){
-      pots[1].hasplant = true;
-      pots[1].plantState = "dirt";
-      pots[1].millisplanted = millis();
-      pots[1].flowerColor = seedtype;
-      pots[1].image = plantedpotImg;
+  else{
+    if (pot === "one"){
+      if (pots[0].hasplant === false && seedtype !== ""){
+        pots[0].millisplanted = pots[0].millisplanted - 300000;
+      }
     }
-  }
-  if (pot === "three"){
-    if (pots[2].hasplant === false && seedtype !== ""){
-      pots[2].hasplant = true;
-      pots[2].plantState = "dirt";
-      pots[2].millisplanted = millis();
-      pots[2].flowerColor = seedtype;
-      pots[2].image = plantedpotImg;
+    if (pot === "two"){
+      if (pots[1].hasplant === false && seedtype !== ""){
+        pots[1].millisplanted = pots[1].millisplanted - 300000;
+      }
     }
-  }
-  if (pot === "four"){
-    if (pots[3].hasplant === false && seedtype !== ""){
-      pots[3].hasplant = true;
-      pots[3].plantState = "dirt";
-      pots[3].millisplanted = millis();
-      pots[3].flowerColor = seedtype;
-      pots[3].image = plantedpotImg;
+    if (pot === "three"){
+      if (pots[2].hasplant === false && seedtype !== ""){
+        pots[2].millisplanted = pots[2].millisplanted - 300000;
+      }
     }
-  }
-  if (pot === "five"){
-    if (pots[4].hasplant === false && seedtype !== ""){
-      pots[4].hasplant = true;
-      pots[4].plantState = "dirt";
-      pots[4].millisplanted = millis();
-      pots[4].flowerColor = seedtype;
-      pots[4].image = plantedpotImg;
+    if (pot === "four"){
+      if (pots[3].hasplant === false && seedtype !== ""){
+        pots[3].millisplanted = pots[3].millisplanted - 300000;
+      }
     }
-  }
-  if (pot === "six"){
-    if (pots[5].hasplant === false && seedtype !== ""){
-      pots[5].hasplant = true;
-      pots[5].plantState = "dirt";
-      pots[5].millisplanted = millis();
-      pots[5].flowerColor = seedtype;
-      pots[5].image = plantedpotImg;
+    if (pot === "five"){
+      if (pots[4].hasplant === false && seedtype !== ""){
+        pots[4].millisplanted = pots[4].millisplanted - 300000;
+        
+      }
+    }
+    if (pot === "six"){
+      if (pots[5].hasplant === false && seedtype !== ""){
+        pots[5].millisplanted = pots[5].millisplanted - 300000;
+        
+      }
     }
   }
 
@@ -427,6 +470,7 @@ function mousePressed(){
       }
       else if (pots[0].hasplant === true && pots[0].plantState === "done"){
         pick_flower(pot, pots[0].flowerColor);
+        
       }
     
     }
@@ -435,6 +479,7 @@ function mousePressed(){
       pot = "two";
       if (pots[1].hasplant === false && currentSeed !== "" && seeds.get(currentSeed) > 0){
         plant_seed(pot, currentSeed);
+        seeds.set(currentSeed, seeds.get(currentSeed)-1);
       
       }
       else if (pots[1].hasplant === true && pots[1].plantState === "done"){
@@ -446,6 +491,7 @@ function mousePressed(){
       pot = "three";
       if (pots[2].hasplant === false && currentSeed !== "" && seeds.get(currentSeed) > 0){
         plant_seed(pot, currentSeed);
+        seeds.set(currentSeed, seeds.get(currentSeed)-1);
       
       }
       else if (pots[2].hasplant === true && pots[2].plantState === "done"){
@@ -458,6 +504,7 @@ function mousePressed(){
       pot = "four";
       if (pots[3].hasplant === false && currentSeed !== "" && seeds.get(currentSeed) > 0){
         plant_seed(pot, currentSeed);
+        seeds.set(currentSeed, seeds.get(currentSeed)-1);
       
       }
       else if (pots[3].hasplant === true && pots[3].plantState === "done"){
@@ -470,6 +517,7 @@ function mousePressed(){
     
       if (pots[4].hasplant === false && currentSeed !== "" && seeds.get(currentSeed) > 0){
         plant_seed(pot, currentSeed);
+        seeds.set(currentSeed, seeds.get(currentSeed)-1);
       }
       else if (pots[4].hasplant === true && pots[4].plantState === "done"){
         pick_flower(pot, pots[4].flowerColor);
@@ -482,6 +530,7 @@ function mousePressed(){
       pot = "six";
       if (pots[5].hasplant === false && currentSeed !== "" && seeds.get(currentSeed) > 0){
         plant_seed(pot, currentSeed);
+        seeds.set(currentSeed, seeds.get(currentSeed)-1);
       }
       else if (pots[5].hasplant === true && pots[5].plantState === "done"){
         pick_flower(pot, pots[5].flowerColor);
@@ -505,6 +554,9 @@ function mousePressed(){
     }
     else if (mouseX >  backgroundWidth*(1352/1500) + border && mouseX < backgroundWidth*(1468/1500) + border && mouseY > backgroundHeight*(572/1000) && mouseY < backgroundHeight*(709/1000)){
       currentSeed = "orange";
+    }
+    else if (mouseX > backgroundWidth*(1310/1500)+ border && mouseX < backgroundWidth*(1360/1500)+border && mouseY > backgroundHeight*(742/1000) && mouseY < backgroundHeight*(818/1000)){
+      currentSeed = "fertilizer";
     }
 
     if (mouseX > backgroundWidth*(1227/1500) + border && mouseX < backgroundWidth*(1443/1500) + border && mouseY > backgroundHeight*(839/1000) && mouseY < backgroundHeight*(962/1000)){
@@ -534,32 +586,46 @@ function mousePressed(){
       flowerbeingdragged = redFlower;
     }
 
+    else if (mouseX > backgroundWidth*(751/1500)+border && mouseX < backgroundWidth*(1049/1500)+border && mouseY > backgroundHeight*(737/1000) && mouseY < backgroundHeight*(904/1000)){
+      sell_arrangement();
+    }
+
   }
 
   if (room === 3){
-    if (mouseX > backgroundWidth*(288/1500)+border && mouseX < backgroundWidth*(462/1500) +border && mouseY > backgroundHeight*(279/1000) && mouseY < backgroundHeight*(503/1000)){
+    if (mouseX > backgroundWidth*(288/1500)+border && mouseX < backgroundWidth*(462/1500) +border && mouseY > backgroundHeight*(279/1000) && mouseY < backgroundHeight*(503/1000) && money > 0){
       seeds.set("red", seeds.get("red")+ 1);
+      money --;
       console.log(seeds.get("red"));
     }
-    else if (mouseX > backgroundWidth*(288/1500)+border && mouseX < backgroundWidth*(462/1500) +border && mouseY > backgroundHeight*(679/1000) && mouseY < backgroundHeight*(903/1000)){
+    else if (mouseX > backgroundWidth*(288/1500)+border && mouseX < backgroundWidth*(462/1500) +border && mouseY > backgroundHeight*(679/1000) && mouseY < backgroundHeight*(903/1000)  && money > 0){
       seeds.set("pink", seeds.get("pink")+ 1);
+      money --;
       console.log(seeds.get("pink"));
     }
-    else if (mouseX > backgroundWidth*(663/1500) + border && mouseX < backgroundWidth *(837/1500)+border && mouseY > backgroundHeight*(279/1000) && mouseY < backgroundHeight*(503/1000)){
+    else if (mouseX > backgroundWidth*(663/1500) + border && mouseX < backgroundWidth *(837/1500)+border && mouseY > backgroundHeight*(279/1000) && mouseY < backgroundHeight*(503/1000) && money > 0){
       seeds.set("white", seeds.get("white")+ 1);
+      money --;
       console.log(seeds.get("white"));
     }
-    else if (mouseX > backgroundWidth*(663/1500) + border && mouseX < backgroundWidth *(837/1500)+border && mouseY > backgroundHeight*(679/1000) && mouseY < backgroundHeight*(903/1000)){
+    else if (mouseX > backgroundWidth*(663/1500) + border && mouseX < backgroundWidth *(837/1500)+border && mouseY > backgroundHeight*(679/1000) && mouseY < backgroundHeight*(903/1000) && money > 0){
       seeds.set("blue", seeds.get("blue")+ 1);
+      money --;
       console.log(seeds.get("blue"));
     }
-    else if (mouseX > backgroundWidth*(1038/1500) + border && mouseX < backgroundWidth *(1212/1500)+border && mouseY > backgroundHeight*(279/1000) && mouseY < backgroundHeight*(503/1000)){
+    else if (mouseX > backgroundWidth*(1038/1500) + border && mouseX < backgroundWidth *(1212/1500)+border && mouseY > backgroundHeight*(279/1000) && mouseY < backgroundHeight*(503/1000) && money > 0){
       seeds.set("purple", seeds.get("purple")+ 1);
+      money --;
       console.log(seeds.get("purple"));
     }
-    else if (mouseX > backgroundWidth*(1038/1500) + border && mouseX < backgroundWidth*(1212/1500)+border && mouseY > backgroundHeight*(679/1000) && mouseY < backgroundHeight*(903/1000)){
+    else if (mouseX > backgroundWidth*(1038/1500) + border && mouseX < backgroundWidth*(1212/1500)+border && mouseY > backgroundHeight*(679/1000) && mouseY < backgroundHeight*(903/1000) && money > 0){
       seeds.set("orange", seeds.get("orange")+ 1);
+      money --;
       console.log(seeds.get("orange"));
+    }
+    else if (mouseX > backgroundWidth*(1375/1500) + border && mouseX < backgroundWidth*(1425/1500) +border && mouseY > backgroundHeight*(463/1000) && mouseY < backgroundHeight*(538/1000)){
+      fertiziler ++;
+      money --;
     }
     else if (mouseX > backgroundWidth*(1163/1500) + border && mouseX < backgroundWidth*(1437/1500) + border && mouseY > backgroundHeight*(43/1000) && mouseY < backgroundHeight*(178/1000)){
       room = 1;
@@ -725,10 +791,14 @@ function create_vase(){
   arrangement = [];
 }
 
-function display_vase(){
-  if (arrangement.length >= 5){
-    image(sellButton, backgroundWidth*(800/1500) + border, backgroundHeight*(500/1500), backgroundWidth*(298/1500), backgroundHeight*(167/1000));
+function sell_arrangement(){
+  for (let i = 0; i < arrangement.length; i++){
+    money += 1;
   }
+  create_vase();
+}
+
+function display_vase(){  
   if (arrangement.length > 4){
     if (arrangement[4] === redFlower){
       image(redinVase5, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
