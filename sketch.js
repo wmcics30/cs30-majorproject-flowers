@@ -23,12 +23,7 @@ let blueflowersHave = 0;
 let orangeflowerHave = 0;
 let purpleflowerHave = 0;
 
-let redseeds = 0;
-let pinkseeds = 0;
-let whiteseeds = 0;
-let blueseeds = 0;
-let purpleseeds =0;
-let orangeseeds = 0;
+
 
 let money = 3;
 let seeds;
@@ -51,6 +46,9 @@ let startScreenhoverd;
 let storebackground;
 let storeseedbutton;
 let storebackbutton;
+let storeAmountDisplayBig; 
+let storeAmountDisplaySmall;
+let basketIcon;
 
 let greenhousebutton;
 let hoveredgreenhousebutton;
@@ -85,6 +83,8 @@ let pinkSeedpack;
 let purpleSeedpack;
 let redSeedpack;
 let whiteSeedpack;
+
+let fertilizerBag;
 
 let blueinVase1;
 let blueinVase2;
@@ -142,6 +142,9 @@ function preload(){
   storebackground = loadImage("pictures/StoreBackground.png");
   storeseedbutton = loadImage("pictures/StoreSeedbutton.png");
   storebackbutton = loadImage("pictures/StoreBackButton.png");
+  storeAmountDisplayBig = loadImage("pictures/storeAmountdisplayBig.png");
+  storeAmountDisplaySmall = loadImage("pictures/storeAmountdisplaySmall.png");
+  basketIcon = loadImage("pictures/Basket.png");
 
   storeButton = loadImage("pictures/storeButtonunhovered.png");
   hoveredStorebutton = loadImage("pictures/storeButtonhovered.png");
@@ -171,6 +174,8 @@ function preload(){
   purpleSeedpack = loadImage("pictures/purpleSeeds.png");
   redSeedpack = loadImage("pictures/redSeeds.png");
   whiteSeedpack = loadImage("pictures/whiteSeeds.png");
+
+  fertilizerBag = loadImage("pictures/fertilizer.png");
   
   emptyVase = loadImage("pictures/vase.png");
   sellButton = loadImage("pictures/Sellbutton.png");
@@ -216,7 +221,7 @@ function setup() {
   imageMode(CENTER);
   createCanvas(windowWidth, windowHeight);
   rectMode(CENTER);
-  textAlign(CENTER);
+  textAlign(RIGHT, CENTER);
   createpots();
 
   if (width > height){
@@ -281,7 +286,17 @@ function display_store(){
 
   fill("black");
   rect(backgroundWidth*(1400/1500) + border, backgroundHeight/2, backgroundWidth*(50/1500), backgroundHeight*(75/1000));
+  image(fertilizerBag, backgroundWidth*(1400/1500)+ border, backgroundHeight/2, backgroundWidth*(124/1500), backgroundHeight*(145/1000));
 
+  for (let i = 1; i < 4; i++){
+    image(storeAmountDisplaySmall, backgroundWidth*(375*i/1500)+ border, backgroundHeight*(528/1000), backgroundWidth*(128/1500), backgroundHeight*(35/1000));
+    image(storeAmountDisplayBig, backgroundWidth*(375*i/1500)+ border, backgroundHeight*(571/1000), backgroundWidth*(162/1500), backgroundHeight*(43/1000) );
+    image(basketIcon, backgroundWidth*((375*i - 50)/1500)+ border, backgroundHeight*(528/1000), backgroundWidth*(32/1500), backgroundHeight*(33/1000));
+  }
+  for (let i = 1; i < 4; i++){
+    image(storeAmountDisplaySmall, backgroundWidth*(375*i/1500)+ border, backgroundHeight*(927/1000), backgroundWidth*(128/1500), backgroundHeight*(35/1000));
+    image(storeAmountDisplayBig, backgroundWidth*(375*i/1500)+ border, backgroundHeight*(970/1000), backgroundWidth*(162/1500), backgroundHeight*(43/1000) );
+  }
   display_seed_amounts();
 }
 
@@ -344,27 +359,27 @@ function draw_pots(){
 }
 
 function display_seed_amounts(){
-  textSize(backgroundWidth*(50/1500));
+  textSize(backgroundWidth*(30/1500));
   let amountofred = str(seeds.get("red"));
-  text(amountofred, backgroundWidth*(375/1500) + border, backgroundHeight*(528/1000), backgroundHeight*(116/1500, backgroundHeight*(75/1000)));
+  text(amountofred, backgroundWidth*(440/1500) + border, backgroundHeight*(575/1000));
   
   let amountofpink = str(seeds.get("pink"));
-  text(amountofpink, backgroundWidth*(375/1500) + border, backgroundHeight*(927/1000), backgroundHeight*(116/1500, backgroundHeight*(75/1000)));
+  text(amountofpink, backgroundWidth*(440/1500) + border, backgroundHeight*(974/1000));
   
   let amountofwhite = str(seeds.get("white"));
-  text(amountofwhite, backgroundWidth*(750/1500) + border, backgroundHeight*(528/1000), backgroundHeight*(116/1500, backgroundHeight*(75/1000)));
+  text(amountofwhite, backgroundWidth*(815/1500) + border, backgroundHeight*(575/1000));
   
   let amountofpurple = str(seeds.get("purple"));
-  text(amountofpurple, backgroundWidth*(1125/1500) + border, backgroundHeight*(528/1000), backgroundHeight*(116/1500, backgroundHeight*(75/1000)));
+  text(amountofpurple, backgroundWidth*(1190/1500) + border, backgroundHeight*(575/1000));
   
   let amountofblue = str(seeds.get("blue"));
-  text(amountofblue, backgroundWidth*(750/1500) + border, backgroundHeight*(927/1000), backgroundHeight*(116/1500, backgroundHeight*(75/1000)));
+  text(amountofblue, backgroundWidth*(815/1500) + border, backgroundHeight*(974/1000));
 
   let amountoforange = str(seeds.get("orange"));
-  text(amountoforange, backgroundWidth*(1150/1500) + border, backgroundHeight*(927/1000), backgroundHeight*(116/1500, backgroundHeight*(75/1000)));
+  text(amountoforange, backgroundWidth*(1190/1500) + border, backgroundHeight*(974/1000));
 
   let amountoffertiziler = str(fertiziler);
-  text(amountoffertiziler, backgroundWidth*(1400/1500) + border, backgroundHeight*(590/1000), backgroundHeight*(116/1500, backgroundHeight*(75/1000)));
+  text(amountoffertiziler, backgroundWidth*(1400/1500) + border, backgroundHeight*(590/1000));
 
 }
 
@@ -975,12 +990,6 @@ function get_data(){
     orangeflowerHave = getItem("orangeflowerHave");
     purpleflowerHave = getItem("purpleflowerHave");
 
-    redseeds = getItem("redseeds");
-    pinkseeds = getItem("pinkseeds");
-    whiteseeds = getItem("whiteseeds");
-    blueseeds = getItem("blueseeds");
-    orangeseeds = getItem("orangeseeds");
-    purpleseeds = getItem("purpleseeds");
 
     money = getItem("money");
     fertiziler = getItem("fertiziler");
@@ -999,13 +1008,6 @@ function save_data(){
   storeItem("blueflowersHave", blueflowersHave);
   storeItem("orangeflowerHave", orangeflowerHave);
   storeItem("purpleflowerHave", purpleflowerHave);
-
-  storeItem("redseeds", redseeds);
-  storeItem("pinkseeds", pinkseeds);
-  storeItem("whiteseeds", whiteseeds);
-  storeItem("blueseeds", blueseeds);
-  storeItem("purpleseeds", purpleseeds);
-  storeItem("orangeseeds", orangeseeds);
 
   storeItem("money", money);
   storeItem("fertiziler", fertiziler);
