@@ -25,7 +25,7 @@ let purpleflowerHave = 0;
 
 
 
-let money = 3;
+let money = 6;
 let seeds;
 
 let fertiziler = 0;
@@ -363,9 +363,15 @@ function draw_pots(){
   //   image(pots[i].image, backgroundWidth*(1/12) + backgroundWidth*(37/300)*i + border, backgroundHeight*(3/5), backgroundWidth*(8/75), backgroundHeight*(39/125));
     
   // } 
-  for (let i = pots.length-1; i >= 0; i--){
+  for (let i = 0; i < pots.length; i++){
     // image(pots[i].image, backgroundWidth*(125/1500) + backgroundWidth*(185/1500)*i + border, backgroundHeight*(3/5), backgroundWidth*(8/75), backgroundHeight*(39/125));
-    image(pots[i].image, backgroundWidth*(1050/1500) - backgroundWidth*(185/1500)*i + border, backgroundHeight*(3/5), backgroundWidth*(8/75), backgroundHeight*(39/125));
+    // 1050
+    if (pots[i].image === unboughtPot){
+      image(pots[i].image, backgroundWidth*(140/1500) + backgroundWidth*(185/1500)*i + border, backgroundHeight*(670/1000), backgroundWidth*(235/1500), backgroundHeight*(135/1000));
+    }
+    else{
+      image(pots[i].image, backgroundWidth*(125/1500) + backgroundWidth*(185/1500)*i + border, backgroundHeight*(3/5), backgroundWidth*(8/75), backgroundHeight*(39/125));
+    }
 
   }
 }
@@ -485,13 +491,14 @@ function mousePressed(){
     let pot = "";
     if (mouseX > backgroundWidth*(3/100)+border && mouseX < backgroundWidth*(13/100)+border && mouseY > backgroundHeight*(3/5) && mouseY < backgroundHeight*(147/200)){
       pot = "one";
+      console.log(pot);
       if (pots[0].hasplant === false && currentSeed !== "" && seeds.get(currentSeed) > 0 && pots[0].bought === true){
         plant_seed(pot, currentSeed);
         seeds.set(currentSeed, seeds.get(currentSeed)-1);
         
       
       }
-      else if (pots[0].bought === false && money > 5){
+      else if (pots[0].bought === false && money >= 5){
         pots[0].bought = true;
         money -= 5;
       }
@@ -507,12 +514,13 @@ function mousePressed(){
 
     else if (mouseX > backgroundWidth*(3/20)+border && mouseX < backgroundWidth*(1/4)+border && mouseY > backgroundHeight*(3/5) && mouseY < backgroundHeight*(147/200)){
       pot = "two";
+      console.log(pot);
       if (pots[1].hasplant === false && currentSeed !== "" && seeds.get(currentSeed) > 0 && pots[1].bought === true){
         plant_seed(pot, currentSeed);
         seeds.set(currentSeed, seeds.get(currentSeed)-1);
       
       }
-      else if (pots[1].bought === false && money > 5){
+      else if (pots[1].bought === false && money >= 5){
         pots[1].bought = true;
         money -= 5;
       }
@@ -526,12 +534,13 @@ function mousePressed(){
 
     else if (mouseX > backgroundWidth*(7/25)+border && mouseX < backgroundWidth*(28/75)+ border && mouseY > backgroundHeight*(3/5) && mouseY < backgroundHeight*(147/200)){
       pot = "three";
+      console.log(pot);
       if (pots[2].hasplant === false && currentSeed !== "" && seeds.get(currentSeed) > 0 && pots[2].bought === true){
         plant_seed(pot, currentSeed);
         seeds.set(currentSeed, seeds.get(currentSeed)-1);
       
       }
-      else if (pots[2].bought === false && money > 5){
+      else if (pots[2].bought === false && money >= 5){
         pots[2].bought = true;
         money -= 5;
       }
@@ -546,12 +555,13 @@ function mousePressed(){
 
     else if (mouseX >  backgroundWidth*(121/300)+ border && mouseX < backgroundWidth*(149/300)+border && mouseY > backgroundHeight*(3/5) && mouseY < backgroundHeight*(147/200)){
       pot = "four";
+      console.log(pot);
       if (pots[3].hasplant === false && currentSeed !== "" && seeds.get(currentSeed) > 0 && pots[3].bought === true){
         plant_seed(pot, currentSeed);
         seeds.set(currentSeed, seeds.get(currentSeed)-1);
       
       }
-      else if (pots[3].bought === false && money > 5){
+      else if (pots[3].bought === false && money >= 5){
         pots[3].bought = true;
         money -= 5;
       }
@@ -565,12 +575,12 @@ function mousePressed(){
 
     else if (mouseX > backgroundWidth*(79/150)+ border && mouseX < backgroundWidth*(187/300)+border && mouseY > backgroundHeight*(3/5) && mouseY < backgroundHeight*(147/200)){
       pot = "five";
-    
+      console.log(pot);
       if (pots[4].hasplant === false && currentSeed !== "" && seeds.get(currentSeed) > 0 && pots[4].bought === true){
         plant_seed(pot, currentSeed);
         seeds.set(currentSeed, seeds.get(currentSeed)-1);
       }
-      else if (pots[4].bought === false && money > 5){
+      else if (pots[4].bought === false && money >= 5){
         pots[4].bought = true;
         money -= 5;
       }
@@ -586,11 +596,12 @@ function mousePressed(){
     else if (mouseX > backgroundWidth*(13/20)+border && mouseX < backgroundWidth*(56/75)+border && mouseY > backgroundHeight*(3/5) && mouseY < backgroundHeight*(147/200)){
       
       pot = "six";
+      console.log(pot);
       if (pots[5].hasplant === false && currentSeed !== "" && seeds.get(currentSeed) > 0 && pots[5].bought === true){
         plant_seed(pot, currentSeed);
         seeds.set(currentSeed, seeds.get(currentSeed)-1);
       }
-      else if (pots[5].bought === false && money > 5){
+      else if (pots[5].bought === false && money >= 5){
         pots[5].bought = true;
         money -= 5;
       }
@@ -731,6 +742,9 @@ function update_pots(){
   for (let i = 0; i < 6; i++){
     if (pots[i].bought === false){
       pots[i].image = unboughtPot;
+    }
+    else if (pots[i].bought === true && pots[i].hasplant === false){
+      pots[i].image = emptypotImg;
     }
     else {
       if (pots[i].hasplant === true){
