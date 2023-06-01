@@ -21,7 +21,7 @@ let blueflowersHave = 0;
 let orangeflowerHave = 0;
 let purpleflowerHave = 0;
 
-let money = 5;
+let money = 4;
 let seeds;
 
 let fertiziler = 0;
@@ -57,9 +57,11 @@ let hoveredarrangingroombutton;
 let shopButton;
 let hoveredShopButton;
 
+
 let shopBackground;
 let shopTextbox;
 let Shopsellbutton;
+
 
 let storeButton;
 let hoveredStorebutton;
@@ -101,6 +103,7 @@ function preload(){
   shopBackground = loadImage("pictures/Shopbackground.png");
   shopTextbox = loadImage("pictures/shoptextblock.png");
   Shopsellbutton = loadImage("pictures/shopSellbutton.png");
+  
 
   storebackground = loadImage("pictures/StoreBackground.png");
   storeseedbutton = loadImage("pictures/StoreSeedbutton.png");
@@ -186,7 +189,7 @@ function setup() {
   imageMode(CENTER);
   createCanvas(windowWidth, windowHeight);
   rectMode(CENTER);
-  textAlign(RIGHT, CENTER);
+  textAlign(CENTER, CENTER);
   createpots();
   create_orders();
 
@@ -260,26 +263,32 @@ function display_store(){
   for (let i = 1; i < 4; i++){
     image(storeAmountDisplaySmall, backgroundWidth*(375*i/1500)+ border, backgroundHeight*(528/1000), backgroundWidth*(128/1500), backgroundHeight*(35/1000));
     image(storeAmountDisplayBig, backgroundWidth*(375*i/1500)+ border, backgroundHeight*(571/1000), backgroundWidth*(162/1500), backgroundHeight*(43/1000) );
-    text("1", backgroundWidth*(375*i/1500)+ border, backgroundHeight*(528/1000));
+    text("1", backgroundWidth*((375*i + 30)/1500)+ border, backgroundHeight*(530/1000));
     image(basketIcon, backgroundWidth*((375*i - 50)/1500)+ border, backgroundHeight*(571/1000), backgroundWidth*(32/1500), backgroundHeight*(33/1000));
-    image(coinIcon, backgroundWidth*((375*i - 100)/1500)+ border, backgroundHeight*(571/1000), backgroundWidth*(70/1500), backgroundHeight*(37/1000) );
+    image(coinIcon, backgroundWidth*((375*i - 20)/1500)+ border, backgroundHeight*(530/1000), backgroundWidth*(58/1500), backgroundHeight*(27/1000) );
   }
   for (let i = 1; i < 4; i++){
     image(storeAmountDisplaySmall, backgroundWidth*(375*i/1500)+ border, backgroundHeight*(927/1000), backgroundWidth*(128/1500), backgroundHeight*(35/1000));
     image(storeAmountDisplayBig, backgroundWidth*(375*i/1500)+ border, backgroundHeight*(970/1000), backgroundWidth*(162/1500), backgroundHeight*(43/1000) );
-    text("1", backgroundWidth*(375*i/1500)+ border, backgroundHeight*(927/1000));
-    image(basketIcon, backgroundWidth*((375*i - 50)/1500)+ border, backgroundHeight*(927/1000), backgroundWidth*(32/1500), backgroundHeight*(33/1000));
+    text("1", backgroundWidth*((375*i+30)/1500)+ border, backgroundHeight*(929/1000));
+    image(coinIcon, backgroundWidth*((375*i - 20)/1500)+ border, backgroundHeight*(929/1000), backgroundWidth*(58/1500), backgroundHeight*(27/1000) );
+
+    image(basketIcon, backgroundWidth*((375*i - 50)/1500)+ border, backgroundHeight*(970/1000), backgroundWidth*(32/1500), backgroundHeight*(33/1000));
   }
 
   image(storeAmountDisplaySmall, backgroundWidth*(1400/1500) + border, backgroundHeight*(590/1000), backgroundWidth*(128/1500), backgroundHeight*(35/1000));
   image(storeAmountDisplayBig, backgroundWidth*(1400/1500) + border, backgroundHeight*(633/1000), backgroundWidth*(162/1500), backgroundHeight*(43/1000));
   image(basketIcon, backgroundWidth*(1350/1500)+ border, backgroundHeight*(633/1000), backgroundWidth*(32/1500), backgroundHeight*(33/1000));
-  text("1", backgroundWidth*(1400/1500) + border, backgroundHeight*(590/1000));
+  text("2", backgroundWidth*(1430/1500) + border, backgroundHeight*(592/1000));
+  image(coinIcon, backgroundWidth*((1400 - 20)/1500)+ border, backgroundHeight*(592/1000), backgroundWidth*(58/1500), backgroundHeight*(27/1000) );
 
-  display_seed_amounts();
 
-  image(storeAmountDisplaySmall, backgroundWidth*(160/1500)+ border, backgroundHeight*(250/1000), backgroundWidth*(128/1500), backgroundHeight*(35/1000));
-  text(str(money),  backgroundWidth*(160/1500)+ border, backgroundHeight*(250/1000));
+  display_seed_amounts_store();
+
+  image(storeAmountDisplayBig, backgroundWidth*(160/1500)+ border, backgroundHeight*(250/1000), backgroundWidth*(162/1500), backgroundHeight*(43/1000));
+  text(str(money),  backgroundWidth*((160 + 10)/1500)+ border, backgroundHeight*(254/1000));
+  image(coinIcon, backgroundWidth*((160 - 40)/1500)+ border, backgroundHeight*(250/1000), backgroundWidth*(58/1500), backgroundHeight*(27/1000) );
+
 }
 
 function display_greenhouse(){
@@ -290,11 +299,11 @@ function display_greenhouse(){
   image(fertilizerBag, backgroundWidth*(1335/1500) + border, backgroundHeight *(750/1000), backgroundWidth*(106/1500) , backgroundHeight*(130/1000));
   image(storeAmountDisplaySmall, backgroundWidth*(1335/1500) + border, backgroundHeight*(836/1000), backgroundWidth*(128/1500), backgroundHeight*(35/1000));
   display_seed_amouts_greenhouse();
-  if (mouseX > backgroundWidth*(1227/1500) + border && mouseX < backgroundWidth*(1443/1500) + border && mouseY > backgroundHeight*(839/1000) && mouseY < backgroundHeight*(962/1000)){
-    image(hoveredStorebutton, backgroundWidth*(1335/1500) + border, backgroundHeight*(90/100), backgroundWidth*(216/1500), backgroundHeight*(1/8));
+  if (mouseX > backgroundWidth*(1227/1500) + border && mouseX < backgroundWidth*(1443/1500) + border && mouseY > backgroundHeight*(859/1000) && mouseY < backgroundHeight*(982/1000)){
+    image(hoveredStorebutton, backgroundWidth*(1335/1500) + border, backgroundHeight*(920/1000), backgroundWidth*(216/1500), backgroundHeight*(1/8));
   }
   else{
-    image(storeButton, backgroundWidth*(1335/1500) + border, backgroundHeight*(90/100), backgroundWidth*(216/1500), backgroundHeight*(1/8));
+    image(storeButton, backgroundWidth*(1335/1500) + border, backgroundHeight*(920/1000), backgroundWidth*(216/1500), backgroundHeight*(1/8));
   }
 }
 
@@ -302,7 +311,7 @@ function display_arraingingRoom(){
   image(arrangingroom, backgroundWidth/2 +border, backgroundHeight/2, backgroundWidth, backgroundHeight);
   diplaybuttons();
   display_vase(625, 443, 400, 600, 600, 197, 277);
-  image(sellButton, backgroundWidth*(900/1500) + border, backgroundHeight*(820/1000), backgroundWidth*(298/1500), backgroundHeight*(167/1000));
+  // image(sellButton, backgroundWidth*(900/1500) + border, backgroundHeight*(820/1000), backgroundWidth*(298/1500), backgroundHeight*(167/1000));
   
 
   display_flowersAmount();
@@ -319,27 +328,42 @@ function display_shop(){
   image(shopBackground, backgroundWidth/2 + border, backgroundHeight/2, backgroundWidth, backgroundHeight);
   image(shopTextbox, backgroundWidth*(400/1500) + border, backgroundHeight*(700/1000), backgroundWidth*(681/1500), backgroundHeight*(326/1000));
   image(Shopsellbutton, backgroundWidth*(1273/1500)+ border, backgroundHeight*(900/1000), backgroundWidth*(312/1500), backgroundHeight*(147/1000));
-  text(currentOrder.get("text"), backgroundWidth*(400/1500) + border, backgroundHeight*(700/1000));
+  
+  for (let i = 0; i < currentOrder.get("text").length; i++){
+    let row = currentOrder.get("text")[i];
+    text(row, backgroundWidth*(600/1500) + border, backgroundHeight*(600 + i * 30/1000));
+  }
+  
+  
   diplaybuttons();
+  
   display_vase(925, 600, 200, 300, 679, 99, 139);
 }
 
 function diplaybuttons(){
+  // this function displays the buttons to get to the diffrent rooms, and displays the hovered version if the mouse is hovering over it
+  // hovering over greenhouse
   if (mouseX > backgroundWidth*(1/125) + border && mouseX < backgroundWidth*(17/150)+border && mouseY > backgroundHeight*(171/200) && mouseY < backgroundHeight){
     image(hoveredgreenhousebutton, backgroundWidth*(100/1500)+ border, backgroundHeight*(189/200), backgroundWidth*(157/1500), backgroundHeight*(111/1000));
     image(arrangingroombutton, backgroundWidth*(275/1500) + border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(shopButton, backgroundWidth*(450/1500) +border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
   }
+
+  // hovering over arrainging room
   else if (mouseX > backgroundWidth*(2/15)+border && mouseX < backgroundWidth*(7/30) + border && mouseY > backgroundHeight*(9/10) && mouseY < backgroundHeight){
     image(hoveredarrangingroombutton, backgroundWidth*(11/60)+ border, backgroundHeight*(189/200), backgroundWidth*(157/1500), backgroundHeight*(111/1000) );
     image(greenhousebutton, backgroundWidth*(1/15) + border ,backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(shopButton, backgroundWidth*(450/1500) +border, backgroundHeight*(24/25), backgroundWidth*(159/1500), backgroundHeight*(81/1000));
   }
+
+  // hovering over the shop
   else if (mouseX > backgroundWidth*(371/1500)+ border && mouseX < backgroundWidth*(530/1500)+ border && mouseY >  backgroundHeight*(171/200) && mouseY < backgroundHeight){
     image(arrangingroombutton, backgroundWidth*(275/1500) + border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(greenhousebutton, backgroundWidth*(1/15) + border ,backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(hoveredShopButton, backgroundWidth*(450/1500) + border,backgroundHeight*(189/200), backgroundWidth*(157/1500), backgroundHeight*(111/1000));
   }
+
+  //not hovering over any
   else{
     image(greenhousebutton, backgroundWidth*(1/15)+ border ,backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(arrangingroombutton, backgroundWidth*(11/60)+border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
@@ -348,14 +372,8 @@ function diplaybuttons(){
 }
 
 function display_seeds(){
-  // image(redSeedpack, backgroundWidth*(1260/1500)+border, backgroundHeight*(240/1000), backgroundWidth*(116/1500), backgroundHeight*(137/1000));
-  // image(pinkSeedpack, backgroundWidth*(1410/1500)+border, backgroundHeight*(240/1000), backgroundWidth*(116/1500), backgroundHeight*(137/1000));
-  // image(whiteSeedpack, backgroundWidth*(1260/1500)+border, backgroundHeight*(440/1000), backgroundWidth*(116/1500), backgroundHeight*(137/1000));
-  // image(blueSeedpack, backgroundWidth*(1410/1500)+border, backgroundHeight*(440/1000), backgroundWidth*(116/1500), backgroundHeight*(137/1000));
-  // image(purpleSeedpack, backgroundWidth*(1260/1500)+ border, backgroundHeight*(640/1000), backgroundWidth*(116/1500), backgroundHeight*(137/1000));
-  // image(orangeSeedpack, backgroundWidth*(1410/1500)+ border, backgroundHeight*(640/1000), backgroundWidth*(116/1500), backgroundHeight*(137/1000));
-
-
+  // this function displays the seeds and the square for the amounts to be displayed on
+  
   image(redSeedpack, backgroundWidth*(1260/1500)+border, backgroundHeight*(215/1000), backgroundWidth*(116/1500), backgroundHeight*(137/1000));
   image(storeAmountDisplaySmall, backgroundWidth*(1260/1500) + border, backgroundHeight*(301/1000), backgroundWidth*(128/1500), backgroundHeight*(35/1000));
   
@@ -419,40 +437,40 @@ function draw_pots(){
   }
 }
 
-function display_seed_amounts(){
+function display_seed_amounts_store(){
   textSize(backgroundWidth*(30/1500));
   let amountofred = str(seeds.get("red"));
-  text(amountofred, backgroundWidth*(440/1500) + border, backgroundHeight*(575/1000));
+  text(amountofred, backgroundWidth*(405/1500) + border, backgroundHeight*(575/1000));
   
   let amountofpink = str(seeds.get("pink"));
-  text(amountofpink, backgroundWidth*(440/1500) + border, backgroundHeight*(974/1000));
+  text(amountofpink, backgroundWidth*(405/1500) + border, backgroundHeight*(974/1000));
   
   let amountofwhite = str(seeds.get("white"));
-  text(amountofwhite, backgroundWidth*(815/1500) + border, backgroundHeight*(575/1000));
+  text(amountofwhite, backgroundWidth*(780/1500) + border, backgroundHeight*(575/1000));
   
   let amountofpurple = str(seeds.get("purple"));
-  text(amountofpurple, backgroundWidth*(1190/1500) + border, backgroundHeight*(575/1000));
+  text(amountofpurple, backgroundWidth*(1155/1500) + border, backgroundHeight*(575/1000));
   
   let amountofblue = str(seeds.get("blue"));
-  text(amountofblue, backgroundWidth*(815/1500) + border, backgroundHeight*(974/1000));
+  text(amountofblue, backgroundWidth*(780/1500) + border, backgroundHeight*(974/1000));
 
   let amountoforange = str(seeds.get("orange"));
-  text(amountoforange, backgroundWidth*(1190/1500) + border, backgroundHeight*(974/1000));
+  text(amountoforange, backgroundWidth*(1155/1500) + border, backgroundHeight*(974/1000));
 
   let amountoffertiziler = str(fertiziler);
-  text(amountoffertiziler, backgroundWidth*(1465/1500) + border, backgroundHeight*(637/1000));
+  text(amountoffertiziler, backgroundWidth*(1430/1500) + border, backgroundHeight*(637/1000));
 
 }
 
 function display_flowersAmount(){
   // This function displays how many flowers you have under the flowers in the arrainging room
   textSize(backgroundWidth*(30/1500));
-  text(str(redflowersHave), backgroundWidth*(1426/1500)+ border, backgroundHeight*(910/1000));
-  text(str(whiteflowersHave), backgroundWidth*(1283/1500)+ border, backgroundHeight*(910/1000));
-  text(str(orangeflowerHave), backgroundWidth*(1290/1500) + border, backgroundHeight*(639/1000));
-  text(str(blueflowersHave), backgroundWidth*(1435/1500) + border, backgroundHeight*(639/1000));
-  text(str(purpleflowerHave), backgroundWidth*(1264/1500)+ border, backgroundHeight*(395/1000));
-  text(str(pinkflowersHave), backgroundWidth*(1432/1500)+ border, backgroundHeight*(395/1000));
+  text(str(redflowersHave), backgroundWidth*(1418/1500)+ border, backgroundHeight*(910/1000));
+  text(str(whiteflowersHave), backgroundWidth*(1276/1500)+ border, backgroundHeight*(910/1000));
+  text(str(orangeflowerHave), backgroundWidth*(1282/1500) + border, backgroundHeight*(639/1000));
+  text(str(blueflowersHave), backgroundWidth*(1427/1500) + border, backgroundHeight*(639/1000));
+  text(str(purpleflowerHave), backgroundWidth*(1256/1500)+ border, backgroundHeight*(395/1000));
+  text(str(pinkflowersHave), backgroundWidth*(1424/1500)+ border, backgroundHeight*(395/1000));
 }
 
 function set_seeds(){
@@ -535,7 +553,7 @@ function mousePressed(){
     }
   }
 
-  if (room === 1){
+  else if (room === 1){
     let pot = "";
     if (mouseX > backgroundWidth*(3/100)+border && mouseX < backgroundWidth*(13/100)+border && mouseY > backgroundHeight*(3/5) && mouseY < backgroundHeight*(147/200)){
       pot = "one";
@@ -680,14 +698,15 @@ function mousePressed(){
     else if (mouseX > backgroundWidth*(1282/1500)+ border && mouseX < backgroundWidth*(1388/1500)+border && mouseY > backgroundHeight*(668/1000) && mouseY < backgroundHeight*(798/1000)){
       currentSeed = "fertilizer";
     }
+    
 
-    if (mouseX > backgroundWidth*(1227/1500) + border && mouseX < backgroundWidth*(1443/1500) + border && mouseY > backgroundHeight*(768/1000) && mouseY < backgroundHeight*(905/1000)){
+    if (mouseX > backgroundWidth*(1227/1500) + border && mouseX < backgroundWidth*(1443/1500) + border && mouseY > backgroundHeight*(859/1000) && mouseY < backgroundHeight*(982/1000)){
       room = 3;
     }
   }
 
 
-  if (room === 2){
+  else if (room === 2){
     
     if (mouseX > backgroundWidth*(1207/1500) + border && mouseX < backgroundWidth*(1305/1500) + border && mouseY > backgroundHeight*(210/1000) && mouseY < backgroundHeight*(378/1000) && purpleflowerHave > 0){
       flowerbeingdragged = purpleFlower;
@@ -708,13 +727,13 @@ function mousePressed(){
       flowerbeingdragged = redFlower;
     }
 
-    else if (mouseX > backgroundWidth*(751/1500)+border && mouseX < backgroundWidth*(1049/1500)+border && mouseY > backgroundHeight*(737/1000) && mouseY < backgroundHeight*(904/1000)){
-      sell_arrangement();
-    }
+    // else if (mouseX > backgroundWidth*(751/1500)+border && mouseX < backgroundWidth*(1049/1500)+border && mouseY > backgroundHeight*(737/1000) && mouseY < backgroundHeight*(904/1000)){
+    //   sell_arrangement();
+    // }
 
   }
 
-  if (room === 3){
+  else if (room === 3){
     if (mouseX > backgroundWidth*(288/1500)+border && mouseX < backgroundWidth*(462/1500) +border && mouseY > backgroundHeight*(279/1000) && mouseY < backgroundHeight*(503/1000) && money > 0){
       seeds.set("red", seeds.get("red")+ 1);
       money --;
@@ -740,17 +759,23 @@ function mousePressed(){
       money --;
       
     }
-    else if (mouseX > backgroundWidth*(1038/1500) + border && mouseX < backgroundWidth*(1212/1500)+border && mouseY > backgroundHeight*(679/1000) && mouseY < backgroundHeight*(903/1000) && money > 0){
+    else if (mouseX > backgroundWidth*(1038/1500) + border && mouseX < backgroundWidth*(1212/1500)+border && mouseY > backgroundHeight*(679/1000) && mouseY < backgroundHeight*(903/1000) && money > 1){
       seeds.set("orange", seeds.get("orange")+ 1);
       money --;
     
     }
     else if (mouseX > backgroundWidth*(1375/1500) + border && mouseX < backgroundWidth*(1425/1500) +border && mouseY > backgroundHeight*(463/1000) && mouseY < backgroundHeight*(538/1000)  && money > 0){
       fertiziler ++;
-      money --;
+      money -= 2;
     }
     else if (mouseX > backgroundWidth*(1163/1500) + border && mouseX < backgroundWidth*(1437/1500) + border && mouseY > backgroundHeight*(43/1000) && mouseY < backgroundHeight*(178/1000)){
       room = 1;
+    }
+  }
+
+  else if (room === 4){
+    if (mouseX > backgroundWidth*(1117/1500)+ border&& mouseX < backgroundWidth*(1429/1500)+ border && mouseY > backgroundHeight*(827/1000) && mouseY < backgroundHeight*(974/1000)){
+      sell_arrangement();
     }
   }
 
@@ -786,15 +811,23 @@ function createpots(){
 }
 
 function update_pots(){
+  // this function checks each pot to see what image should be displaying, and if the flower is done growing
   for (let i = 0; i < 6; i++){
+    // checks if the pot has been bought
     if (pots[i].bought === false){
       pots[i].image = unboughtPot;
     }
+
+    // checks if the pot is empty
     else if (pots[i].bought === true && pots[i].hasplant === false){
       pots[i].image = emptypotImg;
     }
+
+    // checks if it has a flower
     else {
       if (pots[i].hasplant === true){
+
+        // checks what state the flower should be depending on the time since it was planted, and selects the image thats the right color
         if (pots[i].plantState === "done"){
           if (pots[i].flowerColor === "white"){
             pots[i].image = whiteflowerinpotImg;
@@ -815,6 +848,7 @@ function update_pots(){
             pots[i].image = redflowerinpotimg;
           }
         }
+
 
         else if (millis() - pots[i].millisplanted > 30000){
           pots[i].plantState = "done";
@@ -837,11 +871,15 @@ function update_pots(){
             pots[i].image = redflowerinpotimg;
           }
         }
+
+
         else if (millis() - pots[i].millisplanted > 20000){
           pots[i].plantState = "bud";
           pots[i].image = budImg;
           
         }
+
+
         else if (millis() - pots[i].millisplanted > 10000){
           pots[i].plantState = "sprout";
           pots[i].image = sproutImg;
@@ -1230,7 +1268,7 @@ function drag_flower(){
 
 function create_orders(){
   let order = {
-    text: "I want to buy flowers for my wife. She loves pink, but doesnt like blue",
+    text: ["I want to buy flowers for my wife. She ", "loves pink, but doesnt like blue"],
     likedColors: pinkFlower,
     dislikedColors: blueFlower,
   };
@@ -1246,6 +1284,7 @@ function create_orders(){
 function pick_order(){
   let choice = Math.floor(random(0, orders.length - 1));
   currentOrder = new Map();
+  
   currentOrder.set("text", orders[choice].text);
   if (orders[choice].likedColors !== ""){
     currentOrder.set("likedColors", orders[choice].likedColors);
