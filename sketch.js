@@ -857,18 +857,23 @@ function add_flower(color){
   if (color === "white"){
     whiteflowersHave ++;
   }
+
   else if (color === "red"){
     redflowersHave ++;
   }
+
   else if (color === "pink"){
     pinkflowersHave ++;
   }
+
   else if (color === "blue"){
     blueflowersHave ++;
   }
+
   else if (color === "orange"){
     orangeflowerHave ++;
   }
+
   else if (color === "purple"){
     purpleflowerHave ++;
   }
@@ -879,18 +884,23 @@ function use_flower(color){
   if (color === whiteFlower){
     whiteflowersHave -= 1;
   }
+
   else if (color === redFlower){
     redflowersHave -= 1;
   }
+
   else if (color === pinkFlower){
     pinkflowersHave -= 1;
   }
+
   else if (color === blueFlower){
     blueflowersHave -= 1;
   }
+
   else if (color === orangeflower){
     orangeflowerHave -= 1;
   }
+
   else if (color === purpleFlower){
     purpleflowerHave -= 1;
   }
@@ -908,6 +918,7 @@ function pick_flower(pot, color){
     pots[0].millisplanted = 0;
     pots[0].image = emptypotImg;
   }
+
   else if (pot === "two"){
     pots[1].hasplant = false;
     pots[1].plantState = "none";
@@ -915,6 +926,7 @@ function pick_flower(pot, color){
     pots[1].millisplanted = 0;
     pots[1].image = emptypotImg;
   }
+
   else if (pot === "three"){
     pots[2].hasplant = false;
     pots[2].plantState = "none";
@@ -922,6 +934,7 @@ function pick_flower(pot, color){
     pots[2].millisplanted = 0;
     pots[2].image = emptypotImg;
   }
+
   else if (pot === "four"){
     pots[3].hasplant = false;
     pots[3].plantState = "none";
@@ -929,6 +942,7 @@ function pick_flower(pot, color){
     pots[3].millisplanted = 0;
     pots[3].image = emptypotImg;
   }
+
   else if (pot === "five"){
     pots[4].hasplant = false;
     pots[4].plantState = "none";
@@ -936,6 +950,7 @@ function pick_flower(pot, color){
     pots[4].millisplanted = 0;
     pots[4].image = emptypotImg;
   }
+  
   else if (pot === "six"){
     pots[5].hasplant = false;
     pots[5].plantState = "none";
