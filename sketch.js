@@ -21,7 +21,7 @@ let blueflowersHave = 0;
 let orangeflowerHave = 0;
 let purpleflowerHave = 0;
 
-let money = 4;
+let money = 6;
 let seeds;
 
 let fertiziler = 0;
@@ -331,7 +331,7 @@ function display_shop(){
   
   for (let i = 0; i < currentOrder.get("text").length; i++){
     let row = currentOrder.get("text")[i];
-    text(row, backgroundWidth*(600/1500) + border, backgroundHeight*(600 + i * 30/1000));
+    text(row, backgroundWidth*(400/1500) + border, backgroundHeight*((650 + i * 30)/1000));
   }
   
   
@@ -1002,23 +1002,37 @@ function create_vase(){
   arrangement = [];
 }
 
+function is_liked_or_disliked(color, flowerArray){
+  for (let i = 0; i < flowerArray.length; i++){
+    if (color === flowerArray[i]){
+      return true;
+    }
+  }
+  return false;
+}
+
 function sell_arrangement(){
   let value = 0;
+  let liked = 0;
+  let disliked = 0;
+  let neither = 0;
   for (let i = 0; i < arrangement.length; i++){
-    if (currentOrder.has("likedColors") && currentOrder.get("likedColors") === arrangement[i]){
-      value += 2;
-    }
-    else if (currentOrder.has("dislikedColors") && currentOrder.get("dislikedColors") === arrangement[i]){
-      if (value > 0){
-        value --;
-      }
+    if (currentOrder.has("likedColors") && is_liked_or_disliked(arrangement[i], currentOrder.get("likedColors") === true)){
+      liked += 2;
+    } 
+    else if (currentOrder.has("dislikedColors") && is_liked_or_disliked(arrangement[i], currentOrder.get("dislikedColors") === true)){
+      disliked ++;
+       
     }
     else{
-      value ++;
+      neither ++;
     }
-    
   }
-  money += value;
+  value = neither + liked - disliked;
+  if (value > 0){
+    money += value;
+  }
+  
   create_vase();
   currentOrder = "";
 }
@@ -1267,23 +1281,26 @@ function drag_flower(){
 }
 
 function create_orders(){
-  let order = {
-    text: ["I want to buy flowers for my wife. She ", "loves pink, but doesnt like blue"],
-    likedColors: pinkFlower,
-    dislikedColors: blueFlower,
-  };
-  orders.push(order);
-  order = {
-    text: "I need flowers for my mom. She doesnt like red",
-    likedColors: "",
-    dislikedColors: redFlower,
-  };
-  orders.push(order); 
+  orders = [{text: ["I want to buy flowers for my wife. She ", "loves pink, but doesnt like blue."], likedColors: pinkFlower, dislikedColors: blueFlower,}, {text: ["I need flowers for my mom. She doesnt like red."], likedColors: "", dislikedColors: redFlower,}, {text: ["i need blue flowers. Only blue"], likedColors: blueFlower, dislikedColors: [whiteFlower, redFlower, purpleFlower, pinkFlower, orangeflower]}];
+  // let order = {
+  //   text: ["I want to buy flowers for my wife. She ", "loves pink, but doesnt like blue."],
+  //   likedColors: pinkFlower,
+  //   dislikedColors: blueFlower,
+  // };
+  // orders.push(order);
+  // order = {
+  //   text: ["I need flowers for my mom. She doesnt like red."],
+  //   likedColors: "",
+  //   dislikedColors: redFlower,
+  // };
+  // orders.push(order); 
 }
 
 function pick_order(){
-  let choice = Math.floor(random(0, orders.length - 1));
+  let choice = Math.floor(random(orders.length));
   currentOrder = new Map();
+
+  
   
   currentOrder.set("text", orders[choice].text);
   if (orders[choice].likedColors !== ""){
