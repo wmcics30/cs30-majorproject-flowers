@@ -41,7 +41,9 @@ let greenhouse;
 let arrangingroom;
 let startScreenNormal;
 let startScreenhoverd;
+let openJournal;
 
+let journal;
 let storebackground;
 let storeseedbutton;
 let storebackbutton;
@@ -66,15 +68,9 @@ let Shopsellbutton;
 let storeButton;
 let hoveredStorebutton;
 
-let emptypotImg, plantedpotImg, budImg, sproutImg, unboughtPot;
+let emptypotImg, plantedpotImg, budImg, sproutImg, unboughtPot, blueflowerinpotImg, orangeflowerinpotImg, pinkflowerinpotImg, purpleflowerinpotImg, redflowerinpotimg, whiteflowerinpotImg, blueFlower, orangeflower, pinkFlower, purpleFlower, redFlower, whiteFlower;
 
-let blueflowerinpotImg, orangeflowerinpotImg, pinkflowerinpotImg, purpleflowerinpotImg, redflowerinpotimg, whiteflowerinpotImg;
-
-let blueFlower, orangeflower, pinkFlower, purpleFlower, redFlower, whiteFlower;
-
-let blueSeedpack, orangeSeedpack, pinkSeedpack, purpleSeedpack, redSeedpack, whiteSeedpack;
-
-let fertilizerBag;
+let blueSeedpack, orangeSeedpack, pinkSeedpack, purpleSeedpack, redSeedpack, whiteSeedpack, fertilizerBag;
 
 let blueinVase1, blueinVase2, blueinVase3, blueinVase4, blueinVase5;
 let orangeinVase1, orangeinVase2, orangeinVase3, orangeinVase4, orangeinVase5;
@@ -92,7 +88,9 @@ function preload(){
   arrangingroom = loadImage("pictures/arranging room.png");
   startScreenNormal = loadImage("pictures/startscreennothovered.png");
   startScreenhoverd = loadImage("pictures/startscreenhovered.png");
+  openJournal = loadImage("pictures/openJournal.png");
 
+  journal = loadImage("pictures/journal.png");
   greenhousebutton = loadImage("pictures/greenhousebutton.png");
   hoveredgreenhousebutton = loadImage("pictures/hoveredgreenhousebutton.png");
   arrangingroombutton = loadImage("pictures/arrangingroombutton.png");
@@ -233,6 +231,9 @@ function draw() {
     }
     display_shop();
   }
+  else if (room === 5){
+    display_journal();
+  }
 }
 
 function display_startScreen(){
@@ -305,6 +306,11 @@ function display_greenhouse(){
   else{
     image(storeButton, backgroundWidth*(1335/1500) + border, backgroundHeight*(920/1000), backgroundWidth*(216/1500), backgroundHeight*(1/8));
   }
+
+  if (room !== 5){
+    image(journal, backgroundWidth*(90/1500)+ border, backgroundHeight*(90/1000), backgroundWidth*(117/1500), backgroundHeight*(144/1000));
+  }
+
 }
 
 function display_arraingingRoom(){
@@ -338,6 +344,12 @@ function display_shop(){
   diplaybuttons();
   
   display_vase(925, 600, 200, 300, 679, 99, 139);
+}
+
+function display_journal(){
+  display_greenhouse();
+
+  image(openJournal, backgroundWidth/2 + border, backgroundHeight/2, backgroundWidth, backgroundHeight);
 }
 
 function diplaybuttons(){
@@ -703,6 +715,10 @@ function mousePressed(){
     if (mouseX > backgroundWidth*(1227/1500) + border && mouseX < backgroundWidth*(1443/1500) + border && mouseY > backgroundHeight*(859/1000) && mouseY < backgroundHeight*(982/1000)){
       room = 3;
     }
+    if (mouseX > backgroundWidth*(32/1500) + border && mouseX < backgroundWidth*(149/1500) + border && mouseY > backgroundHeight*(18/1000) && mouseY < backgroundHeight*(162/1000)){
+      room = 5;
+    }
+    
   }
 
 
@@ -1281,7 +1297,7 @@ function drag_flower(){
 }
 
 function create_orders(){
-  orders = [{text: ["I want to buy flowers for my wife. She ", "loves pink, but doesnt like blue."], likedColors: pinkFlower, dislikedColors: blueFlower,}, {text: ["I need flowers for my mom. She doesnt like red."], likedColors: "", dislikedColors: redFlower,}, {text: ["i need blue flowers. Only blue"], likedColors: blueFlower, dislikedColors: [whiteFlower, redFlower, purpleFlower, pinkFlower, orangeflower]}];
+  orders = [{text: ["I want to buy flowers for my wife. She ", "loves pink, but doesnt like blue."], likedColors: [pinkFlower], dislikedColors: [blueFlower],}, {text: ["I need flowers for my mom. She doesnt like red."], likedColors: [], dislikedColors: [redFlower],}, {text: ["i need blue flowers. Only blue"], likedColors: [blueFlower], dislikedColors: [whiteFlower, redFlower, purpleFlower, pinkFlower, orangeflower]}];
   // let order = {
   //   text: ["I want to buy flowers for my wife. She ", "loves pink, but doesnt like blue."],
   //   likedColors: pinkFlower,
@@ -1300,13 +1316,11 @@ function pick_order(){
   let choice = Math.floor(random(orders.length));
   currentOrder = new Map();
 
-  
-  
   currentOrder.set("text", orders[choice].text);
-  if (orders[choice].likedColors !== ""){
+  if (orders[choice].likedColors.length > 0 ){
     currentOrder.set("likedColors", orders[choice].likedColors);
   }
-  if (orders[choice].dislikedColors !== ""){
+  if (orders[choice].dislikedColors.length > 0){
     currentOrder.set("dislikedColors", orders[choice].dislikedColors);
   }
 }
