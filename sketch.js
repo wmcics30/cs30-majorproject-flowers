@@ -1033,12 +1033,11 @@ function sell_arrangement(){
   let disliked = 0;
   let neither = 0;
   for (let i = 0; i < arrangement.length; i++){
-    if (currentOrder.has("likedColors") && is_liked_or_disliked(arrangement[i], currentOrder.get("likedColors") === true)){
+    if (currentOrder.has("likedColors") && is_liked_or_disliked(arrangement[i], currentOrder.get("likedColors")) === true){
       liked += 2;
     } 
-    else if (currentOrder.has("dislikedColors") && is_liked_or_disliked(arrangement[i], currentOrder.get("dislikedColors") === true)){
+    else if (currentOrder.has("dislikedColors") && is_liked_or_disliked(arrangement[i], currentOrder.get("dislikedColors")) === true){
       disliked ++;
-       
     }
     else{
       neither ++;
@@ -1055,102 +1054,102 @@ function sell_arrangement(){
 
 function display_vase(x, y, w, h, y2, w2, h2){  
   if (arrangement.length > 4){
-    if (arrangement[4] === redFlower){
+    if (arrangement[4] === "red"){
       image(redinVase5, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
-    else if (arrangement[4] === whiteFlower){
+    else if (arrangement[4] === "white"){
       image(whiteinVase5, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
-    else if (arrangement[4] === pinkFlower){
+    else if (arrangement[4] === "pink"){
       image(pinkinVase5, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
-    else if ( arrangement[4] === blueFlower){
+    else if ( arrangement[4] === "blue"){
       image(blueinVase5, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
-    else if (arrangement[4] === orangeflower){
+    else if (arrangement[4] === "orange"){
       image(orangeinVase5, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
-    else if (arrangement[4] === purpleFlower){
+    else if (arrangement[4] === "purple"){
       image(purpleinVase5, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
   }
   if (arrangement.length > 3){
-    if (arrangement[3] === redFlower){
+    if (arrangement[3] === "red"){
       image(redinVase4, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
-    else if (arrangement[3] === whiteFlower){
+    else if (arrangement[3] === "white"){
       image(whiteinVase4, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
-    else if (arrangement[3] === pinkFlower){
+    else if (arrangement[3] === "pink"){
       image(pinkinVase4, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
-    else if ( arrangement[3] === blueFlower){
+    else if ( arrangement[3] === "blue"){
       image(blueinVase4, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
-    else if (arrangement[3] === orangeflower){
+    else if (arrangement[3] === "orange"){
       image(orangeinVase4, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
-    else if (arrangement[3] === purpleFlower){
+    else if (arrangement[3] === "purple"){
       image(purpleinVase4, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
   }
   if (arrangement.length > 2){
-    if (arrangement[2] === redFlower){
+    if (arrangement[2] === "red"){
       image(redinVase3, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
-    else if (arrangement[2] === whiteFlower){
+    else if (arrangement[2] === "white"){
       image(whiteinVase3, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
-    else if (arrangement[2] === pinkFlower){
+    else if (arrangement[2] === "pink"){
       image(pinkinVase3, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
-    else if ( arrangement[2] === blueFlower){
+    else if ( arrangement[2] === "blue"){
       image(blueinVase3, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
-    else if (arrangement[2] === orangeflower){
+    else if (arrangement[2] === "orange"){
       image(orangeinVase3, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
-    else if (arrangement[2] === purpleFlower){
+    else if (arrangement[2] === "purple"){
       image(purpleinVase3, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
   }
   if (arrangement.length > 1){
-    if (arrangement[1] === redFlower){
+    if (arrangement[1] === "red"){
       image(redinVase2, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
-    else if (arrangement[1] === whiteFlower){
+    else if (arrangement[1] === "white"){
       image(whiteinVase2, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
-    else if (arrangement[1] === pinkFlower){
+    else if (arrangement[1] === "pink"){
       image(pinkinVase2, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
-    else if ( arrangement[1] === blueFlower){
+    else if ( arrangement[1] === "blue"){
       image(blueinVase2, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
-    else if (arrangement[1] === orangeflower){
+    else if (arrangement[1] === "orange"){
       image(orangeinVase2, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
-    else if (arrangement[1] === purpleFlower){
+    else if (arrangement[1] === "purple"){
       image(purpleinVase2, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
   }
   if (arrangement.length > 0){
-    if (arrangement[0] === redFlower){
+    if (arrangement[0] === "red"){
       image(redinVase1, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
-    else if (arrangement[0] === whiteFlower){
+    else if (arrangement[0] === "white"){
       image(whiteinVase1, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
-    else if (arrangement[0] === pinkFlower){
+    else if (arrangement[0] === "pink"){
       image(pinkinVase1, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
-    else if ( arrangement[0] === blueFlower){
+    else if ( arrangement[0] === "blue"){
       image(blueinVase1, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
-    else if (arrangement[0] === orangeflower){
+    else if (arrangement[0] === "orange"){
       image(orangeinVase1, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
-    else if (arrangement[0] === purpleFlower){
+    else if (arrangement[0] === "purple"){
       image(purpleinVase1, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
   }
@@ -1158,8 +1157,6 @@ function display_vase(x, y, w, h, y2, w2, h2){
     image(emptyVase, backgroundWidth*(x/1500) + border, backgroundHeight*(y2/1000), backgroundWidth*(w2/1500), backgroundHeight*(h2/1000));
 
   }
-
-  
 }
 
 
@@ -1284,7 +1281,8 @@ function drag_flower(){
     }
     else {
       if (mouseX > backgroundWidth*(536/1500) + border && mouseX < backgroundWidth*(724/1500) + border && mouseY > backgroundHeight*(465/1000) && mouseY < backgroundHeight*(736/1000)){
-        arrangement.push(flowerbeingdragged);
+        add_to_arrangement(flowerbeingdragged);
+        
         use_flower(flowerbeingdragged);
         flowerbeingdragged = "none";
       }
@@ -1295,9 +1293,29 @@ function drag_flower(){
   }
   
 }
+function add_to_arrangement(color){
+  if (color === redFlower){
+    arrangement.push("red");
+  }
+  else if (color === blueFlower){
+    arrangement.push("blue");
+  }
+  else if (color === purpleFlower){
+    arrangement.push("purple");
+  }
+  else if (color === pinkFlower){
+    arrangement.push("pink");
+  }
+  else if (color === whiteFlower){
+    arrangement.push("white");
+  }
+  else if (color === orangeflower){
+    arrangement.push("orange");
+  }
+}
 
 function create_orders(){
-  orders = [{text: ["I want to buy flowers for my wife. She ", "loves pink, but doesnt like blue."], likedColors: [pinkFlower], dislikedColors: [blueFlower],}, {text: ["I need flowers for my mom. She doesnt like red."], likedColors: [], dislikedColors: [redFlower],}, {text: ["i need blue flowers. Only blue"], likedColors: [blueFlower], dislikedColors: [whiteFlower, redFlower, purpleFlower, pinkFlower, orangeflower]}];
+  orders = [{text: ["I want to buy flowers for my wife. She ", "loves pink, but doesnt like blue."], likedColors: ["pink"], dislikedColors: ["blue"],}, {text: ["I need flowers for my mom. She doesnt like red."], likedColors: [], dislikedColors: ["red"],}, {text: ["i need blue flowers. Only blue"], likedColors: ["blue"], dislikedColors: ["white", "red", "purple", "pink", "orange"]}];
   // let order = {
   //   text: ["I want to buy flowers for my wife. She ", "loves pink, but doesnt like blue."],
   //   likedColors: pinkFlower,
