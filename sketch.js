@@ -340,6 +340,7 @@ function display_shop(){
   
   // displays the arraingment
   display_vase(925, 600, 200, 300, 679, 99, 139);
+  display_price();
 }
 
 function display_journal(){
@@ -427,6 +428,38 @@ function display_seed_amouts_greenhouse(){
 
   let amountoffertiziler = str(fertiziler);
   text(amountoffertiziler, backgroundWidth*(1335/1500) + border, backgroundHeight*(836/1000));
+}
+
+function display_price(){
+  // calculates the value of the arraignment and displays it in the cash register
+  // sets the variables used
+  let value = 0;
+  let liked = 0;
+  let disliked = 0;
+  let neither = 0;
+
+  //iterates throught each flower in the vase, and checks if its liked, unliked, or neither
+  for (let i = 0; i < arrangement.length; i++){
+    if (currentOrder.has("likedColors") && is_liked_or_disliked(arrangement[i], currentOrder.get("likedColors")) === true){
+      liked += 2;
+    } 
+
+    else if (currentOrder.has("dislikedColors") && is_liked_or_disliked(arrangement[i], currentOrder.get("dislikedColors")) === true){
+      disliked ++;
+    }
+
+    else{
+      neither ++;
+    }
+  }
+  
+  // calculates the value, without the disliked flowers
+  value = neither + liked - disliked;
+  
+  // displays
+  fill("white");
+  text(str(value), backgroundWidth*(1320/1500)+border, backgroundHeight*(558/1000));
+  fill("black");
 }
 
 function draw_pots(){
@@ -543,8 +576,10 @@ function plant_seed(pot, seedtype){
 
 function fertilize_plant(pot){
   // this function fertilizes the plant in whichever pot was clicked
-  pots[pot].plantState = "done";
-  fertiziler --;
+  if (pots[pot].plantState !== "done"){
+    pots[pot].plantState = "done";
+    fertiziler --;
+  }
 }
 
 function mousePressed(){
@@ -1266,7 +1301,6 @@ function display_vase(x, y, w, h, y2, w2, h2){
   }
 }
 
-
 // function display_vase(x, y, w, h,){  
 //   if (arrangement.length > 4){
 //     if (arrangement[4] === redFlower){
@@ -1376,7 +1410,6 @@ function display_vase(x, y, w, h, y2, w2, h2){
   
 // }
 
-
 function grab_flower(flowerimage){
   // displays the flower being dragged
   image(flowerimage, mouseX, mouseY, backgroundWidth*(17/250), backgroundHeight*(167/1000));
@@ -1436,7 +1469,7 @@ function add_to_arrangement(color){
 
 function create_orders(){
   // creates the array of orders
-  orders = [{text: ["I want to buy flowers for my wife. She ", "loves pink, but doesnt like blue."], likedColors: ["pink"], dislikedColors: ["blue"],}, {text: ["I need flowers for my mom. She doesnt like red."], likedColors: [], dislikedColors: ["red"],}, {text: ["i need blue flowers. Only blue"], likedColors: ["blue"], dislikedColors: ["white", "red", "purple", "pink", "orange"]}];
+  orders = [{text: ["I want to buy flowers for my wife. She ", "loves pink, but doesnt like blue."], likedColors: ["pink"], dislikedColors: ["blue"],}, {text: ["I need flowers for my mom. She ","doesnt like red."], likedColors: [], dislikedColors: ["red"],}, {text: ["I need blue flowers. Only blue"], likedColors: ["blue"], dislikedColors: ["white", "red", "purple", "pink", "orange"]}, {text: ["I need red, pink, and white flowers"], likedColors: ["red", "pink", "white"], dislikedColors: [],}, {text: ["I hate red"], likedColors: [], dislikedColors: ["red"],}, {text: ["Could i have pink flowers please?"], likedColors: ["pink"], dislikedColors: [],}, {text: ["I need flowers for my cats birthday. He", "likes purple and blue, but doesnt care", "for orange."], likedColors: ["purple", "blue"], dislikedColors: ["orange"],}, {text: ["I want any color except orange."], likedColors: [], dislikedColors: ["orange"],}, {text: ["Its my husbands birthday, i need", "flowers for him. He really loves","red flowers."], likedColors: ["red"], dislikedColors: [],}, {text: ["I need flowers bring to my grandson's concert.", "He likes purple and blue, but not white."], likedColors: ["purple","blue"], dislikedColors: ["white"],}, {text: ["Purple please"], likedColors: ["purple"], dislikedColors: [],},  {text: ["I'm visiting my grandpa, can I get some", "flowers for him? He likes white and blue."], likedColors: ["white", "blue"], dislikedColors: [],}, {text: ["Do you have anything pink?"], likedColors: ["pink"], dislikedColors: [],}, {text: ["Can I have only purple and blue flowers?"], likedColors: ["purple", "blue"], dislikedColors: ["white", "red", "orange", "pink"],}];
 }
 
 function pick_order(){
@@ -1467,15 +1500,25 @@ function get_data(){
     blueflowersHave = getItem("blueflowersHave");
     orangeflowerHave = getItem("orangeflowerHave");
     purpleflowerHave = getItem("purpleflowerHave");
-
+    currentOrder = getItem("order");
 
     money = getItem("money");
     fertiziler = getItem("fertiziler");
 
-    seeds = getItem("seeds");
+    let seedtypes = ["red", "pink", "orange", "blue", "purple", "white"];
+    for (let i = 0; i <seedtypes.length; i++){
+      seeds.set(seedtypes[i], getItem(seedtypes[i]));
+    }
 
-    pots = getItem("pots");
+    let potsarray = ["one", "two", "three", "four", "five", "six"];
+    pots = [];
+    for (let i = 0; i < potsarray.length; i++){
+      let pot = getItem(potsarray[i]);
+      pots.push(pot);
+    }
   }
+
+  
   
 }
 
@@ -1486,6 +1529,7 @@ function save_data(){
   storeItem("blueflowersHave", blueflowersHave);
   storeItem("orangeflowerHave", orangeflowerHave);
   storeItem("purpleflowerHave", purpleflowerHave);
+  storeItem("order", currentOrder);
 
   storeItem("money", money);
   storeItem("fertiziler", fertiziler);
@@ -1496,7 +1540,13 @@ function save_data(){
     storeItem(seedtypes[i], seeds.get(seedtypes[i]));
   }
 
-  storeItem("pots", pots);
+  let potsarray = ["one", "two", "three", "four", "five", "six"];
+  for (let i = 0; i < potsarray.length; i++){
+    storeItem(potsarray[i], pots[i]);
+  }
+  
+
+  hasData = true;
 
 }
 
