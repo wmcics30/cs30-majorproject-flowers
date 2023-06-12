@@ -3,9 +3,7 @@
 // june 19th, 2023
 //
 // Extra for Experts:
-// I finished my needs to have list
-
-let hasData = false;
+// I finished my needs to have list, and i was able to use local storage to save the game. 
 
 // Display variables
 let backgroundWidth;
@@ -28,6 +26,7 @@ let seeds;
 let pots = [];
 let arrangement = [];
 let orders = [];
+let hasData = false;
 
 let room = 0;
 let oldroom = 0;
@@ -49,13 +48,13 @@ let pinkinVase1, pinkinVase2, pinkinVase3, pinkinVase4, pinkinVase5;
 let purpleinVase1, purpleinVase2, purpleinVase3, purpleinVase4, purpleinVase5;
 let redinVase1, redinVase2, redinVase3, redinVase4, redinVase5;
 let whiteinVase1, whiteinVase2, whiteinVase3, whiteinVase4, whiteinVase5;
-let emptyVase;
+let emptyVase, shadow;
 
 function preload(){
   //all the images are loaded in the preload funtion
 
   //backgrounds
-  greenhouse = loadImage("pictures/greenhouseUNFINISHED.png");
+  greenhouse = loadImage("pictures/greenhouse.png");
   arrangingroom = loadImage("pictures/arranging room.png");
   startScreenNormal = loadImage("pictures/startscreennothovered.png");
   startScreenhoverd = loadImage("pictures/startscreenhovered.png");
@@ -91,8 +90,6 @@ function preload(){
   settingsResetButtonhovered = loadImage("pictures/settingsrestartbuttonhovered.png");
   settingsSaveButton = loadImage("pictures/settingssavebuttonunhovered.png");
   settingsSaveButtonHovered = loadImage("pictures/settingssavebuttonhovered.png");
-
-
 
   // pot images
   emptypotImg = loadImage("pictures/empty pot.png");
@@ -162,6 +159,7 @@ function preload(){
   whiteinVase5 = loadImage("pictures/vaseWhite5th.png");
 
   emptyVase = loadImage("pictures/vase.png");
+  shadow = loadImage("pictures/vaseshadow.png");
 }
 
 function setup() {
@@ -355,11 +353,13 @@ function display_shop(){
   }
   
   // displays the arraingment
+  image(shadow, backgroundWidth*(920/1500)+ border, backgroundHeight*(740/1000), backgroundWidth*(110/1500), backgroundHeight*(37/1000));
   display_vase(925, 600, 200, 300, 679, 99, 139);
   display_price();
 }
 
 function display_journal(){
+  //this function displays the journal
   display_greenhouse();
 
   image(openJournal, backgroundWidth/2 + border, backgroundHeight/2, backgroundWidth, backgroundHeight);
@@ -367,32 +367,37 @@ function display_journal(){
 }
 
 function display_settings(){
+  // this function displays the setting background, and all three buttons. if the mouse is over any of the button, it displays the hovered version
   image(settings, backgroundWidth/2 + border, backgroundHeight/2, backgroundWidth, backgroundHeight);
   
+  //hovered backbutton
   if (mouseX > backgroundWidth*(350/1500)+border && mouseX < backgroundWidth*(1150/1500)+ border && mouseY > backgroundHeight*(717/1000) && mouseY < backgroundHeight*(883/1000)){
     image(settingsResetButton, backgroundWidth/2 + border, backgroundHeight*(610/1000), backgroundWidth*(802/1500), backgroundHeight*(117/1000));
     image(settingsSaveButton, backgroundWidth/2 + border, backgroundHeight*(450/1000), backgroundWidth*(802/1500), backgroundHeight*(117/1000));
     image(settingsBackButtonHovered, backgroundWidth/2 + border, backgroundHeight*(800/1000), backgroundWidth*(800/1500), backgroundHeight*(166/1000));
   }
+
+  //hovered reset button
   else if(mouseX > backgroundWidth*(349/1500)+border && mouseX < backgroundWidth*(1151/1500)+ border && mouseY > backgroundHeight*(552/1000) && mouseY < backgroundHeight*(669/1000)){
     image(settingsBackButton, backgroundWidth/2 + border, backgroundHeight*(800/1000), backgroundWidth*(800/1500), backgroundHeight*(166/1000));
     image(settingsResetButtonhovered, backgroundWidth/2 + border, backgroundHeight*(610/1000), backgroundWidth*(802/1500), backgroundHeight*(117/1000));
     image(settingsSaveButton, backgroundWidth/2 + border, backgroundHeight*(450/1000), backgroundWidth*(802/1500), backgroundHeight*(117/1000));
   }
+
+  //hovered save button
   else if (mouseX > backgroundWidth*(349/1500)+border && mouseX < backgroundWidth*(1151/1500)+ border && mouseY > backgroundHeight*(392/1000) && mouseY < backgroundHeight*(509/1000)){
     image(settingsBackButton, backgroundWidth/2 + border, backgroundHeight*(800/1000), backgroundWidth*(800/1500), backgroundHeight*(166/1000));
     image(settingsResetButton, backgroundWidth/2 + border, backgroundHeight*(610/1000), backgroundWidth*(802/1500), backgroundHeight*(117/1000));
     image(settingsSaveButtonHovered, backgroundWidth/2 + border, backgroundHeight*(450/1000), backgroundWidth*(802/1500), backgroundHeight*(117/1000));
   }
+
+  //no hovered buttons
   else{
     image(settingsBackButton, backgroundWidth/2 + border, backgroundHeight*(800/1000), backgroundWidth*(800/1500), backgroundHeight*(166/1000));
     image(settingsResetButton, backgroundWidth/2 + border, backgroundHeight*(610/1000), backgroundWidth*(802/1500), backgroundHeight*(117/1000));
     image(settingsSaveButton, backgroundWidth/2 + border, backgroundHeight*(450/1000), backgroundWidth*(802/1500), backgroundHeight*(117/1000));
   }
-  
-
 }
-
 
 function diplaybuttons(){
   // this function displays the buttons to get to the diffrent rooms, and displays the hovered version if the mouse is hovering over it
@@ -419,6 +424,8 @@ function diplaybuttons(){
     image(hoveredShopButton, backgroundWidth*(450/1500) + border,backgroundHeight*(189/200), backgroundWidth*(157/1500), backgroundHeight*(111/1000));
     image(settingsButton, backgroundWidth*(625/1500)+ border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
   }
+
+  //hovering over settings
   else if (mouseX > backgroundWidth*(546/1500)+ border && mouseX < backgroundWidth*(705/1500)+ border && mouseY >  backgroundHeight*(171/200) && mouseY < backgroundHeight){
     image(greenhousebutton, backgroundWidth*(1/15)+ border ,backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(arrangingroombutton, backgroundWidth*(11/60)+border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
@@ -926,15 +933,21 @@ function mousePressed(){
     }
   }
 
+  //settings
   else if (room === 6){
+    // goes back to the room you went to the settings from
     if (mouseX > backgroundWidth*(350/1500)+border && mouseX < backgroundWidth*(1150/1500)+ border && mouseY > backgroundHeight*(717/1000) && mouseY < backgroundHeight*(883/1000)){
       room = oldroom;
       oldroom = 0;
     }
+
+    //reset button was click, clear storage and reset button
     else if(mouseX > backgroundWidth*(349/1500)+border && mouseX < backgroundWidth*(1151/1500)+ border && mouseY > backgroundHeight*(552/1000) && mouseY < backgroundHeight*(669/1000)){
       clearStorage();
       resetGame();
     }
+
+    // saved button was clicked, save the game
     else if (mouseX > backgroundWidth*(349/1500)+border && mouseX < backgroundWidth*(1151/1500)+ border && mouseY > backgroundHeight*(392/1000) && mouseY < backgroundHeight*(509/1000)){
       save_data();
     }
@@ -957,6 +970,7 @@ function mousePressed(){
       room = 4;
     }
 
+    //settings
     else if (mouseX > backgroundWidth*(546/1500)+ border && mouseX < backgroundWidth*(705/1500)+ border && mouseY >  backgroundHeight*(171/200) && mouseY < backgroundHeight){
       oldroom = room;
       room = 6;
@@ -1374,115 +1388,6 @@ function display_vase(x, y, w, h, y2, w2, h2){
   }
 }
 
-// function display_vase(x, y, w, h,){  
-//   if (arrangement.length > 4){
-//     if (arrangement[4] === redFlower){
-//       image(redinVase5, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//     else if (arrangement[4] === whiteFlower){
-//       image(whiteinVase5, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//     else if (arrangement[4] === pinkFlower){
-//       image(pinkinVase5, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//     else if ( arrangement[4] === blueFlower){
-//       image(blueinVase5, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//     else if (arrangement[4] === orangeflower){
-//       image(orangeinVase5, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//     else if (arrangement[4] === purpleFlower){
-//       image(purpleinVase5, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//   }
-//   if (arrangement.length > 3){
-//     if (arrangement[3] === redFlower){
-//       image(redinVase4, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//     else if (arrangement[3] === whiteFlower){
-//       image(whiteinVase4, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//     else if (arrangement[3] === pinkFlower){
-//       image(pinkinVase4, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//     else if ( arrangement[3] === blueFlower){
-//       image(blueinVase4, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//     else if (arrangement[3] === orangeflower){
-//       image(orangeinVase4, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//     else if (arrangement[3] === purpleFlower){
-//       image(purpleinVase4, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//   }
-//   if (arrangement.length > 2){
-//     if (arrangement[2] === redFlower){
-//       image(redinVase3, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//     else if (arrangement[2] === whiteFlower){
-//       image(whiteinVase3, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//     else if (arrangement[2] === pinkFlower){
-//       image(pinkinVase3, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//     else if ( arrangement[2] === blueFlower){
-//       image(blueinVase3, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//     else if (arrangement[2] === orangeflower){
-//       image(orangeinVase3, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//     else if (arrangement[2] === purpleFlower){
-//       image(purpleinVase3, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//   }
-//   if (arrangement.length > 1){
-//     if (arrangement[1] === redFlower){
-//       image(redinVase2, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//     else if (arrangement[1] === whiteFlower){
-//       image(whiteinVase2, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//     else if (arrangement[1] === pinkFlower){
-//       image(pinkinVase2, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//     else if ( arrangement[1] === blueFlower){
-//       image(blueinVase2, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//     else if (arrangement[1] === orangeflower){
-//       image(orangeinVase2, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//     else if (arrangement[1] === purpleFlower){
-//       image(purpleinVase2, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//   }
-//   if (arrangement.length > 0){
-//     if (arrangement[0] === redFlower){
-//       image(redinVase1, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//     else if (arrangement[0] === whiteFlower){
-//       image(whiteinVase1, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//     else if (arrangement[0] === pinkFlower){
-//       image(pinkinVase1, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//     else if ( arrangement[0] === blueFlower){
-//       image(blueinVase1, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//     else if (arrangement[0] === orangeflower){
-//       image(orangeinVase1, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//     else if (arrangement[0] === purpleFlower){
-//       image(purpleinVase1, backgroundWidth*(623/1500) + border, backgroundHeight*(443/1000), backgroundWidth*(400/1500), backgroundHeight*(600/1000));
-//     }
-//   }
-//   else{
-//     image(emptyVase, backgroundWidth*(5/12) + border, backgroundHeight*(3/5), backgroundWidth*(197/1500), backgroundHeight*(277/1000));
-
-//   }
-
-  
-// }
-
 function grab_flower(flowerimage){
   // displays the flower being dragged
   image(flowerimage, mouseX, mouseY, backgroundWidth*(17/250), backgroundHeight*(167/1000));
@@ -1588,23 +1493,19 @@ function resetGame(){
 
   createpots();
   create_orders();
-
   seeds = new Map();
   set_seeds();
 
-  
   room = 0;
 }
 
 function getOrder(){
-  // randomly picks an order from the order array to be the current order
+  // this function sets the current order to be the order that is was before the game saved/reset
   let order = currentOrder;
-  
   currentOrder = new Map();
   
   // sets the values of that order into the map
   currentOrder.set("text", orders[order].text);
-
   currentOrder.set("index", order);
   
   if (orders[order].likedColors.length > 0 ){
@@ -1617,6 +1518,7 @@ function getOrder(){
 }
 
 function getImage(pot){
+  // this function set the image of the pot to be whichever one it needs to be based on what stage the plant was when it was saved
   if (pot.bought === false){
     pot.image = unboughtPot;
   }
@@ -1625,7 +1527,7 @@ function getImage(pot){
     pot.image = emptypotImg;
   }
 
-  // checks if it has a flower
+  // checks if it has a flower, and what state it is, and sets the image and the time to be correct
   else {
     if (pot.hasplant === true){
       if (pot.plantState === "done"){
@@ -1669,20 +1571,30 @@ function getImage(pot){
 }
 
 function get_data(){
+  //this function gets the data from local storage if it exitst
   hasData = getItem("hasData");
   if (hasData !== null || hasData === true){
-    console.log("gettingdata");
+    // "normal" variable types
     redflowersHave = getItem("redflowersHave");
     pinkflowersHave = getItem("pinkflowersHave");
     whiteflowersHave = getItem("whiteflowersHave");
     blueflowersHave = getItem("blueflowersHave");
     orangeflowerHave = getItem("orangeflowerHave");
     purpleflowerHave = getItem("purpleflowerHave");
-    arrangement = getItem("arraingment");
-    
     money = getItem("money");
     fertiziler = getItem("fertiziler");
 
+    // gets the arraingment
+    arrangement = [];
+    let arraingmentplaces = ["arraingmentOne", "arraingmentTwo", "arraingmentThree", "arraingmentFour","arraingmentFive"];
+    let arraignmentlength = getItem("arraingmentlength");
+
+    for (let i = 0; i < arraignmentlength; i++){
+      let theflower = getItem(arraingmentplaces[i]);
+      arrangement.push(theflower);
+    }
+
+    // gets the order
     let order = getItem("order");
     if (order < 14){
       currentOrder = order;
@@ -1691,14 +1603,14 @@ function get_data(){
     else{
       pick_order();
     }
-    
-    
 
+    // gets the seeds
     let seedtypes = ["red", "pink", "orange", "blue", "purple", "white"];
     for (let i = 0; i <seedtypes.length; i++){
       seeds.set(seedtypes[i], getItem(seedtypes[i]));
     }
 
+    /// gets the pots
     let potsarray = ["one", "two", "three", "four", "five", "six"];
     pots = [];
 
@@ -1714,47 +1626,54 @@ function get_data(){
       };
       pots.push(getImage(pot));
     }
-
     update_pots();
   }
 }
 
 function save_data(){
+  // function saves data to the local storage
+  //clears storage
   clearStorage();
+
+  // stores "normal" variables
   storeItem("redflowersHave", redflowersHave);
   storeItem("pinkflowersHave", pinkflowersHave);
   storeItem("whiteflowersHave", whiteflowersHave);
   storeItem("blueflowersHave", blueflowersHave);
   storeItem("orangeflowerHave", orangeflowerHave);
   storeItem("purpleflowerHave", purpleflowerHave);
-  
   storeItem("order", currentOrder.get("index"));
-
   storeItem("money", money);
   storeItem("fertiziler", fertiziler);
-  storeItem("arraingment", arrangement);
 
-  storeItem("seeds", seeds);
+  // stores the arraingment array
+  storeItem("arraingmentlength", arrangement.length);
+  let arraingmentplaces = ["arraingmentOne", "arraingmentTwo", "arraingmentThree", "arraingmentFour","arraingmentFive"];
+
+  for (let i = 0; i < arrangement.length; i++){
+    storeItem(arraingmentplaces[i], arrangement[i]);
+  }
+
+  // stores the seed map
   let seedtypes = ["red", "pink", "orange", "blue", "purple", "white"];
   for (let i = 0; i < seedtypes.length; i++){
     storeItem(seedtypes[i], seeds.get(seedtypes[i]));
   }
 
+  //stores the pot array/objects
   let potsarray = ["one", "two", "three", "four", "five", "six"];
   for (let i = 0; i < potsarray.length; i++){
     storeItem(potsarray[i] + "hasplant", pots[i].hasplant);
     storeItem(potsarray[i] + "flowercolor", pots[i].flowerColor);
     storeItem(potsarray[i] + "oldmillis" , millis() - pots[i].millisplanted + pots[i].oldmillis);
     storeItem(potsarray[i] + "state", pots[i].plantState);
-    // storeItem(potsarray[i] + "image", pots[i].image);
     storeItem(potsarray[i] + "bought", pots[i].bought);
   }
 
+  //stores hasData
   hasData = true;
   storeItem("hasData", hasData);
-
 }
-
 
 function windowResized() {
   //this function resized the canvas and the image when the window is resized
