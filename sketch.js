@@ -30,14 +30,15 @@ let arrangement = [];
 let orders = [];
 
 let room = 0;
+let oldroom = 0;
 let currentSeed = "";
 let flowerbeingdragged = "none";
 let currentOrder = "";
 
 // backgrounds and other images
-let greenhouse, arrangingroom, startScreenNormal, startScreenhoverd, openJournal, shopBackground;
+let greenhouse, arrangingroom, startScreenNormal, startScreenhoverd, openJournal, shopBackground, settings;
 let journal, storebackground, storeseedbutton, storebackbutton, storeAmountDisplayBig, storeAmountDisplaySmall, basketIcon, coinIcon, shopTextbox, Shopsellbutton, storeButton, hoveredStorebutton, sellButton;
-let greenhousebutton, hoveredgreenhousebutton, arrangingroombutton, hoveredarrangingroombutton, shopButton, hoveredShopButton;
+let greenhousebutton, hoveredgreenhousebutton, arrangingroombutton, hoveredarrangingroombutton, shopButton, hoveredShopButton, settingsButton, hoveredSettingButton, settingsBackButton, settingsBackButtonHovered, settingsSaveButton, settingsResetButton, settingsSaveButtonHovered, settingsResetButtonhovered;
 let emptypotImg, plantedpotImg, budImg, sproutImg, unboughtPot, blueflowerinpotImg, orangeflowerinpotImg, pinkflowerinpotImg, purpleflowerinpotImg, redflowerinpotimg, whiteflowerinpotImg, blueFlower, orangeflower, pinkFlower, purpleFlower, redFlower, whiteFlower;
 let blueSeedpack, orangeSeedpack, pinkSeedpack, purpleSeedpack, redSeedpack, whiteSeedpack, fertilizerBag;
 
@@ -60,6 +61,7 @@ function preload(){
   startScreenhoverd = loadImage("pictures/startscreenhovered.png");
   openJournal = loadImage("pictures/openJournal.png");
   shopBackground = loadImage("pictures/Shopbackground.png");
+  settings = loadImage("pictures/Settingsbackground.png");
 
   //icons, buttons, and other
   greenhousebutton = loadImage("pictures/greenhousebutton.png");
@@ -68,6 +70,8 @@ function preload(){
   hoveredarrangingroombutton = loadImage("pictures/hoveredarrangingroombutton.png");
   shopButton = loadImage("pictures/shopbuttonunhovered.png");
   hoveredShopButton = loadImage("pictures/shopbuttonhovered.png");
+  settingsButton = loadImage("pictures/settingsbuttonnormal.png");
+  hoveredSettingButton = loadImage("pictures/settingsbuttonhovered.png");
   journal = loadImage("pictures/journal.png");
   shopTextbox = loadImage("pictures/shoptextblock.png");
   Shopsellbutton = loadImage("pictures/shopSellbutton.png");
@@ -81,6 +85,14 @@ function preload(){
   sellButton = loadImage("pictures/Sellbutton.png");
   storeButton = loadImage("pictures/storeButtonunhovered.png");
   hoveredStorebutton = loadImage("pictures/storeButtonhovered.png");
+  settingsBackButton = loadImage("pictures/settingsbackbuttonunhovered.png");
+  settingsBackButtonHovered = loadImage("pictures/settingsbackbuttonhovered.png");
+  settingsResetButton = loadImage("pictures/settingsrestartbuttonunhovered.png");
+  settingsResetButtonhovered = loadImage("pictures/settingsrestartbuttonhovered.png");
+  settingsSaveButton = loadImage("pictures/settingssavebuttonunhovered.png");
+  settingsSaveButtonHovered = loadImage("pictures/settingssavebuttonhovered.png");
+
+
 
   // pot images
   emptypotImg = loadImage("pictures/empty pot.png");
@@ -178,13 +190,16 @@ function setup() {
   seeds = new Map();
   set_seeds();
 
-  // get_data();
+  get_data();
 }
 
 function draw() {
   // the draw function displays a background over the whole canvas, then displays the right "room". The pots are updated here too
   background(200);
   update_pots();
+  if (currentOrder === ""){
+    pick_order();
+  }
 
   // displays the right room
   if (room === 0){
@@ -205,14 +220,15 @@ function draw() {
   }
 
   else if (room === 4){
-    if (currentOrder === ""){
-      pick_order();
-    }
     display_shop();
   }
 
   else if (room === 5){
     display_journal();
+  }
+
+  else if (room === 6){
+    display_settings();
   }
 }
 
@@ -350,6 +366,34 @@ function display_journal(){
   image(storebackbutton, backgroundWidth*(1300/1500)+border, backgroundHeight*(932.5/1000), backgroundWidth*(274/1500), backgroundHeight*(135/1000));
 }
 
+function display_settings(){
+  image(settings, backgroundWidth/2 + border, backgroundHeight/2, backgroundWidth, backgroundHeight);
+  
+  if (mouseX > backgroundWidth*(350/1500)+border && mouseX < backgroundWidth*(1150/1500)+ border && mouseY > backgroundHeight*(717/1000) && mouseY < backgroundHeight*(883/1000)){
+    image(settingsResetButton, backgroundWidth/2 + border, backgroundHeight*(610/1000), backgroundWidth*(802/1500), backgroundHeight*(117/1000));
+    image(settingsSaveButton, backgroundWidth/2 + border, backgroundHeight*(450/1000), backgroundWidth*(802/1500), backgroundHeight*(117/1000));
+    image(settingsBackButtonHovered, backgroundWidth/2 + border, backgroundHeight*(800/1000), backgroundWidth*(800/1500), backgroundHeight*(166/1000));
+  }
+  else if(mouseX > backgroundWidth*(349/1500)+border && mouseX < backgroundWidth*(1151/1500)+ border && mouseY > backgroundHeight*(552/1000) && mouseY < backgroundHeight*(669/1000)){
+    image(settingsBackButton, backgroundWidth/2 + border, backgroundHeight*(800/1000), backgroundWidth*(800/1500), backgroundHeight*(166/1000));
+    image(settingsResetButtonhovered, backgroundWidth/2 + border, backgroundHeight*(610/1000), backgroundWidth*(802/1500), backgroundHeight*(117/1000));
+    image(settingsSaveButton, backgroundWidth/2 + border, backgroundHeight*(450/1000), backgroundWidth*(802/1500), backgroundHeight*(117/1000));
+  }
+  else if (mouseX > backgroundWidth*(349/1500)+border && mouseX < backgroundWidth*(1151/1500)+ border && mouseY > backgroundHeight*(392/1000) && mouseY < backgroundHeight*(509/1000)){
+    image(settingsBackButton, backgroundWidth/2 + border, backgroundHeight*(800/1000), backgroundWidth*(800/1500), backgroundHeight*(166/1000));
+    image(settingsResetButton, backgroundWidth/2 + border, backgroundHeight*(610/1000), backgroundWidth*(802/1500), backgroundHeight*(117/1000));
+    image(settingsSaveButtonHovered, backgroundWidth/2 + border, backgroundHeight*(450/1000), backgroundWidth*(802/1500), backgroundHeight*(117/1000));
+  }
+  else{
+    image(settingsBackButton, backgroundWidth/2 + border, backgroundHeight*(800/1000), backgroundWidth*(800/1500), backgroundHeight*(166/1000));
+    image(settingsResetButton, backgroundWidth/2 + border, backgroundHeight*(610/1000), backgroundWidth*(802/1500), backgroundHeight*(117/1000));
+    image(settingsSaveButton, backgroundWidth/2 + border, backgroundHeight*(450/1000), backgroundWidth*(802/1500), backgroundHeight*(117/1000));
+  }
+  
+
+}
+
+
 function diplaybuttons(){
   // this function displays the buttons to get to the diffrent rooms, and displays the hovered version if the mouse is hovering over it
   // hovering over greenhouse
@@ -357,13 +401,15 @@ function diplaybuttons(){
     image(hoveredgreenhousebutton, backgroundWidth*(100/1500)+ border, backgroundHeight*(189/200), backgroundWidth*(157/1500), backgroundHeight*(111/1000));
     image(arrangingroombutton, backgroundWidth*(275/1500) + border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(shopButton, backgroundWidth*(450/1500) +border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
+    image(settingsButton, backgroundWidth*(625/1500)+ border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
   }
 
   // hovering over arrainging room
   else if (mouseX > backgroundWidth*(2/15)+border && mouseX < backgroundWidth*(7/30) + border && mouseY > backgroundHeight*(9/10) && mouseY < backgroundHeight){
-    image(hoveredarrangingroombutton, backgroundWidth*(11/60)+ border, backgroundHeight*(189/200), backgroundWidth*(157/1500), backgroundHeight*(111/1000) );
+    image(hoveredarrangingroombutton, backgroundWidth*(11/60)+ border, backgroundHeight*(189/200), backgroundWidth*(157/1500), backgroundHeight*(111/1000));
     image(greenhousebutton, backgroundWidth*(1/15) + border ,backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(shopButton, backgroundWidth*(450/1500) +border, backgroundHeight*(24/25), backgroundWidth*(159/1500), backgroundHeight*(81/1000));
+    image(settingsButton, backgroundWidth*(625/1500)+ border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
   }
 
   // hovering over the shop
@@ -371,13 +417,20 @@ function diplaybuttons(){
     image(arrangingroombutton, backgroundWidth*(275/1500) + border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(greenhousebutton, backgroundWidth*(1/15) + border ,backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(hoveredShopButton, backgroundWidth*(450/1500) + border,backgroundHeight*(189/200), backgroundWidth*(157/1500), backgroundHeight*(111/1000));
+    image(settingsButton, backgroundWidth*(625/1500)+ border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
   }
-
+  else if (mouseX > backgroundWidth*(546/1500)+ border && mouseX < backgroundWidth*(705/1500)+ border && mouseY >  backgroundHeight*(171/200) && mouseY < backgroundHeight){
+    image(greenhousebutton, backgroundWidth*(1/15)+ border ,backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
+    image(arrangingroombutton, backgroundWidth*(11/60)+border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
+    image(shopButton, backgroundWidth*(450/1500) +border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
+    image(hoveredSettingButton, backgroundWidth*(625/1500)+border, backgroundHeight*(189/200),backgroundWidth*(157/1500), backgroundHeight*(111/1000));
+  }
   //not hovering over any
   else{
     image(greenhousebutton, backgroundWidth*(1/15)+ border ,backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(arrangingroombutton, backgroundWidth*(11/60)+border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(shopButton, backgroundWidth*(450/1500) +border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
+    image(settingsButton, backgroundWidth*(625/1500)+ border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
   }
 }
 
@@ -873,6 +926,20 @@ function mousePressed(){
     }
   }
 
+  else if (room === 6){
+    if (mouseX > backgroundWidth*(350/1500)+border && mouseX < backgroundWidth*(1150/1500)+ border && mouseY > backgroundHeight*(717/1000) && mouseY < backgroundHeight*(883/1000)){
+      room = oldroom;
+      oldroom = 0;
+    }
+    else if(mouseX > backgroundWidth*(349/1500)+border && mouseX < backgroundWidth*(1151/1500)+ border && mouseY > backgroundHeight*(552/1000) && mouseY < backgroundHeight*(669/1000)){
+      clearStorage();
+      resetGame();
+    }
+    else if (mouseX > backgroundWidth*(349/1500)+border && mouseX < backgroundWidth*(1151/1500)+ border && mouseY > backgroundHeight*(392/1000) && mouseY < backgroundHeight*(509/1000)){
+      save_data();
+    }
+  }
+
   // Changes the room using the buttons at the bottom, in the rooms they are in
   if (room === 1 || room === 2 || room === 4){
     //greenhouse
@@ -889,6 +956,11 @@ function mousePressed(){
     else if (mouseX > backgroundWidth*(371/1500)+ border && mouseX < backgroundWidth*(530/1500)+ border && mouseY >  backgroundHeight*(171/200) && mouseY < backgroundHeight){
       room = 4;
     }
+
+    else if (mouseX > backgroundWidth*(546/1500)+ border && mouseX < backgroundWidth*(705/1500)+ border && mouseY >  backgroundHeight*(171/200) && mouseY < backgroundHeight){
+      oldroom = room;
+      room = 6;
+    }
   }
 }
 
@@ -902,6 +974,7 @@ function createpots(){
       plantState: "none",
       image: emptypotImg,
       bought: false,
+      oldmillis : 0,
     };
     pots.push(pot);
 
@@ -952,7 +1025,7 @@ function update_pots(){
         }
 
         // plant was planted more then 30 seconds ago
-        else if (millis() - pots[i].millisplanted > 30000){
+        else if (millis() - pots[i].millisplanted + pots[i].oldmillis > 30000){
           pots[i].plantState = "done";
           if (pots[i].flowerColor === "white"){
             pots[i].image = whiteflowerinpotImg;
@@ -975,13 +1048,13 @@ function update_pots(){
         }
 
         // plant was planted more then 20 seconds ago but not 30, so its a bud
-        else if (millis() - pots[i].millisplanted > 20000){
+        else if (millis() - pots[i].millisplanted + pots[i].oldmillis > 20000){
           pots[i].plantState = "bud";
           pots[i].image = budImg;
         }
 
         // plant was planted less then 10 seconds ago, so its a sprout
-        else if (millis() - pots[i].millisplanted > 10000){
+        else if (millis() - pots[i].millisplanted + pots[i].oldmillis> 10000){
           pots[i].plantState = "sprout";
           pots[i].image = sproutImg;
           
@@ -1469,7 +1542,7 @@ function add_to_arrangement(color){
 
 function create_orders(){
   // creates the array of orders
-  orders = [{text: ["I want to buy flowers for my wife. She ", "loves pink, but doesnt like blue."], likedColors: ["pink"], dislikedColors: ["blue"],}, {text: ["I need flowers for my mom. She ","doesnt like red."], likedColors: [], dislikedColors: ["red"],}, {text: ["I need blue flowers. Only blue"], likedColors: ["blue"], dislikedColors: ["white", "red", "purple", "pink", "orange"]}, {text: ["I need red, pink, and white flowers"], likedColors: ["red", "pink", "white"], dislikedColors: [],}, {text: ["I hate red"], likedColors: [], dislikedColors: ["red"],}, {text: ["Could i have pink flowers please?"], likedColors: ["pink"], dislikedColors: [],}, {text: ["I need flowers for my cats birthday. He", "likes purple and blue, but doesnt care", "for orange."], likedColors: ["purple", "blue"], dislikedColors: ["orange"],}, {text: ["I want any color except orange."], likedColors: [], dislikedColors: ["orange"],}, {text: ["Its my husbands birthday, i need", "flowers for him. He really loves","red flowers."], likedColors: ["red"], dislikedColors: [],}, {text: ["I need flowers bring to my grandson's concert.", "He likes purple and blue, but not white."], likedColors: ["purple","blue"], dislikedColors: ["white"],}, {text: ["Purple please"], likedColors: ["purple"], dislikedColors: [],},  {text: ["I'm visiting my grandpa, can I get some", "flowers for him? He likes white and blue."], likedColors: ["white", "blue"], dislikedColors: [],}, {text: ["Do you have anything pink?"], likedColors: ["pink"], dislikedColors: [],}, {text: ["Can I have only purple and blue flowers?"], likedColors: ["purple", "blue"], dislikedColors: ["white", "red", "orange", "pink"],}];
+  orders = [{text: ["I want to buy flowers for my wife. She ", "loves pink, but doesnt like blue."], likedColors: ["pink"], dislikedColors: ["blue"],}, {text: ["I need flowers for my mom. She ","doesnt like red."], likedColors: [], dislikedColors: ["red"],}, {text: ["I need blue flowers. Only blue"], likedColors: ["blue"], dislikedColors: ["white", "red", "purple", "pink", "orange"],}, {text: ["I need red, pink, and white flowers"], likedColors: ["red", "pink", "white"], dislikedColors: [],}, {text: ["I hate red"], likedColors: [], dislikedColors: ["red"], }, {text: ["Could i have pink flowers please?"], likedColors: ["pink"], dislikedColors: []}, {text: ["I need flowers for my cats birthday. He", "likes purple and blue, but doesnt care", "for orange."], likedColors: ["purple", "blue"], dislikedColors: ["orange"],}, {text: ["I want any color except orange."], likedColors: [], dislikedColors: ["orange"],}, {text: ["Its my husbands birthday, i need", "flowers for him. He really loves","red flowers."], likedColors: ["red"], dislikedColors: [],}, {text: ["I need flowers bring to my grandson's concert.", "He likes purple and blue, but not white."], likedColors: ["purple","blue"], dislikedColors: ["white"], }, {text: ["Purple please"], likedColors: ["purple"], dislikedColors: [], },  {text: ["I'm visiting my grandpa, can I get some", "flowers for him? He likes white and blue."], likedColors: ["white", "blue"], dislikedColors: [],}, {text: ["Do you have anything pink?"], likedColors: ["pink"], dislikedColors: [],}, {text: ["Can I have only purple and blue flowers?"], likedColors: ["purple", "blue"], dislikedColors: ["white", "red", "orange", "pink"],}];
 }
 
 function pick_order(){
@@ -1481,6 +1554,8 @@ function pick_order(){
   
   // sets the values of that order into the map
   currentOrder.set("text", orders[choice].text);
+
+  currentOrder.set("index", choice);
   
   if (orders[choice].likedColors.length > 0 ){
     currentOrder.set("likedColors", orders[choice].likedColors);
@@ -1491,19 +1566,133 @@ function pick_order(){
   }
 }
 
+function resetGame(){
+  // this function resets the game, then changes the room back to the startscreen
+  pots = [];
+  arrangement = [];
+  orders = [];
+  oldroom = 0;
+  currentSeed = "";
+  flowerbeingdragged = "none";
+  currentOrder = "";
+  redflowersHave = 0;
+  pinkflowersHave = 0;
+  whiteflowersHave = 0;
+  blueflowersHave = 0;
+  orangeflowerHave = 0;
+  purpleflowerHave = 0;
+
+  money = 6;
+  fertiziler = 0;
+  seeds = 0;
+
+  createpots();
+  create_orders();
+
+  seeds = new Map();
+  set_seeds();
+
+  
+  room = 0;
+}
+
+function getOrder(){
+  // randomly picks an order from the order array to be the current order
+  let order = currentOrder;
+  
+  currentOrder = new Map();
+  
+  // sets the values of that order into the map
+  currentOrder.set("text", orders[order].text);
+
+  currentOrder.set("index", order);
+  
+  if (orders[order].likedColors.length > 0 ){
+    currentOrder.set("likedColors", orders[order].likedColors);
+  }
+
+  if (orders[order].dislikedColors.length > 0){
+    currentOrder.set("dislikedColors", orders[order].dislikedColors);
+  }
+}
+
+function getImage(pot){
+  if (pot.bought === false){
+    pot.image = unboughtPot;
+  }
+  // checks if the pot is empty
+  else if (pot.bought === true && pot.hasplant === false){
+    pot.image = emptypotImg;
+  }
+
+  // checks if it has a flower
+  else {
+    if (pot.hasplant === true){
+      if (pot.plantState === "done"){
+        pot.oldmillis = 31000;
+        if (pot.flowerColor === "white"){
+          pot.image = whiteflowerinpotImg;
+        }
+        else if (pot.flowerColor === "pink"){
+          pots.image = pinkflowerinpotImg;
+        }
+        else if (pot.flowerColor === "blue"){
+          pot.image = blueflowerinpotImg;
+        }
+        else if (pot.flowerColor === "orange"){
+          pot.image = orangeflowerinpotImg;
+        }
+        else if (pot.flowerColor === "purple"){
+          pot.image = purpleflowerinpotImg;
+        }
+        else if (pot.flowerColor === "red"){
+          pot.image = redflowerinpotimg;
+        }
+      }
+      else if (pot.plantState === "bud" ){
+        pot.oldmillis = 20000;
+        pot.image = budImg;
+      }
+      else if (pot.plantState === "sprout"){
+        pot.oldmillis = 10000;
+        pot.image = sproutImg;
+      }
+      else{
+        pot.image = plantedpotImg;
+        pot.oldmillis = 0;
+      }
+    }
+  }
+
+  return pot;
+  
+}
+
 function get_data(){
-  hasData = getItem(hasData);
-  if (hasData === true){
+  hasData = getItem("hasData");
+  if (hasData !== null || hasData === true){
+    console.log("gettingdata");
     redflowersHave = getItem("redflowersHave");
     pinkflowersHave = getItem("pinkflowersHave");
     whiteflowersHave = getItem("whiteflowersHave");
     blueflowersHave = getItem("blueflowersHave");
     orangeflowerHave = getItem("orangeflowerHave");
     purpleflowerHave = getItem("purpleflowerHave");
-    currentOrder = getItem("order");
-
+    arrangement = getItem("arraingment");
+    
     money = getItem("money");
     fertiziler = getItem("fertiziler");
+
+    let order = getItem("order");
+    if (order < 14){
+      currentOrder = order;
+      getOrder();
+    }
+    else{
+      pick_order();
+    }
+    
+    
 
     let seedtypes = ["red", "pink", "orange", "blue", "purple", "white"];
     for (let i = 0; i <seedtypes.length; i++){
@@ -1512,27 +1701,38 @@ function get_data(){
 
     let potsarray = ["one", "two", "three", "four", "five", "six"];
     pots = [];
-    for (let i = 0; i < potsarray.length; i++){
-      let pot = getItem(potsarray[i]);
-      pots.push(pot);
-    }
-  }
 
-  
-  
+    for (let i = 0; i < potsarray.length; i++){
+      let pot = {
+        hasplant: getItem(potsarray[i] + "hasplant"),
+        flowerColor: getItem(potsarray[i] + "flowercolor"),
+        plantState: getItem(potsarray[i] + "state"),
+        image: emptypotImg,
+        bought: getItem(potsarray[i] + "bought"),
+        millisplanted: millis(),
+
+      };
+      pots.push(getImage(pot));
+    }
+
+    update_pots();
+  }
 }
 
 function save_data(){
+  clearStorage();
   storeItem("redflowersHave", redflowersHave);
   storeItem("pinkflowersHave", pinkflowersHave);
   storeItem("whiteflowersHave", whiteflowersHave);
   storeItem("blueflowersHave", blueflowersHave);
   storeItem("orangeflowerHave", orangeflowerHave);
   storeItem("purpleflowerHave", purpleflowerHave);
-  storeItem("order", currentOrder);
+  
+  storeItem("order", currentOrder.get("index"));
 
   storeItem("money", money);
   storeItem("fertiziler", fertiziler);
+  storeItem("arraingment", arrangement);
 
   storeItem("seeds", seeds);
   let seedtypes = ["red", "pink", "orange", "blue", "purple", "white"];
@@ -1542,13 +1742,19 @@ function save_data(){
 
   let potsarray = ["one", "two", "three", "four", "five", "six"];
   for (let i = 0; i < potsarray.length; i++){
-    storeItem(potsarray[i], pots[i]);
+    storeItem(potsarray[i] + "hasplant", pots[i].hasplant);
+    storeItem(potsarray[i] + "flowercolor", pots[i].flowerColor);
+    storeItem(potsarray[i] + "oldmillis" , millis() - pots[i].millisplanted + pots[i].oldmillis);
+    storeItem(potsarray[i] + "state", pots[i].plantState);
+    // storeItem(potsarray[i] + "image", pots[i].image);
+    storeItem(potsarray[i] + "bought", pots[i].bought);
   }
-  
 
   hasData = true;
+  storeItem("hasData", hasData);
 
 }
+
 
 function windowResized() {
   //this function resized the canvas and the image when the window is resized
