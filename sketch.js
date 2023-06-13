@@ -11,12 +11,12 @@ let backgroundHeight;
 let border;
 
 // Inventory variables
-let redflowersHave = 0;
-let pinkflowersHave = 0;
-let whiteflowersHave = 0;
-let blueflowersHave = 0;
-let orangeflowerHave = 0;
-let purpleflowerHave = 0;
+let redFlowersHave = 0;
+let pinkFlowersHave = 0;
+let whiteFlowersHave = 0;
+let blueFlowersHave = 0;
+let orangeFlowerHave = 0;
+let purpleFlowerHave = 0;
 
 let money = 6;
 let fertiziler = 0;
@@ -29,36 +29,38 @@ let orders = [];
 let hasData = false;
 
 let room = 0;
-let oldroom = 0;
+let oldRoom = 0;
 let currentSeed = "";
-let flowerbeingdragged = "none";
+let flowerBeingDragged = "none";
 let currentOrder = "";
 
 // backgrounds and other images
-let greenhouse, arrangingroom, startScreenNormal, startScreenhoverd, openJournal, shopBackground, settings;
-let journal, storebackground, storeseedbutton, storebackbutton, storeAmountDisplayBig, storeAmountDisplaySmall, basketIcon, coinIcon, shopTextbox, Shopsellbutton, storeButton, hoveredStorebutton, sellButton;
-let greenhousebutton, hoveredgreenhousebutton, arrangingroombutton, hoveredarrangingroombutton, shopButton, hoveredShopButton, settingsButton, hoveredSettingButton, settingsBackButton, settingsBackButtonHovered, settingsSaveButton, settingsResetButton, settingsSaveButtonHovered, settingsResetButtonhovered;
-let emptypotImg, plantedpotImg, budImg, sproutImg, unboughtPot, blueflowerinpotImg, orangeflowerinpotImg, pinkflowerinpotImg, purpleflowerinpotImg, redflowerinpotimg, whiteflowerinpotImg, blueFlower, orangeflower, pinkFlower, purpleFlower, redFlower, whiteFlower;
-let blueSeedpack, orangeSeedpack, pinkSeedpack, purpleSeedpack, redSeedpack, whiteSeedpack, fertilizerBag;
+let greenhouse, arrangingRoom, startScreenNormal, startScreenhoverd, openJournal, shopBackground, settings;
+let journal, storeBackground, storeSeedButton, storeBackButton, storeAmountDisplayBig, storeAmountDisplaySmall, basketIcon, coinIcon, shopTextbox, shopSellButton, storeButton, hoveredStorebutton, sellButton;
+let greenhouseButton, hoveredGreenhouseButton, arrangingRoomButton, hoveredArrangingRoomButton, shopButton, hoveredShopButton, settingsButton, hoveredSettingButton, settingsBackButton, settingsBackButtonHovered, settingsSaveButton, settingsResetButton, settingsSaveButtonHovered, settingsResetButtonHovered;
+let emptyPotImg, plantedPotImg, budImg, sproutImg, unboughtPot, blueFlowerInPotImg, orangeFlowerInPotImg, pinkFlowerInPotImg, purpleFlowerInPotImg, redFlowerInPotimg, whiteFlowerInPotImg, blueFlower, orangeFlower, pinkFlower, purpleFlower, redFlower, whiteFlower;
+let blueSeedPack, orangeSeedPack, pinkSeedPack, purpleSeedPack, redSeedPack, whiteSeedPack, fertilizerBag;
 
 // flowers used to display the vase
-let blueinVase1, blueinVase2, blueinVase3, blueinVase4, blueinVase5;
-let orangeinVase1, orangeinVase2, orangeinVase3, orangeinVase4, orangeinVase5;
-let pinkinVase1, pinkinVase2, pinkinVase3, pinkinVase4, pinkinVase5;
-let purpleinVase1, purpleinVase2, purpleinVase3, purpleinVase4, purpleinVase5;
-let redinVase1, redinVase2, redinVase3, redinVase4, redinVase5;
-let whiteinVase1, whiteinVase2, whiteinVase3, whiteinVase4, whiteinVase5;
+let blueInVase1, blueInVase2, blueInVase3, blueInVase4, blueInVase5;
+let orangeInVase1, orangeInVase2, orangeInVase3, orangeInVase4, orangeInVase5;
+let pinkInVase1, pinkInVase2, pinkInVase3, pinkInVase4, pinkInVase5;
+let purpleInVase1, purpleInVase2, purpleInVase3, purpleInVase4, purpleInVase5;
+let redInVase1, redInVase2, redInVase3, redInVase4, redInVase5;
+let whiteInVase1, whiteInVase2, whiteInVase3, whiteInVase4, whiteInVase5;
 let emptyVase, shadow;
 
 //sounds
 let backgroundMusic;
+let cashRegisterSound;
+let seedSound;
 
 function preload(){
   //all the images are loaded in the preload funtion
 
   //backgrounds
   greenhouse = loadImage("pictures/greenhouse.png");
-  arrangingroom = loadImage("pictures/arranging room.png");
+  arrangingRoom = loadImage("pictures/arranging room.png");
   startScreenNormal = loadImage("pictures/startscreennothovered.png");
   startScreenhoverd = loadImage("pictures/startscreenhovered.png");
   openJournal = loadImage("pictures/openJournal.png");
@@ -66,20 +68,20 @@ function preload(){
   settings = loadImage("pictures/Settingsbackground.png");
 
   //icons, buttons, and other
-  greenhousebutton = loadImage("pictures/greenhousebutton.png");
-  hoveredgreenhousebutton = loadImage("pictures/hoveredgreenhousebutton.png");
-  arrangingroombutton = loadImage("pictures/arrangingroombutton.png");
-  hoveredarrangingroombutton = loadImage("pictures/hoveredarrangingroombutton.png");
+  greenhouseButton = loadImage("pictures/greenhousebutton.png");
+  hoveredGreenhouseButton = loadImage("pictures/hoveredgreenhousebutton.png");
+  arrangingRoomButton = loadImage("pictures/arrangingroombutton.png");
+  hoveredArrangingRoomButton = loadImage("pictures/hoveredarrangingroombutton.png");
   shopButton = loadImage("pictures/shopbuttonunhovered.png");
   hoveredShopButton = loadImage("pictures/shopbuttonhovered.png");
   settingsButton = loadImage("pictures/settingsbuttonnormal.png");
   hoveredSettingButton = loadImage("pictures/settingsbuttonhovered.png");
   journal = loadImage("pictures/journal.png");
   shopTextbox = loadImage("pictures/shoptextblock.png");
-  Shopsellbutton = loadImage("pictures/shopSellbutton.png");
-  storebackground = loadImage("pictures/StoreBackground.png");
-  storeseedbutton = loadImage("pictures/StoreSeedbutton.png");
-  storebackbutton = loadImage("pictures/StoreBackButton.png");
+  shopSellButton = loadImage("pictures/shopSellbutton.png");
+  storeBackground = loadImage("pictures/StoreBackground.png");
+  storeSeedButton = loadImage("pictures/StoreSeedbutton.png");
+  storeBackButton = loadImage("pictures/StoreBackButton.png");
   storeAmountDisplayBig = loadImage("pictures/storeAmountdisplayBig.png");
   storeAmountDisplaySmall = loadImage("pictures/storeAmountdisplaySmall.png");
   basketIcon = loadImage("pictures/Basket.png");
@@ -90,84 +92,84 @@ function preload(){
   settingsBackButton = loadImage("pictures/settingsbackbuttonunhovered.png");
   settingsBackButtonHovered = loadImage("pictures/settingsbackbuttonhovered.png");
   settingsResetButton = loadImage("pictures/settingsrestartbuttonunhovered.png");
-  settingsResetButtonhovered = loadImage("pictures/settingsrestartbuttonhovered.png");
+  settingsResetButtonHovered = loadImage("pictures/settingsrestartbuttonhovered.png");
   settingsSaveButton = loadImage("pictures/settingssavebuttonunhovered.png");
   settingsSaveButtonHovered = loadImage("pictures/settingssavebuttonhovered.png");
 
   // pot images
-  emptypotImg = loadImage("pictures/empty pot.png");
-  plantedpotImg = loadImage("pictures/planted pot.png");
+  emptyPotImg = loadImage("pictures/empty pot.png");
+  plantedPotImg = loadImage("pictures/planted pot.png");
   budImg = loadImage("pictures/bud.png");
   sproutImg = loadImage("pictures/sprout.png");
   unboughtPot = loadImage("pictures/unbought pot.png");
 
-  blueflowerinpotImg = loadImage("pictures/blue flower in pot.png");
-  orangeflowerinpotImg = loadImage("pictures/orange flower in pot.png");
-  pinkflowerinpotImg = loadImage("pictures/pink flower in pot.png");
-  purpleflowerinpotImg = loadImage("pictures/purple flower in pot.png");
-  redflowerinpotimg = loadImage("pictures/red flower in pot.png");
-  whiteflowerinpotImg = loadImage("pictures/white flower in pot.png");
+  blueFlowerInPotImg = loadImage("pictures/blue flower in pot.png");
+  orangeFlowerInPotImg = loadImage("pictures/orange flower in pot.png");
+  pinkFlowerInPotImg = loadImage("pictures/pink flower in pot.png");
+  purpleFlowerInPotImg = loadImage("pictures/purple flower in pot.png");
+  redFlowerInPotimg = loadImage("pictures/red flower in pot.png");
+  whiteFlowerInPotImg = loadImage("pictures/white flower in pot.png");
 
   //flower and seeds
   blueFlower = loadImage("pictures/blue flower.png");
-  orangeflower = loadImage("pictures/orange flower.png");
+  orangeFlower = loadImage("pictures/orange flower.png");
   pinkFlower = loadImage("pictures/pink flower.png");
   purpleFlower = loadImage("pictures/purple flower.png");
   redFlower = loadImage("pictures/red flower.png");
   whiteFlower = loadImage("pictures/white flower.png");
 
-  blueSeedpack = loadImage("pictures/blueSeeds.png");
-  orangeSeedpack = loadImage("pictures/orangeSeeds.png");
-  pinkSeedpack = loadImage("pictures/pinkSeeds.png");
-  purpleSeedpack = loadImage("pictures/purpleSeeds.png");
-  redSeedpack = loadImage("pictures/redSeeds.png");
-  whiteSeedpack = loadImage("pictures/whiteSeeds.png");
+  blueSeedPack = loadImage("pictures/blueSeeds.png");
+  orangeSeedPack = loadImage("pictures/orangeSeeds.png");
+  pinkSeedPack = loadImage("pictures/pinkSeeds.png");
+  purpleSeedPack = loadImage("pictures/purpleSeeds.png");
+  redSeedPack = loadImage("pictures/redSeeds.png");
+  whiteSeedPack = loadImage("pictures/whiteSeeds.png");
   fertilizerBag = loadImage("pictures/fertilizer.png");
   
   //vase images
-  blueinVase1 = loadImage("pictures/vaseBlue1st.png");
-  blueinVase2 = loadImage("pictures/vaseBlue2nd.png");
-  blueinVase3 = loadImage("pictures/vaseBlue3rd.png");
-  blueinVase4 = loadImage("pictures/vaseBlue4th.png");
-  blueinVase5 = loadImage("pictures/vaseBlue5th.png");
+  blueInVase1 = loadImage("pictures/vaseBlue1st.png");
+  blueInVase2 = loadImage("pictures/vaseBlue2nd.png");
+  blueInVase3 = loadImage("pictures/vaseBlue3rd.png");
+  blueInVase4 = loadImage("pictures/vaseBlue4th.png");
+  blueInVase5 = loadImage("pictures/vaseBlue5th.png");
 
-  orangeinVase1 = loadImage("pictures/vaseOrange1st.png");
-  orangeinVase2 = loadImage("pictures/vaseOrange2nd.png");
-  orangeinVase3 = loadImage("pictures/vaseOrange3rd.png");
-  orangeinVase4 = loadImage("pictures/vaseOrange4th.png");
-  orangeinVase5 = loadImage("pictures/vaseOrange5th.png");
+  orangeInVase1 = loadImage("pictures/vaseOrange1st.png");
+  orangeInVase2 = loadImage("pictures/vaseOrange2nd.png");
+  orangeInVase3 = loadImage("pictures/vaseOrange3rd.png");
+  orangeInVase4 = loadImage("pictures/vaseOrange4th.png");
+  orangeInVase5 = loadImage("pictures/vaseOrange5th.png");
 
-  pinkinVase1 = loadImage("pictures/vasePink1st.png");
-  pinkinVase2 = loadImage("pictures/vasePink2nd.png");
-  pinkinVase3 = loadImage("pictures/vasePink3rd.png");
-  pinkinVase4 = loadImage("pictures/vasePink4th.png");
-  pinkinVase5 = loadImage("pictures/vasePink5th.png");
+  pinkInVase1 = loadImage("pictures/vasePink1st.png");
+  pinkInVase2 = loadImage("pictures/vasePink2nd.png");
+  pinkInVase3 = loadImage("pictures/vasePink3rd.png");
+  pinkInVase4 = loadImage("pictures/vasePink4th.png");
+  pinkInVase5 = loadImage("pictures/vasePink5th.png");
 
-  purpleinVase1 = loadImage("pictures/vasePurple1st.png");
-  purpleinVase2 = loadImage("pictures/vasePurple2nd.png");
-  purpleinVase3 = loadImage("pictures/vasePurple3rd.png");
-  purpleinVase4 = loadImage("pictures/vasePurple4th.png");
-  purpleinVase5 = loadImage("pictures/vasePurple5th.png");
+  purpleInVase1 = loadImage("pictures/vasePurple1st.png");
+  purpleInVase2 = loadImage("pictures/vasePurple2nd.png");
+  purpleInVase3 = loadImage("pictures/vasePurple3rd.png");
+  purpleInVase4 = loadImage("pictures/vasePurple4th.png");
+  purpleInVase5 = loadImage("pictures/vasePurple5th.png");
 
-  redinVase1 = loadImage("pictures/vaseRed1st.png");
-  redinVase2 = loadImage("pictures/vaseRed2nd.png");
-  redinVase3 = loadImage("pictures/vaseRed3rd.png");
-  redinVase4 = loadImage("pictures/vaseRed4th.png");
-  redinVase5 = loadImage("pictures/vaseRed5th.png");
+  redInVase1 = loadImage("pictures/vaseRed1st.png");
+  redInVase2 = loadImage("pictures/vaseRed2nd.png");
+  redInVase3 = loadImage("pictures/vaseRed3rd.png");
+  redInVase4 = loadImage("pictures/vaseRed4th.png");
+  redInVase5 = loadImage("pictures/vaseRed5th.png");
 
-  whiteinVase1 = loadImage("pictures/vaseWhite1st.png");
-  whiteinVase2 = loadImage("pictures/vaseWhite2nd.png");
-  whiteinVase3 = loadImage("pictures/vaseWhite3rd.png");
-  whiteinVase4 = loadImage("pictures/vaseWhite4th.png");
-  whiteinVase5 = loadImage("pictures/vaseWhite5th.png");
+  whiteInVase1 = loadImage("pictures/vaseWhite1st.png");
+  whiteInVase2 = loadImage("pictures/vaseWhite2nd.png");
+  whiteInVase3 = loadImage("pictures/vaseWhite3rd.png");
+  whiteInVase4 = loadImage("pictures/vaseWhite4th.png");
+  whiteInVase5 = loadImage("pictures/vaseWhite5th.png");
 
   emptyVase = loadImage("pictures/vase.png");
   shadow = loadImage("pictures/vaseshadow.png");
 
   //load the audiofiles
   backgroundMusic = loadSound("backgroundMusic.ogg");
-
-
+  cashRegisterSound = loadSound("");
+  seedSound = loadSound("");
 }
 
 function setup() {
@@ -252,17 +254,17 @@ function display_store(){
   // displays the store
 
   //Base store
-  image(storebackground, backgroundWidth/2 +border, backgroundHeight/2, backgroundWidth, backgroundHeight);
-  image(storebackbutton, backgroundWidth*(1300/1500)+border, backgroundHeight*(110/1000), backgroundWidth*(274/1500), backgroundHeight*(135/1000));
-  image(storeseedbutton, backgroundWidth*(160/1500)+ border, backgroundHeight*(110/1000), backgroundWidth*(274/1500), backgroundHeight*(135/1000));
+  image(storeBackground, backgroundWidth/2 +border, backgroundHeight/2, backgroundWidth, backgroundHeight);
+  image(storeBackButton, backgroundWidth*(1300/1500)+border, backgroundHeight*(110/1000), backgroundWidth*(274/1500), backgroundHeight*(135/1000));
+  image(storeSeedButton, backgroundWidth*(160/1500)+ border, backgroundHeight*(110/1000), backgroundWidth*(274/1500), backgroundHeight*(135/1000));
 
   // Seeds
-  image(redSeedpack, backgroundWidth*(375/1500)+border, backgroundHeight*(400/1000), backgroundWidth*(116/1500)*(3/2), backgroundHeight*(137/1000)*(3/2));
-  image(pinkSeedpack, backgroundWidth*(375/1500)+border, backgroundHeight*(800/1000), backgroundWidth*(116/1500)*(3/2), backgroundHeight*(137/1000)*(3/2));
-  image(whiteSeedpack, backgroundWidth*(750/1500)+border, backgroundHeight*(400/1000), backgroundWidth*(116/1500)*(3/2), backgroundHeight*(137/1000)*(3/2));
-  image(blueSeedpack, backgroundWidth*(750/1500)+border, backgroundHeight*(800/1000), backgroundWidth*(116/1500)*(3/2), backgroundHeight*(137/1000)*(3/2));
-  image(purpleSeedpack, backgroundWidth*(1125/1500)+ border, backgroundHeight*(400/1000), backgroundWidth*(116/1500)*(3/2), backgroundHeight*(137/1000)*(3/2));
-  image(orangeSeedpack, backgroundWidth*(1125/1500)+ border, backgroundHeight*(800/1000), backgroundWidth*(116/1500)*(3/2), backgroundHeight*(137/1000)*(3/2));
+  image(redSeedPack, backgroundWidth*(375/1500)+border, backgroundHeight*(400/1000), backgroundWidth*(116/1500)*(3/2), backgroundHeight*(137/1000)*(3/2));
+  image(pinkSeedPack, backgroundWidth*(375/1500)+border, backgroundHeight*(800/1000), backgroundWidth*(116/1500)*(3/2), backgroundHeight*(137/1000)*(3/2));
+  image(whiteSeedPack, backgroundWidth*(750/1500)+border, backgroundHeight*(400/1000), backgroundWidth*(116/1500)*(3/2), backgroundHeight*(137/1000)*(3/2));
+  image(blueSeedPack, backgroundWidth*(750/1500)+border, backgroundHeight*(800/1000), backgroundWidth*(116/1500)*(3/2), backgroundHeight*(137/1000)*(3/2));
+  image(purpleSeedPack, backgroundWidth*(1125/1500)+ border, backgroundHeight*(400/1000), backgroundWidth*(116/1500)*(3/2), backgroundHeight*(137/1000)*(3/2));
+  image(orangeSeedPack, backgroundWidth*(1125/1500)+ border, backgroundHeight*(800/1000), backgroundWidth*(116/1500)*(3/2), backgroundHeight*(137/1000)*(3/2));
   image(fertilizerBag, backgroundWidth*(1400/1500)+ border, backgroundHeight/2, backgroundWidth*(124/1500), backgroundHeight*(145/1000));
 
   // displays how much the seed costs and the spot for the amount in the inventory
@@ -334,15 +336,15 @@ function display_greenhouse(){
 
 function display_arraingingRoom(){
   // this function displays the arrainging room
-  image(arrangingroom, backgroundWidth/2 +border, backgroundHeight/2, backgroundWidth, backgroundHeight);
+  image(arrangingRoom, backgroundWidth/2 +border, backgroundHeight/2, backgroundWidth, backgroundHeight);
   diplaybuttons();
   display_vase(625, 443, 400, 600, 600, 197, 277);
   display_flowersAmount();
 
   // displays a flower if a flower is being dragged into the vase
-  if (!flowerbeingdragged === "none"){
+  if (!flowerBeingDragged === "none"){
     if (mouseIsPressed){
-      grab_flower(flowerbeingdragged);
+      grab_flower(flowerBeingDragged);
     }
   }
 }
@@ -351,7 +353,7 @@ function display_shop(){
   // displays the shop
   image(shopBackground, backgroundWidth/2 + border, backgroundHeight/2, backgroundWidth, backgroundHeight);
   image(shopTextbox, backgroundWidth*(400/1500) + border, backgroundHeight*(700/1000), backgroundWidth*(681/1500), backgroundHeight*(326/1000));
-  image(Shopsellbutton, backgroundWidth*(1273/1500)+ border, backgroundHeight*(900/1000), backgroundWidth*(312/1500), backgroundHeight*(147/1000));
+  image(shopSellButton, backgroundWidth*(1273/1500)+ border, backgroundHeight*(900/1000), backgroundWidth*(312/1500), backgroundHeight*(147/1000));
   diplaybuttons();
 
   // displays the order in the text box
@@ -371,7 +373,7 @@ function display_journal(){
   display_greenhouse();
 
   image(openJournal, backgroundWidth/2 + border, backgroundHeight/2, backgroundWidth, backgroundHeight);
-  image(storebackbutton, backgroundWidth*(1300/1500)+border, backgroundHeight*(932.5/1000), backgroundWidth*(274/1500), backgroundHeight*(135/1000));
+  image(storeBackButton, backgroundWidth*(1300/1500)+border, backgroundHeight*(932.5/1000), backgroundWidth*(274/1500), backgroundHeight*(135/1000));
 }
 
 function display_settings(){
@@ -388,7 +390,7 @@ function display_settings(){
   //hovered reset button
   else if(mouseX > backgroundWidth*(349/1500)+border && mouseX < backgroundWidth*(1151/1500)+ border && mouseY > backgroundHeight*(552/1000) && mouseY < backgroundHeight*(669/1000)){
     image(settingsBackButton, backgroundWidth/2 + border, backgroundHeight*(800/1000), backgroundWidth*(800/1500), backgroundHeight*(166/1000));
-    image(settingsResetButtonhovered, backgroundWidth/2 + border, backgroundHeight*(610/1000), backgroundWidth*(802/1500), backgroundHeight*(117/1000));
+    image(settingsResetButtonHovered, backgroundWidth/2 + border, backgroundHeight*(610/1000), backgroundWidth*(802/1500), backgroundHeight*(117/1000));
     image(settingsSaveButton, backgroundWidth/2 + border, backgroundHeight*(450/1000), backgroundWidth*(802/1500), backgroundHeight*(117/1000));
   }
 
@@ -411,39 +413,39 @@ function diplaybuttons(){
   // this function displays the buttons to get to the diffrent rooms, and displays the hovered version if the mouse is hovering over it
   // hovering over greenhouse
   if (mouseX > backgroundWidth*(1/125) + border && mouseX < backgroundWidth*(17/150)+border && mouseY > backgroundHeight*(171/200) && mouseY < backgroundHeight){
-    image(hoveredgreenhousebutton, backgroundWidth*(100/1500)+ border, backgroundHeight*(189/200), backgroundWidth*(157/1500), backgroundHeight*(111/1000));
-    image(arrangingroombutton, backgroundWidth*(275/1500) + border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
+    image(hoveredGreenhouseButton, backgroundWidth*(100/1500)+ border, backgroundHeight*(189/200), backgroundWidth*(157/1500), backgroundHeight*(111/1000));
+    image(arrangingRoomButton, backgroundWidth*(275/1500) + border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(shopButton, backgroundWidth*(450/1500) +border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(settingsButton, backgroundWidth*(625/1500)+ border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
   }
 
   // hovering over arrainging room
   else if (mouseX > backgroundWidth*(2/15)+border && mouseX < backgroundWidth*(7/30) + border && mouseY > backgroundHeight*(9/10) && mouseY < backgroundHeight){
-    image(hoveredarrangingroombutton, backgroundWidth*(11/60)+ border, backgroundHeight*(189/200), backgroundWidth*(157/1500), backgroundHeight*(111/1000));
-    image(greenhousebutton, backgroundWidth*(1/15) + border ,backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
+    image(hoveredArrangingRoomButton, backgroundWidth*(11/60)+ border, backgroundHeight*(189/200), backgroundWidth*(157/1500), backgroundHeight*(111/1000));
+    image(greenhouseButton, backgroundWidth*(1/15) + border ,backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(shopButton, backgroundWidth*(450/1500) +border, backgroundHeight*(24/25), backgroundWidth*(159/1500), backgroundHeight*(81/1000));
     image(settingsButton, backgroundWidth*(625/1500)+ border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
   }
 
   // hovering over the shop
   else if (mouseX > backgroundWidth*(371/1500)+ border && mouseX < backgroundWidth*(530/1500)+ border && mouseY >  backgroundHeight*(171/200) && mouseY < backgroundHeight){
-    image(arrangingroombutton, backgroundWidth*(275/1500) + border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
-    image(greenhousebutton, backgroundWidth*(1/15) + border ,backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
+    image(arrangingRoomButton, backgroundWidth*(275/1500) + border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
+    image(greenhouseButton, backgroundWidth*(1/15) + border ,backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(hoveredShopButton, backgroundWidth*(450/1500) + border,backgroundHeight*(189/200), backgroundWidth*(157/1500), backgroundHeight*(111/1000));
     image(settingsButton, backgroundWidth*(625/1500)+ border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
   }
 
   //hovering over settings
   else if (mouseX > backgroundWidth*(546/1500)+ border && mouseX < backgroundWidth*(705/1500)+ border && mouseY >  backgroundHeight*(171/200) && mouseY < backgroundHeight){
-    image(greenhousebutton, backgroundWidth*(1/15)+ border ,backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
-    image(arrangingroombutton, backgroundWidth*(11/60)+border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
+    image(greenhouseButton, backgroundWidth*(1/15)+ border ,backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
+    image(arrangingRoomButton, backgroundWidth*(11/60)+border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(shopButton, backgroundWidth*(450/1500) +border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(hoveredSettingButton, backgroundWidth*(625/1500)+border, backgroundHeight*(189/200),backgroundWidth*(157/1500), backgroundHeight*(111/1000));
   }
   //not hovering over any
   else{
-    image(greenhousebutton, backgroundWidth*(1/15)+ border ,backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
-    image(arrangingroombutton, backgroundWidth*(11/60)+border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
+    image(greenhouseButton, backgroundWidth*(1/15)+ border ,backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
+    image(arrangingRoomButton, backgroundWidth*(11/60)+border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(shopButton, backgroundWidth*(450/1500) +border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(settingsButton, backgroundWidth*(625/1500)+ border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
   }
@@ -452,22 +454,22 @@ function diplaybuttons(){
 function display_seeds(){
   // this function displays the seeds and the square for the amounts to be displayed on
   
-  image(redSeedpack, backgroundWidth*(1260/1500)+border, backgroundHeight*(215/1000), backgroundWidth*(116/1500), backgroundHeight*(137/1000));
+  image(redSeedPack, backgroundWidth*(1260/1500)+border, backgroundHeight*(215/1000), backgroundWidth*(116/1500), backgroundHeight*(137/1000));
   image(storeAmountDisplaySmall, backgroundWidth*(1260/1500) + border, backgroundHeight*(301/1000), backgroundWidth*(128/1500), backgroundHeight*(35/1000));
   
-  image(pinkSeedpack, backgroundWidth*(1410/1500)+border, backgroundHeight*(215/1000), backgroundWidth*(116/1500), backgroundHeight*(137/1000));
+  image(pinkSeedPack, backgroundWidth*(1410/1500)+border, backgroundHeight*(215/1000), backgroundWidth*(116/1500), backgroundHeight*(137/1000));
   image(storeAmountDisplaySmall, backgroundWidth*(1410/1500) + border, backgroundHeight*(301/1000), backgroundWidth*(128/1500), backgroundHeight*(35/1000));
 
-  image(whiteSeedpack, backgroundWidth*(1260/1500)+border, backgroundHeight*(400/1000), backgroundWidth*(116/1500), backgroundHeight*(137/1000));
+  image(whiteSeedPack, backgroundWidth*(1260/1500)+border, backgroundHeight*(400/1000), backgroundWidth*(116/1500), backgroundHeight*(137/1000));
   image(storeAmountDisplaySmall, backgroundWidth*(1260/1500) + border, backgroundHeight*(486/1000), backgroundWidth*(128/1500), backgroundHeight*(35/1000));
   
-  image(blueSeedpack, backgroundWidth*(1410/1500)+border, backgroundHeight*(400/1000), backgroundWidth*(116/1500), backgroundHeight*(137/1000));
+  image(blueSeedPack, backgroundWidth*(1410/1500)+border, backgroundHeight*(400/1000), backgroundWidth*(116/1500), backgroundHeight*(137/1000));
   image(storeAmountDisplaySmall, backgroundWidth*(1410/1500) + border, backgroundHeight*(486/1000), backgroundWidth*(128/1500), backgroundHeight*(35/1000));
 
-  image(purpleSeedpack, backgroundWidth*(1260/1500)+ border, backgroundHeight*(585/1000), backgroundWidth*(116/1500), backgroundHeight*(137/1000));
+  image(purpleSeedPack, backgroundWidth*(1260/1500)+ border, backgroundHeight*(585/1000), backgroundWidth*(116/1500), backgroundHeight*(137/1000));
   image(storeAmountDisplaySmall, backgroundWidth*(1260/1500) + border, backgroundHeight*(671/1000), backgroundWidth*(128/1500), backgroundHeight*(35/1000));
   
-  image(orangeSeedpack, backgroundWidth*(1410/1500)+ border, backgroundHeight*(585/1000), backgroundWidth*(116/1500), backgroundHeight*(137/1000));
+  image(orangeSeedPack, backgroundWidth*(1410/1500)+ border, backgroundHeight*(585/1000), backgroundWidth*(116/1500), backgroundHeight*(137/1000));
   image(storeAmountDisplaySmall, backgroundWidth*(1410/1500) + border, backgroundHeight*(671/1000), backgroundWidth*(128/1500), backgroundHeight*(35/1000));
 
 }
@@ -476,26 +478,26 @@ function display_seed_amouts_greenhouse(){
   // this function displays the amount of seeds in the inventory in the greenhouse
   textSize(backgroundWidth*(30/1500));
 
-  let amountofred = str(seeds.get("red"));
-  text(amountofred, backgroundWidth*(1260/1500) + border, backgroundHeight*(301/1000));
+  let amountOfRed = str(seeds.get("red"));
+  text(amountOfRed, backgroundWidth*(1260/1500) + border, backgroundHeight*(301/1000));
   
-  let amountofpink = str(seeds.get("pink"));
-  text(amountofpink, backgroundWidth*(1410/1500) + border, backgroundHeight*(301/1000));
+  let amountOfPink = str(seeds.get("pink"));
+  text(amountOfPink, backgroundWidth*(1410/1500) + border, backgroundHeight*(301/1000));
   
-  let amountofwhite = str(seeds.get("white"));
-  text(amountofwhite, backgroundWidth*(1260/1500) + border, backgroundHeight*(486/1000));
+  let amountOfWhite = str(seeds.get("white"));
+  text(amountOfWhite, backgroundWidth*(1260/1500) + border, backgroundHeight*(486/1000));
   
-  let amountofblue = str(seeds.get("blue"));
-  text(amountofblue, backgroundWidth*(1410/1500) + border, backgroundHeight*(486/1000));
+  let amountOfBlue = str(seeds.get("blue"));
+  text(amountOfBlue, backgroundWidth*(1410/1500) + border, backgroundHeight*(486/1000));
   
-  let amountofpurple = str(seeds.get("purple"));
-  text(amountofpurple, backgroundWidth*(1260/1500) + border, backgroundHeight*(671/1000));
+  let amountOfPurple = str(seeds.get("purple"));
+  text(amountOfPurple, backgroundWidth*(1260/1500) + border, backgroundHeight*(671/1000));
 
-  let amountoforange = str(seeds.get("orange"));
-  text(amountoforange, backgroundWidth*(1410/1500) + border, backgroundHeight*(671/1000));
+  let amountOfOrange = str(seeds.get("orange"));
+  text(amountOfOrange, backgroundWidth*(1410/1500) + border, backgroundHeight*(671/1000));
 
-  let amountoffertiziler = str(fertiziler);
-  text(amountoffertiziler, backgroundWidth*(1335/1500) + border, backgroundHeight*(836/1000));
+  let amountOfFertilizer = str(fertiziler);
+  text(amountOfFertilizer, backgroundWidth*(1335/1500) + border, backgroundHeight*(836/1000));
 }
 
 function display_price(){
@@ -560,12 +562,12 @@ function display_flowersAmount(){
   // This function displays how many flowers you have under the flowers in the arrainging room
   textSize(backgroundWidth*(30/1500));
 
-  text(str(redflowersHave), backgroundWidth*(1418/1500)+ border, backgroundHeight*(910/1000));
-  text(str(whiteflowersHave), backgroundWidth*(1276/1500)+ border, backgroundHeight*(910/1000));
-  text(str(orangeflowerHave), backgroundWidth*(1282/1500) + border, backgroundHeight*(639/1000));
-  text(str(blueflowersHave), backgroundWidth*(1427/1500) + border, backgroundHeight*(639/1000));
-  text(str(purpleflowerHave), backgroundWidth*(1256/1500)+ border, backgroundHeight*(395/1000));
-  text(str(pinkflowersHave), backgroundWidth*(1424/1500)+ border, backgroundHeight*(395/1000));
+  text(str(redFlowersHave), backgroundWidth*(1418/1500)+ border, backgroundHeight*(910/1000));
+  text(str(whiteFlowersHave), backgroundWidth*(1276/1500)+ border, backgroundHeight*(910/1000));
+  text(str(orangeFlowerHave), backgroundWidth*(1282/1500) + border, backgroundHeight*(639/1000));
+  text(str(blueFlowersHave), backgroundWidth*(1427/1500) + border, backgroundHeight*(639/1000));
+  text(str(purpleFlowerHave), backgroundWidth*(1256/1500)+ border, backgroundHeight*(395/1000));
+  text(str(pinkFlowersHave), backgroundWidth*(1424/1500)+ border, backgroundHeight*(395/1000));
 }
 
 function set_seeds(){
@@ -580,6 +582,8 @@ function set_seeds(){
 
 function plant_seed(pot, seedtype){
   // this function plants a flower in whichever pot was clicked, with whichever seedtype was used
+  
+  seedSound.play();
 
   if (pot === "one"){
     if (pots[0].hasplant === false && seedtype !== ""){
@@ -587,7 +591,7 @@ function plant_seed(pot, seedtype){
       pots[0].plantState = "dirt";
       pots[0].millisplanted = millis();
       pots[0].flowerColor = seedtype;
-      pots[0].image = plantedpotImg;
+      pots[0].image = plantedPotImg;
     }
   }
 
@@ -597,7 +601,7 @@ function plant_seed(pot, seedtype){
       pots[1].plantState = "dirt";
       pots[1].millisplanted = millis();
       pots[1].flowerColor = seedtype;
-      pots[1].image = plantedpotImg;
+      pots[1].image = plantedPotImg;
     }
   }
 
@@ -607,7 +611,7 @@ function plant_seed(pot, seedtype){
       pots[2].plantState = "dirt";
       pots[2].millisplanted = millis();
       pots[2].flowerColor = seedtype;
-      pots[2].image = plantedpotImg;
+      pots[2].image = plantedPotImg;
     }
   }
 
@@ -617,7 +621,7 @@ function plant_seed(pot, seedtype){
       pots[3].plantState = "dirt";
       pots[3].millisplanted = millis();
       pots[3].flowerColor = seedtype;
-      pots[3].image = plantedpotImg;
+      pots[3].image = plantedPotImg;
     }
   }
 
@@ -627,7 +631,7 @@ function plant_seed(pot, seedtype){
       pots[4].plantState = "dirt";
       pots[4].millisplanted = millis();
       pots[4].flowerColor = seedtype;
-      pots[4].image = plantedpotImg;
+      pots[4].image = plantedPotImg;
     }
   }
 
@@ -637,7 +641,7 @@ function plant_seed(pot, seedtype){
       pots[5].plantState = "dirt";
       pots[5].millisplanted = millis();
       pots[5].flowerColor = seedtype;
-      pots[5].image = plantedpotImg;
+      pots[5].image = plantedPotImg;
     }
   }
 }
@@ -861,28 +865,28 @@ function mousePressed(){
   else if (room === 2){
     //starts dragging a flower when it is clicked
 
-    if (mouseX > backgroundWidth*(1207/1500) + border && mouseX < backgroundWidth*(1305/1500) + border && mouseY > backgroundHeight*(210/1000) && mouseY < backgroundHeight*(378/1000) && purpleflowerHave > 0){
-      flowerbeingdragged = purpleFlower;
+    if (mouseX > backgroundWidth*(1207/1500) + border && mouseX < backgroundWidth*(1305/1500) + border && mouseY > backgroundHeight*(210/1000) && mouseY < backgroundHeight*(378/1000) && purpleFlowerHave > 0){
+      flowerBeingDragged = purpleFlower;
     }
 
-    else if (mouseX > backgroundWidth*(1235/1500) + border && mouseX < backgroundWidth*(1332/1500) + border && mouseY > backgroundHeight*(458/1000) && mouseY< backgroundHeight*(620/1000) && orangeflowerHave > 0){
-      flowerbeingdragged = orangeflower;
+    else if (mouseX > backgroundWidth*(1235/1500) + border && mouseX < backgroundWidth*(1332/1500) + border && mouseY > backgroundHeight*(458/1000) && mouseY< backgroundHeight*(620/1000) && orangeFlowerHave > 0){
+      flowerBeingDragged = orangeFlower;
     }
 
-    else if (mouseX > backgroundWidth*(1230/1500) + border && mouseX < backgroundWidth*(1325/1500) + border && mouseY > backgroundHeight*(721/1000) && mouseY< backgroundHeight*(890/1000) && whiteflowersHave > 0){
-      flowerbeingdragged = whiteFlower;
+    else if (mouseX > backgroundWidth*(1230/1500) + border && mouseX < backgroundWidth*(1325/1500) + border && mouseY > backgroundHeight*(721/1000) && mouseY< backgroundHeight*(890/1000) && whiteFlowersHave > 0){
+      flowerBeingDragged = whiteFlower;
     }
 
-    else if (mouseX > backgroundWidth*(1373/1500) + border && mouseX < backgroundWidth*(1468/1500) + border && mouseY > backgroundHeight*(213/1000) && mouseY< backgroundHeight*(375/1000) && pinkflowersHave > 0){
-      flowerbeingdragged = pinkFlower;
+    else if (mouseX > backgroundWidth*(1373/1500) + border && mouseX < backgroundWidth*(1468/1500) + border && mouseY > backgroundHeight*(213/1000) && mouseY< backgroundHeight*(375/1000) && pinkFlowersHave > 0){
+      flowerBeingDragged = pinkFlower;
     }
 
-    else if (mouseX > backgroundWidth*(1384/1500) + border && mouseX < backgroundWidth*(1478/1500) + border && mouseY > backgroundHeight*(461/1000) && mouseY< backgroundHeight*(621/1000) && blueflowersHave > 0){
-      flowerbeingdragged = blueFlower;
+    else if (mouseX > backgroundWidth*(1384/1500) + border && mouseX < backgroundWidth*(1478/1500) + border && mouseY > backgroundHeight*(461/1000) && mouseY< backgroundHeight*(621/1000) && blueFlowersHave > 0){
+      flowerBeingDragged = blueFlower;
     }
 
-    else if (mouseX > backgroundWidth*(1370/1500) + border && mouseX < backgroundWidth*(1467/1500) + border && mouseY > backgroundHeight*(722/1000) && mouseY< backgroundHeight*(889/1000) && redflowersHave > 0){
-      flowerbeingdragged = redFlower;
+    else if (mouseX > backgroundWidth*(1370/1500) + border && mouseX < backgroundWidth*(1467/1500) + border && mouseY > backgroundHeight*(722/1000) && mouseY< backgroundHeight*(889/1000) && redFlowersHave > 0){
+      flowerBeingDragged = redFlower;
     }
   }
 
@@ -951,8 +955,8 @@ function mousePressed(){
   else if (room === 6){
     // goes back to the room you went to the settings from
     if (mouseX > backgroundWidth*(350/1500)+border && mouseX < backgroundWidth*(1150/1500)+ border && mouseY > backgroundHeight*(717/1000) && mouseY < backgroundHeight*(883/1000)){
-      room = oldroom;
-      oldroom = 0;
+      room = oldRoom;
+      oldRoom = 0;
     }
 
     //reset button was click, clear storage and reset button
@@ -986,7 +990,7 @@ function mousePressed(){
 
     //settings
     else if (mouseX > backgroundWidth*(546/1500)+ border && mouseX < backgroundWidth*(705/1500)+ border && mouseY >  backgroundHeight*(171/200) && mouseY < backgroundHeight){
-      oldroom = room;
+      oldRoom = room;
       room = 6;
     }
   }
@@ -1000,7 +1004,7 @@ function createpots(){
       flowerColor: "",
       millisplanted: 0,
       plantState: "none",
-      image: emptypotImg,
+      image: emptyPotImg,
       bought: false,
       oldmillis : 0,
     };
@@ -1022,7 +1026,7 @@ function update_pots(){
 
     // checks if the pot is empty
     else if (pots[i].bought === true && pots[i].hasplant === false){
-      pots[i].image = emptypotImg;
+      pots[i].image = emptyPotImg;
     }
 
     // checks if it has a flower
@@ -1033,22 +1037,22 @@ function update_pots(){
         // plant has grown
         if (pots[i].plantState === "done"){
           if (pots[i].flowerColor === "white"){
-            pots[i].image = whiteflowerinpotImg;
+            pots[i].image = whiteFlowerInPotImg;
           }
           else if (pots[i].flowerColor === "pink"){
-            pots[i].image = pinkflowerinpotImg;
+            pots[i].image = pinkFlowerInPotImg;
           }
           else if (pots[i].flowerColor === "blue"){
-            pots[i].image = blueflowerinpotImg;
+            pots[i].image = blueFlowerInPotImg;
           }
           else if (pots[i].flowerColor === "orange"){
-            pots[i].image = orangeflowerinpotImg;
+            pots[i].image = orangeFlowerInPotImg;
           }
           else if (pots[i].flowerColor === "purple"){
-            pots[i].image = purpleflowerinpotImg;
+            pots[i].image = purpleFlowerInPotImg;
           }
           else if (pots[i].flowerColor === "red"){
-            pots[i].image = redflowerinpotimg;
+            pots[i].image = redFlowerInPotimg;
           }
         }
 
@@ -1056,22 +1060,22 @@ function update_pots(){
         else if (millis() - pots[i].millisplanted + pots[i].oldmillis > 30000){
           pots[i].plantState = "done";
           if (pots[i].flowerColor === "white"){
-            pots[i].image = whiteflowerinpotImg;
+            pots[i].image = whiteFlowerInPotImg;
           }
           else if (pots[i].flowerColor === "pink"){
-            pots[i].image = pinkflowerinpotImg;
+            pots[i].image = pinkFlowerInPotImg;
           }
           else if (pots[i].flowerColor === "blue"){
-            pots[i].image = blueflowerinpotImg;
+            pots[i].image = blueFlowerInPotImg;
           }
           else if (pots[i].flowerColor === "orange"){
-            pots[i].image = orangeflowerinpotImg;
+            pots[i].image = orangeFlowerInPotImg;
           }
           else if (pots[i].flowerColor === "purple"){
-            pots[i].image = purpleflowerinpotImg;
+            pots[i].image = purpleFlowerInPotImg;
           }
           else if (pots[i].flowerColor === "red"){
-            pots[i].image = redflowerinpotimg;
+            pots[i].image = redFlowerInPotimg;
           }
         }
 
@@ -1095,54 +1099,54 @@ function update_pots(){
 function add_flower(color){
   // this function "buys" the flowers, and changes the variable that keeps track of how many flowers you have
   if (color === "white"){
-    whiteflowersHave ++;
+    whiteFlowersHave ++;
   }
 
   else if (color === "red"){
-    redflowersHave ++;
+    redFlowersHave ++;
   }
 
   else if (color === "pink"){
-    pinkflowersHave ++;
+    pinkFlowersHave ++;
   }
 
   else if (color === "blue"){
-    blueflowersHave ++;
+    blueFlowersHave ++;
   }
 
   else if (color === "orange"){
-    orangeflowerHave ++;
+    orangeFlowerHave ++;
   }
 
   else if (color === "purple"){
-    purpleflowerHave ++;
+    purpleFlowerHave ++;
   }
 }
 
 function use_flower(color){
   // this flower removes a flower from the stored amount of flowers
   if (color === whiteFlower){
-    whiteflowersHave -= 1;
+    whiteFlowersHave -= 1;
   }
 
   else if (color === redFlower){
-    redflowersHave -= 1;
+    redFlowersHave -= 1;
   }
 
   else if (color === pinkFlower){
-    pinkflowersHave -= 1;
+    pinkFlowersHave -= 1;
   }
 
   else if (color === blueFlower){
-    blueflowersHave -= 1;
+    blueFlowersHave -= 1;
   }
 
-  else if (color === orangeflower){
-    orangeflowerHave -= 1;
+  else if (color === orangeFlower){
+    orangeFlowerHave -= 1;
   }
 
   else if (color === purpleFlower){
-    purpleflowerHave -= 1;
+    purpleFlowerHave -= 1;
   }
 }
 
@@ -1159,7 +1163,7 @@ function pick_flower(pot, color){
     pots[0].plantState = "none";
     pots[0].flowerColor = "";
     pots[0].millisplanted = 0;
-    pots[0].image = emptypotImg;
+    pots[0].image = emptyPotImg;
   }
 
   else if (pot === "two"){
@@ -1167,7 +1171,7 @@ function pick_flower(pot, color){
     pots[1].plantState = "none";
     pots[1].flowerColor = "";
     pots[1].millisplanted = 0;
-    pots[1].image = emptypotImg;
+    pots[1].image = emptyPotImg;
   }
 
   else if (pot === "three"){
@@ -1175,7 +1179,7 @@ function pick_flower(pot, color){
     pots[2].plantState = "none";
     pots[2].flowerColor = "";
     pots[2].millisplanted = 0;
-    pots[2].image = emptypotImg;
+    pots[2].image = emptyPotImg;
   }
 
   else if (pot === "four"){
@@ -1183,7 +1187,7 @@ function pick_flower(pot, color){
     pots[3].plantState = "none";
     pots[3].flowerColor = "";
     pots[3].millisplanted = 0;
-    pots[3].image = emptypotImg;
+    pots[3].image = emptyPotImg;
   }
 
   else if (pot === "five"){
@@ -1191,7 +1195,7 @@ function pick_flower(pot, color){
     pots[4].plantState = "none";
     pots[4].flowerColor = "";
     pots[4].millisplanted = 0;
-    pots[4].image = emptypotImg;
+    pots[4].image = emptyPotImg;
   }
   
   else if (pot === "six"){
@@ -1199,7 +1203,7 @@ function pick_flower(pot, color){
     pots[5].plantState = "none";
     pots[5].flowerColor = "";
     pots[5].millisplanted = 0;
-    pots[5].image = emptypotImg;
+    pots[5].image = emptyPotImg;
   }
 }
 
@@ -1220,6 +1224,7 @@ function is_liked_or_disliked(color, flowerArray){
 
 function sell_arrangement(){
   // this function sells the arraingment
+  cashRegisterSound.play();
   // sets the variables used
   let value = 0;
   let liked = 0;
@@ -1263,54 +1268,54 @@ function display_vase(x, y, w, h, y2, w2, h2){
   // 5th flower
   if (arrangement.length > 4){
     if (arrangement[4] === "red"){
-      image(redinVase5, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(redInVase5, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
 
     else if (arrangement[4] === "white"){
-      image(whiteinVase5, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(whiteInVase5, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
 
     else if (arrangement[4] === "pink"){
-      image(pinkinVase5, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(pinkInVase5, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
 
     else if ( arrangement[4] === "blue"){
-      image(blueinVase5, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(blueInVase5, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
 
     else if (arrangement[4] === "orange"){
-      image(orangeinVase5, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(orangeInVase5, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
 
     else if (arrangement[4] === "purple"){
-      image(purpleinVase5, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(purpleInVase5, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
   }
 
   // 4th flower
   if (arrangement.length > 3){
     if (arrangement[3] === "red"){
-      image(redinVase4, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(redInVase4, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
 
     else if (arrangement[3] === "white"){
-      image(whiteinVase4, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(whiteInVase4, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
 
     else if (arrangement[3] === "pink"){
-      image(pinkinVase4, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(pinkInVase4, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
 
     else if ( arrangement[3] === "blue"){
-      image(blueinVase4, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(blueInVase4, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
 
     else if (arrangement[3] === "orange"){
-      image(orangeinVase4, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(orangeInVase4, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
 
     else if (arrangement[3] === "purple"){
-      image(purpleinVase4, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(purpleInVase4, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
 
   }
@@ -1318,81 +1323,81 @@ function display_vase(x, y, w, h, y2, w2, h2){
   // 3rd flower
   if (arrangement.length > 2){
     if (arrangement[2] === "red"){
-      image(redinVase3, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(redInVase3, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
 
     else if (arrangement[2] === "white"){
-      image(whiteinVase3, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(whiteInVase3, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
 
     else if (arrangement[2] === "pink"){
-      image(pinkinVase3, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(pinkInVase3, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
 
     else if ( arrangement[2] === "blue"){
-      image(blueinVase3, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(blueInVase3, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
 
     else if (arrangement[2] === "orange"){
-      image(orangeinVase3, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(orangeInVase3, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
 
     else if (arrangement[2] === "purple"){
-      image(purpleinVase3, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(purpleInVase3, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
   }
 
   // 2nd flower
   if (arrangement.length > 1){
     if (arrangement[1] === "red"){
-      image(redinVase2, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(redInVase2, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
 
     else if (arrangement[1] === "white"){
-      image(whiteinVase2, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(whiteInVase2, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
 
     else if (arrangement[1] === "pink"){
-      image(pinkinVase2, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(pinkInVase2, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
 
     else if ( arrangement[1] === "blue"){
-      image(blueinVase2, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(blueInVase2, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
 
     else if (arrangement[1] === "orange"){
-      image(orangeinVase2, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(orangeInVase2, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
 
     else if (arrangement[1] === "purple"){
-      image(purpleinVase2, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(purpleInVase2, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
   }
 
   // 1st flower
   if (arrangement.length > 0){
     if (arrangement[0] === "red"){
-      image(redinVase1, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(redInVase1, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
 
     else if (arrangement[0] === "white"){
-      image(whiteinVase1, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(whiteInVase1, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
 
     else if (arrangement[0] === "pink"){
-      image(pinkinVase1, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(pinkInVase1, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
 
     else if ( arrangement[0] === "blue"){
-      image(blueinVase1, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(blueInVase1, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
 
     else if (arrangement[0] === "orange"){
-      image(orangeinVase1, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(orangeInVase1, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
 
     else if (arrangement[0] === "purple"){
-      image(purpleinVase1, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
+      image(purpleInVase1, backgroundWidth*(x/1500) + border, backgroundHeight*(y/1000), backgroundWidth*(w/1500), backgroundHeight*(h/1000));
     }
   }
 
@@ -1409,23 +1414,23 @@ function grab_flower(flowerimage){
 
 function drag_flower(){
   // if there is a flower being dragged, this function checks that the mouse is still pressed, and if its not, it puts it in the arraingment if the mouse is over the vase
-  if (flowerbeingdragged !== "none"){
+  if (flowerBeingDragged !== "none"){
     if (mouseIsPressed){
-      grab_flower(flowerbeingdragged);
+      grab_flower(flowerBeingDragged);
     }
 
     else {
       //mouse over vase
       if (mouseX > backgroundWidth*(536/1500) + border && mouseX < backgroundWidth*(724/1500) + border && mouseY > backgroundHeight*(465/1000) && mouseY < backgroundHeight*(736/1000)){
-        add_to_arrangement(flowerbeingdragged);
+        add_to_arrangement(flowerBeingDragged);
         
-        use_flower(flowerbeingdragged);
-        flowerbeingdragged = "none";
+        use_flower(flowerBeingDragged);
+        flowerBeingDragged = "none";
       }
 
       //mouse not over vase
       else{
-        flowerbeingdragged = "none";
+        flowerBeingDragged = "none";
       }
     }
   }
@@ -1454,7 +1459,7 @@ function add_to_arrangement(color){
     arrangement.push("white");
   }
 
-  else if (color === orangeflower){
+  else if (color === orangeFlower){
     arrangement.push("orange");
   }
 }
@@ -1490,16 +1495,16 @@ function resetGame(){
   pots = [];
   arrangement = [];
   orders = [];
-  oldroom = 0;
+  oldRoom = 0;
   currentSeed = "";
-  flowerbeingdragged = "none";
+  flowerBeingDragged = "none";
   currentOrder = "";
-  redflowersHave = 0;
-  pinkflowersHave = 0;
-  whiteflowersHave = 0;
-  blueflowersHave = 0;
-  orangeflowerHave = 0;
-  purpleflowerHave = 0;
+  redFlowersHave = 0;
+  pinkFlowersHave = 0;
+  whiteFlowersHave = 0;
+  blueFlowersHave = 0;
+  orangeFlowerHave = 0;
+  purpleFlowerHave = 0;
 
   money = 6;
   fertiziler = 0;
@@ -1538,7 +1543,7 @@ function getImage(pot){
   }
   // checks if the pot is empty
   else if (pot.bought === true && pot.hasplant === false){
-    pot.image = emptypotImg;
+    pot.image = emptyPotImg;
   }
 
   // checks if it has a flower, and what state it is, and sets the image and the time to be correct
@@ -1547,22 +1552,22 @@ function getImage(pot){
       if (pot.plantState === "done"){
         pot.oldmillis = 31000;
         if (pot.flowerColor === "white"){
-          pot.image = whiteflowerinpotImg;
+          pot.image = whiteFlowerInPotImg;
         }
         else if (pot.flowerColor === "pink"){
-          pots.image = pinkflowerinpotImg;
+          pots.image = pinkFlowerInPotImg;
         }
         else if (pot.flowerColor === "blue"){
-          pot.image = blueflowerinpotImg;
+          pot.image = blueFlowerInPotImg;
         }
         else if (pot.flowerColor === "orange"){
-          pot.image = orangeflowerinpotImg;
+          pot.image = orangeFlowerInPotImg;
         }
         else if (pot.flowerColor === "purple"){
-          pot.image = purpleflowerinpotImg;
+          pot.image = purpleFlowerInPotImg;
         }
         else if (pot.flowerColor === "red"){
-          pot.image = redflowerinpotimg;
+          pot.image = redFlowerInPotimg;
         }
       }
       else if (pot.plantState === "bud" ){
@@ -1574,7 +1579,7 @@ function getImage(pot){
         pot.image = sproutImg;
       }
       else{
-        pot.image = plantedpotImg;
+        pot.image = plantedPotImg;
         pot.oldmillis = 0;
       }
     }
@@ -1589,23 +1594,23 @@ function get_data(){
   hasData = getItem("hasData");
   if (hasData !== null || hasData === true){
     // "normal" variable types
-    redflowersHave = getItem("redflowersHave");
-    pinkflowersHave = getItem("pinkflowersHave");
-    whiteflowersHave = getItem("whiteflowersHave");
-    blueflowersHave = getItem("blueflowersHave");
-    orangeflowerHave = getItem("orangeflowerHave");
-    purpleflowerHave = getItem("purpleflowerHave");
+    redFlowersHave = getItem("redflowersHave");
+    pinkFlowersHave = getItem("pinkflowersHave");
+    whiteFlowersHave = getItem("whiteflowersHave");
+    blueFlowersHave = getItem("blueflowersHave");
+    orangeFlowerHave = getItem("orangeflowerHave");
+    purpleFlowerHave = getItem("purpleflowerHave");
     money = getItem("money");
     fertiziler = getItem("fertiziler");
 
     // gets the arraingment
     arrangement = [];
-    let arraingmentplaces = ["arraingmentOne", "arraingmentTwo", "arraingmentThree", "arraingmentFour","arraingmentFive"];
-    let arraignmentlength = getItem("arraingmentlength");
+    let arraingmentPlaces = ["arraingmentOne", "arraingmentTwo", "arraingmentThree", "arraingmentFour","arraingmentFive"];
+    let arraignmentLength = getItem("arraingmentlength");
 
-    for (let i = 0; i < arraignmentlength; i++){
-      let theflower = getItem(arraingmentplaces[i]);
-      arrangement.push(theflower);
+    for (let i = 0; i < arraignmentLength; i++){
+      let theFlower = getItem(arraingmentPlaces[i]);
+      arrangement.push(theFlower);
     }
 
     // gets the order
@@ -1619,9 +1624,9 @@ function get_data(){
     }
 
     // gets the seeds
-    let seedtypes = ["red", "pink", "orange", "blue", "purple", "white"];
-    for (let i = 0; i <seedtypes.length; i++){
-      seeds.set(seedtypes[i], getItem(seedtypes[i]));
+    let seedTypes = ["red", "pink", "orange", "blue", "purple", "white"];
+    for (let i = 0; i <seedTypes.length; i++){
+      seeds.set(seedTypes[i], getItem(seedTypes[i]));
     }
 
     /// gets the pots
@@ -1633,7 +1638,7 @@ function get_data(){
         hasplant: getItem(potsarray[i] + "hasplant"),
         flowerColor: getItem(potsarray[i] + "flowercolor"),
         plantState: getItem(potsarray[i] + "state"),
-        image: emptypotImg,
+        image: emptyPotImg,
         bought: getItem(potsarray[i] + "bought"),
         millisplanted: millis(),
 
@@ -1650,28 +1655,28 @@ function save_data(){
   clearStorage();
 
   // stores "normal" variables
-  storeItem("redflowersHave", redflowersHave);
-  storeItem("pinkflowersHave", pinkflowersHave);
-  storeItem("whiteflowersHave", whiteflowersHave);
-  storeItem("blueflowersHave", blueflowersHave);
-  storeItem("orangeflowerHave", orangeflowerHave);
-  storeItem("purpleflowerHave", purpleflowerHave);
+  storeItem("redflowersHave", redFlowersHave);
+  storeItem("pinkflowersHave", pinkFlowersHave);
+  storeItem("whiteflowersHave", whiteFlowersHave);
+  storeItem("blueflowersHave", blueFlowersHave);
+  storeItem("orangeflowerHave", orangeFlowerHave);
+  storeItem("purpleflowerHave", purpleFlowerHave);
   storeItem("order", currentOrder.get("index"));
   storeItem("money", money);
   storeItem("fertiziler", fertiziler);
 
   // stores the arraingment array
   storeItem("arraingmentlength", arrangement.length);
-  let arraingmentplaces = ["arraingmentOne", "arraingmentTwo", "arraingmentThree", "arraingmentFour","arraingmentFive"];
+  let arraingmentPlaces = ["arraingmentOne", "arraingmentTwo", "arraingmentThree", "arraingmentFour","arraingmentFive"];
 
   for (let i = 0; i < arrangement.length; i++){
-    storeItem(arraingmentplaces[i], arrangement[i]);
+    storeItem(arraingmentPlaces[i], arrangement[i]);
   }
 
   // stores the seed map
-  let seedtypes = ["red", "pink", "orange", "blue", "purple", "white"];
-  for (let i = 0; i < seedtypes.length; i++){
-    storeItem(seedtypes[i], seeds.get(seedtypes[i]));
+  let seedTypes = ["red", "pink", "orange", "blue", "purple", "white"];
+  for (let i = 0; i < seedTypes.length; i++){
+    storeItem(seedTypes[i], seeds.get(seedTypes[i]));
   }
 
   //stores the pot array/objects
