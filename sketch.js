@@ -50,6 +50,9 @@ let redinVase1, redinVase2, redinVase3, redinVase4, redinVase5;
 let whiteinVase1, whiteinVase2, whiteinVase3, whiteinVase4, whiteinVase5;
 let emptyVase, shadow;
 
+//sounds
+let backgroundMusic;
+
 function preload(){
   //all the images are loaded in the preload funtion
 
@@ -160,6 +163,11 @@ function preload(){
 
   emptyVase = loadImage("pictures/vase.png");
   shadow = loadImage("pictures/vaseshadow.png");
+
+  //load the audiofiles
+  backgroundMusic = loadSound("backgroundMusic.ogg");
+
+
 }
 
 function setup() {
@@ -644,6 +652,12 @@ function fertilize_plant(pot){
 
 function mousePressed(){
   // this function does what needs to be done based on where the mouse was pressed, and which "room" it is
+
+  // if (!backgroundMusic.isPlaying()){
+  //   backgroundMusic.setVolume(0.5);
+  //   backgroundMusic.play();
+  //   backgroundMusic.setLoop(true);
+  // }
 
   // Startscreen
   if (room === 0){
