@@ -53,7 +53,9 @@ let emptyVase, shadow;
 //sounds
 let backgroundMusic;
 let cashRegisterSound;
-let seedSound;
+let plantingSound;
+let clickSound;
+let fertilizeSound;
 
 function preload(){
   //all the images are loaded in the preload funtion
@@ -167,9 +169,11 @@ function preload(){
   shadow = loadImage("pictures/vaseshadow.png");
 
   //load the audiofiles
-  backgroundMusic = loadSound("backgroundMusic.ogg");
-  cashRegisterSound = loadSound("");
-  seedSound = loadSound("");
+  backgroundMusic = loadSound("sounds/backgroundMusic.ogg");
+  cashRegisterSound = loadSound("sounds/cashregisterSound.mp3");
+  plantingSound = loadSound("sounds/plantedSound.mp3");
+  clickSound = loadSound("sounds/clcikSound.mp3");
+  fertilizeSound = loadSound("sounds/fertilizingsound.mp3");
 }
 
 function setup() {
@@ -197,6 +201,12 @@ function setup() {
 
   seeds = new Map();
   set_seeds();
+
+  backgroundMusic.setVolume(0.5);
+  cashRegisterSound.setVolume(0.3);
+  plantingSound.setVolume(0.3);
+  clickSound.setVolume(0.3);
+  fertilizeSound.setVolume(0.3);
 
   get_data();
 }
@@ -583,7 +593,7 @@ function set_seeds(){
 function plant_seed(pot, seedtype){
   // this function plants a flower in whichever pot was clicked, with whichever seedtype was used
   
-  seedSound.play();
+  plantingSound.play();
 
   if (pot === "one"){
     if (pots[0].hasplant === false && seedtype !== ""){
@@ -648,6 +658,7 @@ function plant_seed(pot, seedtype){
 
 function fertilize_plant(pot){
   // this function fertilizes the plant in whichever pot was clicked
+  fertilizeSound.play();
   if (pots[pot].plantState !== "done"){
     pots[pot].plantState = "done";
     fertiziler --;
@@ -657,16 +668,17 @@ function fertilize_plant(pot){
 function mousePressed(){
   // this function does what needs to be done based on where the mouse was pressed, and which "room" it is
 
-  // if (!backgroundMusic.isPlaying()){
-  //   backgroundMusic.setVolume(0.5);
-  //   backgroundMusic.play();
-  //   backgroundMusic.setLoop(true);
-  // }
+  if (!backgroundMusic.isPlaying()){
+    backgroundMusic.setVolume(0.5);
+    backgroundMusic.play();
+    backgroundMusic.setLoop(true);
+  }
 
   // Startscreen
   if (room === 0){
     // changes the room when the start button is clicked
     if (mouseX > backgroundWidth*(2/15)+ border && mouseX < backgroundWidth*(13/15)+ border && mouseY > backgroundHeight*(131/200) && mouseY < backgroundHeight*(37/40)){
+      clickSound.play();
       room = 1;
     }
   }
@@ -822,41 +834,50 @@ function mousePressed(){
 
     // this changed the current seed if a seedtype is clicked
     if (mouseX > backgroundWidth*(1202/1500) + border && mouseX < backgroundWidth*(1318/1500)+ border && mouseY > backgroundHeight*(147/1000) && mouseY < backgroundHeight*(284/1000)){
+      clickSound.play();
       currentSeed = "red";
     }
 
     else if (mouseX > backgroundWidth*(1352/1500) + border && mouseX < backgroundWidth*(1468/1500) + border && mouseY > backgroundHeight*(147/1000) && mouseY < backgroundHeight*(284/1000)){
+      clickSound.play();
       currentSeed = "pink";
     }
 
     else if (mouseX > backgroundWidth*(1202/1500) + border && mouseX < backgroundWidth*(1318/1500)+ border && mouseY > backgroundHeight*(332/1000) && mouseY < backgroundHeight*(469/1000)){
+      clickSound.play();
       currentSeed = "white";
     }
 
     else if (mouseX >  backgroundWidth*(1352/1500) + border && mouseX < backgroundWidth*(1468/1500) + border && mouseY > backgroundHeight*(332/1000) && mouseY < backgroundHeight*(469/1000)){
+      clickSound.play();
       currentSeed = "blue";
     }
 
     else if (mouseX > backgroundWidth*(1202/1500) + border && mouseX < backgroundWidth*(1318/1500)+ border && mouseY > backgroundHeight*(517/1000) && mouseY < backgroundHeight*(654/1000)){
+      clickSound.play();
       currentSeed = "purple";
     }
 
     else if (mouseX >  backgroundWidth*(1352/1500) + border && mouseX < backgroundWidth*(1468/1500) + border && mouseY > backgroundHeight*(517/1000) && mouseY < backgroundHeight*(654/1000)){
+      clickSound.play();
       currentSeed = "orange";
     }
 
     else if (mouseX > backgroundWidth*(1282/1500)+ border && mouseX < backgroundWidth*(1388/1500)+border && mouseY > backgroundHeight*(668/1000) && mouseY < backgroundHeight*(798/1000)){
+      clickSound.play();
       currentSeed = "fertilizer";
     }
     
     // this changed the room if the store button or journal is pressed
     if (mouseX > backgroundWidth*(1227/1500) + border && mouseX < backgroundWidth*(1443/1500) + border && mouseY > backgroundHeight*(859/1000) && mouseY < backgroundHeight*(982/1000)){
       //store
+      clickSound.play();
       room = 3;
     }
 
     if (mouseX > backgroundWidth*(32/1500) + border && mouseX < backgroundWidth*(149/1500) + border && mouseY > backgroundHeight*(18/1000) && mouseY < backgroundHeight*(162/1000)){
       // journal
+      clickSound.play();
       room = 5;
     }
   }
@@ -894,43 +915,51 @@ function mousePressed(){
   else if (room === 3){
     // adds seeds to the inventory if its clicked, and takes away from the money for each seed color
     if (mouseX > backgroundWidth*(288/1500)+border && mouseX < backgroundWidth*(462/1500) +border && mouseY > backgroundHeight*(279/1000) && mouseY < backgroundHeight*(503/1000) && money > 0){
+      clickSound.play();
       seeds.set("red", seeds.get("red")+ 1);
       money --;
     }
 
     else if (mouseX > backgroundWidth*(288/1500)+border && mouseX < backgroundWidth*(462/1500) +border && mouseY > backgroundHeight*(679/1000) && mouseY < backgroundHeight*(903/1000)  && money > 0){
+      clickSound.play();
       seeds.set("pink", seeds.get("pink")+ 1);
       money --;
     }
 
     else if (mouseX > backgroundWidth*(663/1500) + border && mouseX < backgroundWidth *(837/1500)+border && mouseY > backgroundHeight*(279/1000) && mouseY < backgroundHeight*(503/1000) && money > 0){
+      clickSound.play();
       seeds.set("white", seeds.get("white")+ 1);
       money --;
     }
 
     else if (mouseX > backgroundWidth*(663/1500) + border && mouseX < backgroundWidth *(837/1500)+border && mouseY > backgroundHeight*(679/1000) && mouseY < backgroundHeight*(903/1000) && money > 0){
+      clickSound.play();
       seeds.set("blue", seeds.get("blue")+ 1);
       money --;
     }
 
     else if (mouseX > backgroundWidth*(1038/1500) + border && mouseX < backgroundWidth *(1212/1500)+border && mouseY > backgroundHeight*(279/1000) && mouseY < backgroundHeight*(503/1000) && money > 0){
+      clickSound.play();
       seeds.set("purple", seeds.get("purple")+ 1);
       money --;
     }
 
     else if (mouseX > backgroundWidth*(1038/1500) + border && mouseX < backgroundWidth*(1212/1500)+border && mouseY > backgroundHeight*(679/1000) && mouseY < backgroundHeight*(903/1000) && money > 1){
+      clickSound.play();
       seeds.set("orange", seeds.get("orange")+ 1);
       money --;
     }
 
     // adds fertilizer to the inventory and takes away from money if the fertilizer is pressed
     else if (mouseX > backgroundWidth*(1375/1500) + border && mouseX < backgroundWidth*(1425/1500) +border && mouseY > backgroundHeight*(463/1000) && mouseY < backgroundHeight*(538/1000)  && money > 0){
+      clickSound.play();
       fertiziler ++;
       money -= 2;
     }
 
     // changes the room back to the greenhouse when the back button is pressed
     else if (mouseX > backgroundWidth*(1163/1500) + border && mouseX < backgroundWidth*(1437/1500) + border && mouseY > backgroundHeight*(43/1000) && mouseY < backgroundHeight*(178/1000)){
+      clickSound.play();
       room = 1;
     }
   }
@@ -947,6 +976,7 @@ function mousePressed(){
   else if (room === 5){
     //closed the journal if the back button is pressed
     if (mouseX > backgroundWidth*(1163/1500)+ border&& mouseX < backgroundWidth*(1437/1500)+ border && mouseY > backgroundHeight*(865/1000) && mouseY < backgroundHeight){
+      clickSound.play();
       room = 1;
     }
   }
@@ -955,18 +985,21 @@ function mousePressed(){
   else if (room === 6){
     // goes back to the room you went to the settings from
     if (mouseX > backgroundWidth*(350/1500)+border && mouseX < backgroundWidth*(1150/1500)+ border && mouseY > backgroundHeight*(717/1000) && mouseY < backgroundHeight*(883/1000)){
+      clickSound.play();
       room = oldRoom;
       oldRoom = 0;
     }
 
     //reset button was click, clear storage and reset button
     else if(mouseX > backgroundWidth*(349/1500)+border && mouseX < backgroundWidth*(1151/1500)+ border && mouseY > backgroundHeight*(552/1000) && mouseY < backgroundHeight*(669/1000)){
+      clickSound.play();
       clearStorage();
       resetGame();
     }
 
     // saved button was clicked, save the game
     else if (mouseX > backgroundWidth*(349/1500)+border && mouseX < backgroundWidth*(1151/1500)+ border && mouseY > backgroundHeight*(392/1000) && mouseY < backgroundHeight*(509/1000)){
+      clickSound.play();
       save_data();
     }
   }
@@ -975,21 +1008,25 @@ function mousePressed(){
   if (room === 1 || room === 2 || room === 4){
     //greenhouse
     if (mouseX > backgroundWidth*(1/125) + border && mouseX < backgroundWidth*(17/150)+border && mouseY > backgroundHeight*(171/200) && mouseY < backgroundHeight){
+      clickSound.play();
       room = 1;
     }
 
     //arrainging room
     else if (mouseX > backgroundWidth*(2/15)+border && mouseX < backgroundWidth*(7/30) + border && mouseY > backgroundHeight*(9/10) && mouseY < backgroundHeight){
+      clickSound.play();
       room = 2;
     }
 
     //shop
     else if (mouseX > backgroundWidth*(371/1500)+ border && mouseX < backgroundWidth*(530/1500)+ border && mouseY >  backgroundHeight*(171/200) && mouseY < backgroundHeight){
+      clickSound.play();
       room = 4;
     }
 
     //settings
     else if (mouseX > backgroundWidth*(546/1500)+ border && mouseX < backgroundWidth*(705/1500)+ border && mouseY >  backgroundHeight*(171/200) && mouseY < backgroundHeight){
+      clickSound.play();
       oldRoom = room;
       room = 6;
     }
@@ -1153,6 +1190,7 @@ function use_flower(color){
 function pick_flower(pot, color){
   // this function picks the flowers, adding them to the inventory and emptying the pot
   // adds three flowers to the inventory
+  fertilizeSound.play();
   for (let i = 0; i< 3; i++){
     add_flower(color);
   }
