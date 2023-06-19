@@ -3,7 +3,7 @@
 // june 19th, 2023
 //
 // Extra for Experts:
-// I finished my needs to have list, and i was able to use local storage to save the game. 
+// I finished my nice to have list, and i was able to use local storage to save the game. 
 
 // Display variables
 let backgroundWidth;
@@ -18,7 +18,7 @@ let blueFlowersHave = 0;
 let orangeFlowerHave = 0;
 let purpleFlowerHave = 0;
 
-let money = 50;
+let money = 6;
 let fertiziler = 0;
 let seeds;
 
