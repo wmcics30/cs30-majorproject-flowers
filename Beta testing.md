@@ -25,7 +25,7 @@
 
 ## what i did to fix it:
 
-- i might add more instruction if i have time, because there isnt very much. I think maybe my dad was struggleing because my sister figured it out no problem
+- i added a page with instructions, but its not very much and you have to know to click on it. I think maybe my dad was struggleing more then normal because my sister figured it out no problem
 - it has music, the sound was off..
--
+- i played the game some more but couldnt figure out what he meant
 - i fixed that so there has to be a flower in the vase

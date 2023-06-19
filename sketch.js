@@ -18,7 +18,7 @@ let blueFlowersHave = 0;
 let orangeFlowerHave = 0;
 let purpleFlowerHave = 0;
 
-let money = 6;
+let money = 50;
 let fertiziler = 0;
 let seeds;
 
@@ -35,9 +35,9 @@ let flowerBeingDragged = "none";
 let currentOrder = "";
 
 // backgrounds and other images
-let greenhouse, arrangingRoom, startScreenNormal, startScreenhoverd, openJournal, shopBackground, settings;
+let greenhouse, arrangingRoom, startScreenNormal, startScreenhoverd, openJournal, shopBackground, settings, instructions;
 let journal, storeBackground, storeSeedButton, storeBackButton, storeAmountDisplayBig, storeAmountDisplaySmall, basketIcon, coinIcon, shopTextbox, shopSellButton, storeButton, hoveredStorebutton, sellButton;
-let greenhouseButton, hoveredGreenhouseButton, arrangingRoomButton, hoveredArrangingRoomButton, shopButton, hoveredShopButton, settingsButton, hoveredSettingButton, settingsBackButton, settingsBackButtonHovered, settingsSaveButton, settingsResetButton, settingsSaveButtonHovered, settingsResetButtonHovered;
+let greenhouseButton, hoveredGreenhouseButton, arrangingRoomButton, hoveredArrangingRoomButton, shopButton, hoveredShopButton, settingsButton, hoveredSettingButton,hoveredInstructionButton, notHoveredInstructionButton, settingsBackButton, settingsBackButtonHovered, settingsSaveButton, settingsResetButton, settingsSaveButtonHovered, settingsResetButtonHovered;
 let emptyPotImg, plantedPotImg, budImg, sproutImg, unboughtPot, blueFlowerInPotImg, orangeFlowerInPotImg, pinkFlowerInPotImg, purpleFlowerInPotImg, redFlowerInPotimg, whiteFlowerInPotImg, blueFlower, orangeFlower, pinkFlower, purpleFlower, redFlower, whiteFlower, bigWhiteDisplay, smallWhiteDisplay;
 let blueSeedPack, orangeSeedPack, pinkSeedPack, purpleSeedPack, redSeedPack, whiteSeedPack, fertilizerBag;
 
@@ -68,6 +68,7 @@ function preload(){
   openJournal = loadImage("pictures/openJournal.png");
   shopBackground = loadImage("pictures/Shopbackground.png");
   settings = loadImage("pictures/Settingsbackground.png");
+  instructions = loadImage("pictures/instructions.png");
 
   //icons, buttons, and other
   greenhouseButton = loadImage("pictures/greenhousebutton.png");
@@ -78,6 +79,8 @@ function preload(){
   hoveredShopButton = loadImage("pictures/shopbuttonhovered.png");
   settingsButton = loadImage("pictures/settingsbuttonnormal.png");
   hoveredSettingButton = loadImage("pictures/settingsbuttonhovered.png");
+  hoveredInstructionButton = loadImage("pictures/hoveredInstructionbutton.png");
+  notHoveredInstructionButton = loadImage("pictures/notHoveredInstructionbutton.png");
   journal = loadImage("pictures/journal.png");
   shopTextbox = loadImage("pictures/shoptextblock.png");
   shopSellButton = loadImage("pictures/shopSellbutton.png");
@@ -250,6 +253,9 @@ function draw() {
 
   else if (room === 6){
     display_settings();
+  }
+  else if (room === 7){
+    display_instructions();
   }
 }
 
@@ -443,6 +449,11 @@ function display_settings(){
   }
 }
 
+function display_instructions(){
+  image(instructions, backgroundWidth/2 + border, backgroundHeight/2, backgroundWidth, backgroundHeight);
+  diplaybuttons();
+}
+
 function diplaybuttons(){
   // this function displays the buttons to get to the diffrent rooms, and displays the hovered version if the mouse is hovering over it
   // hovering over greenhouse
@@ -450,6 +461,7 @@ function diplaybuttons(){
     image(hoveredGreenhouseButton, backgroundWidth*(100/1500)+ border, backgroundHeight*(189/200), backgroundWidth*(157/1500), backgroundHeight*(111/1000));
     image(arrangingRoomButton, backgroundWidth*(275/1500) + border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(shopButton, backgroundWidth*(450/1500) +border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
+    image(notHoveredInstructionButton, backgroundWidth*(800/1500)+ border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(settingsButton, backgroundWidth*(625/1500)+ border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
   }
 
@@ -457,6 +469,7 @@ function diplaybuttons(){
   else if (mouseX > backgroundWidth*(2/15)+border && mouseX < backgroundWidth*(7/30) + border && mouseY > backgroundHeight*(9/10) && mouseY < backgroundHeight){
     image(hoveredArrangingRoomButton, backgroundWidth*(11/60)+ border, backgroundHeight*(189/200), backgroundWidth*(157/1500), backgroundHeight*(111/1000));
     image(greenhouseButton, backgroundWidth*(1/15) + border ,backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
+    image(notHoveredInstructionButton, backgroundWidth*(800/1500)+ border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(shopButton, backgroundWidth*(450/1500) +border, backgroundHeight*(24/25), backgroundWidth*(159/1500), backgroundHeight*(81/1000));
     image(settingsButton, backgroundWidth*(625/1500)+ border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
   }
@@ -464,6 +477,7 @@ function diplaybuttons(){
   // hovering over the shop
   else if (mouseX > backgroundWidth*(371/1500)+ border && mouseX < backgroundWidth*(530/1500)+ border && mouseY >  backgroundHeight*(171/200) && mouseY < backgroundHeight){
     image(arrangingRoomButton, backgroundWidth*(275/1500) + border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
+    image(notHoveredInstructionButton, backgroundWidth*(800/1500)+ border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(greenhouseButton, backgroundWidth*(1/15) + border ,backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(hoveredShopButton, backgroundWidth*(450/1500) + border,backgroundHeight*(189/200), backgroundWidth*(157/1500), backgroundHeight*(111/1000));
     image(settingsButton, backgroundWidth*(625/1500)+ border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
@@ -471,13 +485,24 @@ function diplaybuttons(){
 
   //hovering over settings
   else if (mouseX > backgroundWidth*(546/1500)+ border && mouseX < backgroundWidth*(705/1500)+ border && mouseY >  backgroundHeight*(171/200) && mouseY < backgroundHeight){
+    image(notHoveredInstructionButton, backgroundWidth*(800/1500)+ border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(greenhouseButton, backgroundWidth*(1/15)+ border ,backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(arrangingRoomButton, backgroundWidth*(11/60)+border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(shopButton, backgroundWidth*(450/1500) +border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(hoveredSettingButton, backgroundWidth*(625/1500)+border, backgroundHeight*(189/200),backgroundWidth*(157/1500), backgroundHeight*(111/1000));
   }
+  
+  //hovering over instructions
+  else if(mouseX > backgroundWidth*(722/1500)+ border && mouseX < backgroundWidth*(879/1500)+ border && mouseY >  backgroundHeight*(171/200) && mouseY < backgroundHeight){
+    image(hoveredInstructionButton, backgroundWidth*(800/1500)+ border, backgroundHeight*(189/200), backgroundWidth*(157/1500), backgroundHeight*(111/1000));
+    image(greenhouseButton, backgroundWidth*(1/15)+ border ,backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
+    image(arrangingRoomButton, backgroundWidth*(11/60)+border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
+    image(shopButton, backgroundWidth*(450/1500) +border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
+    image(settingsButton, backgroundWidth*(625/1500)+ border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
+  }
   //not hovering over any
   else{
+    image(notHoveredInstructionButton, backgroundWidth*(800/1500)+ border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(greenhouseButton, backgroundWidth*(1/15)+ border ,backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(arrangingRoomButton, backgroundWidth*(11/60)+border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
     image(shopButton, backgroundWidth*(450/1500) +border, backgroundHeight*(24/25), backgroundWidth*(53/500), backgroundHeight*(81/1000));
@@ -1032,7 +1057,7 @@ function mousePressed(){
   }
 
   // Changes the room using the buttons at the bottom, in the rooms they are in
-  if (room === 1 || room === 2 || room === 4){
+  if (room === 1 || room === 2 || room === 4 || room === 7){
     //greenhouse
     if (mouseX > backgroundWidth*(1/125) + border && mouseX < backgroundWidth*(17/150)+border && mouseY > backgroundHeight*(171/200) && mouseY < backgroundHeight){
       clickSound.play();
@@ -1056,6 +1081,11 @@ function mousePressed(){
       clickSound.play();
       oldRoom = room;
       room = 6;
+    }
+    // instructions
+    else if (mouseX > backgroundWidth*(722/1500)+ border && mouseX < backgroundWidth*(879/1500)+ border && mouseY >  backgroundHeight*(171/200) && mouseY < backgroundHeight){
+      clickSound.play();
+      room = 7;
     }
   }
 }
@@ -1780,4 +1810,6 @@ function windowResized() {
     backgroundHeight = backgroundWidth*(2/3);
     border = (windowWidth - backgroundWidth)/2;
   }
+
+  textSize(backgroundWidth*(30/1500));
 }
