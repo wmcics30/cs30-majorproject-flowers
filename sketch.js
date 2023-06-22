@@ -174,7 +174,7 @@ function preload(){
   shadow = loadImage("pictures/vaseshadow.png");
 
   //load the audiofiles
-  backgroundMusic = loadSound("sounds/backgroundMusic.ogg");
+  backgroundMusic = loadSound("sounds/BackgroundMusic.ogg");
   cashRegisterSound = loadSound("sounds/cashregisterSound.mp3");
   plantingSound = loadSound("sounds/plantedSound.mp3");
   clickSound = loadSound("sounds/clcikSound.mp3");
